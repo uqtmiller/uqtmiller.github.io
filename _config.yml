@@ -7,11 +7,11 @@
 
 # Site Settings
 locale                   : "en-AU"
-title                    : "Tim Miller"
+title                    : "Tim Miller / Something"
 title_separator          : "-"
 name                     : &name "Tim Miller"
 description              : &description "personal description"
-url                      : https://tmiller.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+url                      : https://uqtmiller.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "uqtmiller/uqtmiller.github.io"
 teaser                   :  # filename of teaser fallback teaser image placed in /images/, .e.g. "500x300.png"
@@ -82,9 +82,9 @@ analytics:
 author:
   name             : "Tim Miller"
   avatar           : "profile.png"
-  bio              : "Profess of Artificial Intelligence, The University of Queensland"
-  location         : "Location"
-  employer         :
+  bio              : "Professor of Artificial Intelligence"
+  location         : "Brisbane, Australia"
+  employer         : "The University of Queensland"
   pubmed           : ""
   googlescholar    : "https://scholar.google.com/citations?user=7koVt4EAAAAJ&hl=en"
   email            : "timothy.miller@uq.edu.au"
