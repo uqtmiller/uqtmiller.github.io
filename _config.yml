@@ -7,7 +7,7 @@
 
 # Site Settings
 locale                   : "en-AU"
-title                    : "Tim Miller / Something"
+title                    : "Tim Miller, The University of Queensland"
 title_separator          : "-"
 name                     : &name "Tim Miller"
 description              : &description "personal description"

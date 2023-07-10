@@ -17,5 +17,6 @@ My primary area of expertise is in artificial intelligence, with particular emph
 * Explainable AI (XAI)
 * Reasoning about action and knowledge
 
-My work is at the intersection of artificial intelligence, interaction design, and cognitive science/psychology. My areas of education expertise is in artificial intelligence, software engineering, and technology innovation. I have extensive experience developing novel and innovative solution with industry and defence collaborators.
+My work is at the intersection of artificial intelligence, interaction design, and cognitive science/psychology. My areas of education expertise are in artificial intelligence, software engineering, and technology innovation.
 
+Prior to my appointment at The University of Queensland, I was a Professor of Computer Science in the [School of Computing and Information Systems](https://www.cis.unimelb.edu.au) at [The University of Melbourne](https://www.unimelb.edu.au), where I was founding co-director of [The Centre for AI and Digital Ethics](https://www.unimelb.edu.au/caide). I am an honorary professor at the University of Melbourne.
