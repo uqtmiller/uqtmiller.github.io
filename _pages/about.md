@@ -21,6 +21,7 @@ My work is at the intersection of artificial intelligence, interaction design, a
 
 Prior to my appointment at The University of Queensland, I was a Professor of Computer Science in the [School of Computing and Information Systems](https://cis.unimelb.edu.au) at [The University of Melbourne](https://www.unimelb.edu.au), where I was founding co-director of [The Centre for AI and Digital Ethics](https://www.unimelb.edu.au/caide). I am an honorary professor at the University of Melbourne.
 
-No, I'm not the guy from the Queen's gambit <img src="images/queens_gambit.jpg"  width="50%" height="50%">
+<img src="images/queens_gambit.jpg"  width="35%" height="35%"> No, I'm not the guy from the Queen's gambit 
 
-And I'm also not [Mr. Maker](https://en.wikipedia.org/wiki/Mister_Maker) <img src="images/mr_maker.jpg"  width="50%" height="50%">
+<img src="images/mr_maker.jpg"  width="30%" height="30%">
+And I'm also not [Mr. Maker](https://en.wikipedia.org/wiki/Mister_Maker) 

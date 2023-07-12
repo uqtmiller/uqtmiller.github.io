@@ -10,5 +10,3 @@ author_profile: true
 <p>
 <script src="https://bibbase.org/show?bib=https://uqtmiller.github.io/files/pubs.bib&theme=dividers&jsonp=1"></script>
 </p>
-
-END
