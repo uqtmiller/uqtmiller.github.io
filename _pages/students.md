@@ -26,7 +26,7 @@ Potential student interns: I do not usually have funding for internships. When I
 
 ## Completed PhD and MPhil researchers
 
-* [Prashan Madumal](https://prashanm.com/) <a href="https://scholar.google.com.au/citations?hl=en&pli=1&user=eT4CpUsAAAAJ" target=_blank rel=noopener><i class="fas fa-fw fa-graduation-cap"> ([Google scholar](https://scholar.google.com/citations?user=eT4CpUsAAAAJ&hl=en)) - Explainable reinforcement learning; with Liz Sonenberg (The University of Melbourne) and Frank Vetere (The University of Melbourne) (PhD awarded July 2022)
+* [Prashan Madumal](https://prashanm.com/) <a href="https://scholar.google.com.au/citations?hl=en&pli=1&user=eT4CpUsAAAAJ" target=_blank rel=noopener><i class="fas fa-fw fa-graduation-cap"></a> ([Google scholar](https://scholar.google.com/citations?user=eT4CpUsAAAAJ&hl=en)) - Explainable reinforcement learning; with Liz Sonenberg (The University of Melbourne) and Frank Vetere (The University of Melbourne) (PhD awarded July 2022)
 * [Fatma Faruq](https://fatmaf.github.io/) - Multi-agent planning (joint PhD supervision with the University of Birmingham)
 * [Eman Alatawi](https://sa.linkedin.com/in/emanalatawi) ([Google scholar](https://scholar.google.com/citations?user=YshlYaYAAAAJ&hl=en&oi=ao)]- Automated software testing with dynamic symbolic execution; with Harald Sondergaard (The University of Melbourne)
 * [Mohammad Sherkat](https://www.linkedin.com/in/mohammad-sherkat-1a976a166) - Systematic design for emotional goals in people-oriented software engineering; with Antonette Mendoza (The University of Melbourne)
