@@ -5,7 +5,7 @@ permalink: /students/
 author_profile: true
 ---
 
-# Research supervision/advising
+## Research supervision/advising
 
 I am currently not taking on any new PhD or MPhil research students.
 
