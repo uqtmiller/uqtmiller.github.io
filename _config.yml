@@ -81,7 +81,7 @@ analytics:
 # Site Author
 author:
   name             : "Tim Miller"
-  avatar           : "files/tmiller_headshot.png"
+  avatar           : "tmiller_headshot.png"
   bio              : "Professor of Artificial Intelligence"
   location         : "Brisbane, Australia"
   employer         : "The University of Queensland"
