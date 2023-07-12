@@ -224,7 +224,7 @@ defaults:
   # _students
   - scope:
       path: ""
-      type: teaching
+      type: students
     values:
       layout: single
       author_profile: true
