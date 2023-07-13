@@ -23,7 +23,10 @@ Prior to my appointment at The University of Queensland, I was a Professor of Co
 
 ## About not me
 
-<img src="images/queens_gambit.jpg"  width="35%" height="35%"> No, I'm not the guy from the Queen's gambit 
+No, I'm not the guy from the Queen's gambit:
+
+<img src="images/queens_gambit.jpg"  width="35%" height="35%"> 
+
+And I'm not [Mr. Maker](https://en.wikipedia.org/wiki/Mister_Maker)  either:
 
 <img src="images/mr_maker.jpg"  width="30%" height="30%">
-And I'm also not [Mr. Maker](https://en.wikipedia.org/wiki/Mister_Maker) 
