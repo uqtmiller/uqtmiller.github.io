@@ -28,7 +28,7 @@ Potential student interns: I do not usually have funding for internships. When I
 
 * Test [<i class="fas fa-fw fa-graduation-cap"></i>](https://example.com)
 
-* Prashan  [<i class="fas fa-fw fa-graduation-cap">](https://scholar.google.com.au/citations?hl=en&pli=1&user=eT4CpUsAAAAJ)
+* Prashan  [<i class="fas fa-fw fa-graduation-cap"></i>](https://scholar.google.com.au/citations?hl=en&pli=1&user=eT4CpUsAAAAJ)
 * [Prashan Madumal](https://prashanm.com/) (<a href="https://scholar.google.com.au/citations?hl=en&pli=1&user=eT4CpUsAAAAJ" target=_blank rel=noopener><i class="fas fa-fw fa-graduation-cap"></i></a>) - Explainable reinforcement learning; with Liz Sonenberg (The University of Melbourne) and Frank Vetere (The University of Melbourne) (PhD awarded July 2022)
 * [Fatma Faruq](https://fatmaf.github.io/) - Multi-agent planning (joint PhD supervision with the University of Birmingham)
 * [Eman Alatawi](https://sa.linkedin.com/in/emanalatawi) ([Google scholar](https://scholar.google.com/citations?user=YshlYaYAAAAJ&hl=en&oi=ao)]- Automated software testing with dynamic symbolic execution; with Harald Sondergaard (The University of Melbourne)
