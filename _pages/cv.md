@@ -9,51 +9,32 @@ redirect_from:
 
 {% include base_path %}
 
-Education
-======
-* B.S. in GitHub, GitHub University, 2012
-* M.S. in Jekyll, GitHub University, 2014
-* Ph.D in Version Control Theory, GitHub University, 2018 (expected)
+## Employment history
 
-Work experience
-======
-* Summer 2015: Research Assistant
-  * Github University
-  * Duties included: Tagging issues
-  * Supervisor: Professor Git
+**The University of Queensland**
+  * Professor, School of Electrical Engineering and Computer Science, July 2023–
 
-* Fall 2015: Research Assistant
-  * Github University
-  * Duties included: Merging pull requests
-  * Supervisor: Professor Hub
-  
-Skills
-======
-* Skill 1
-* Skill 2
-  * Sub-skill 2.1
-  * Sub-skill 2.2
-  * Sub-skill 2.3
-* Skill 3
+**The University of Melbourne**
+  * Professor, School of Computing and Information Systems, 2021–June 2023.
+  * Co-Director, Centre for AI & Digital Ethics, The University of Melbourne, 2020–June 2023
+  * Deputy Head (Academic), School of Computing and Information Systems, 2019-2021.
+  * Associate Professor, School of Computing and Information Systems, 2018–2020.
+  * Senior Lecturer, School of Computing and Information Systems, 2013–2017.
+  * Lecturer, School of Computing and Information Systems, 2008–2013.
 
-Publications
-======
-  <ul>{% for post in site.publications %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
-  
-Talks
-======
-  <ul>{% for post in site.talks %}
-    {% include archive-single-talk-cv.html %}
-  {% endfor %}</ul>
-  
-Teaching
-======
-  <ul>{% for post in site.teaching %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
-  
-Service and leadership
-======
-* Currently signed in to 43 different slack teams
+**The University of Toulouse, Capitole**
+  * Visiting professor, Jan-Jun 2018.
+
+**The University of Liverpool**
+  * Postdoctoral Research Associate, Department of Computer Science, 2004–2007.
+
+
+
+## Academic qualifications
+
+[<i class="fa-li fas fa-graduation-cap"></i>] PhD in Computer science, awarded April 2005. 
+  The University of Queensland, Brisbane, Australia.
+
+[<i class="fa-li fas fa-graduation-cap"></i>] BInfTech (Honours First Class), Major in software engineering, awarded December 2000. 
+
+  The University of Queensland, Brisbane, Australia.
