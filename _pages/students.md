@@ -26,6 +26,8 @@ Potential student interns: I do not usually have funding for internships. When I
 
 ## Completed PhD and MPhil researchers
 
+* Test [<i class="fas fa-fw fa-graduation-cap"></i>](https://example.com)
+
 * Prashan  [<i class="fas fa-fw fa-graduation-cap">](https://scholar.google.com.au/citations?hl=en&pli=1&user=eT4CpUsAAAAJ)
 * [Prashan Madumal](https://prashanm.com/) (<a href="https://scholar.google.com.au/citations?hl=en&pli=1&user=eT4CpUsAAAAJ" target=_blank rel=noopener><i class="fas fa-fw fa-graduation-cap"></i></a>) - Explainable reinforcement learning; with Liz Sonenberg (The University of Melbourne) and Frank Vetere (The University of Melbourne) (PhD awarded July 2022)
 * [Fatma Faruq](https://fatmaf.github.io/) - Multi-agent planning (joint PhD supervision with the University of Birmingham)
