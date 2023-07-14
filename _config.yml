@@ -190,6 +190,9 @@ collections:
   students:
     output: true
     permalink: /:collection/:path/
+  wl_balance:
+    output: true
+    permalink: /:collection/:path/
 
 
 # Defaults
@@ -225,6 +228,15 @@ defaults:
   - scope:
       path: ""
       type: students
+    values:
+      layout: single
+      author_profile: true
+      share: true
+      comments: true
+# _wl_balance
+  - scope:
+      path: ""
+      type: wl_balance
     values:
       layout: single
       author_profile: true

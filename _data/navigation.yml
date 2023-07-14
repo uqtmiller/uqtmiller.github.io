@@ -11,6 +11,9 @@ main:
     
   - title: "Projects"
     url: /projects/
+
+  - title: "Tips for work-life balance"
+    url: /wl_balance/
         
   - title: "CV"
     url: /cv/
