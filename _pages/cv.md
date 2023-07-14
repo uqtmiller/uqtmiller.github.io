@@ -32,9 +32,8 @@ redirect_from:
 
 ## Academic qualifications
 
-[<i class="fa-li fas fa-graduation-cap"></i>] PhD in Computer science, awarded April 2005. 
-  The University of Queensland, Brisbane, Australia.
+* PhD in Computer science, awarded April 2005.  
+The University of Queensland, Brisbane, Australia.
 
-[<i class="fa-li fas fa-graduation-cap"></i>] BInfTech (Honours First Class), Major in software engineering, awarded December 2000. 
-
-  The University of Queensland, Brisbane, Australia.
+* BInfTech (Honours First Class), Major in software engineering, awarded December 2000.  
+The University of Queensland, Brisbane, Australia.
