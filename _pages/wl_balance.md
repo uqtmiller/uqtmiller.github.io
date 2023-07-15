@@ -5,11 +5,9 @@ permalink: /wl_balance/
 author_profile: true
 ---
 
-# Tips for work-life balance
-
 Below is a series of 25 Tweets that I release over 2022, giving some tips for how to maintain a good work-life balance. 
 
-These tips are from my own experience as a white man in academia, which I have used since I was early career. I make no claims that this will work for everyone all the time.
+These tips are from my own experience as a white man in academia, which I have used since I was early career. I make no claims that this will work for everyone all the time, but my time in academia was not staightforward -- I spent 10 years on fixed-term contracts after my PhD.
 
 My primary goal in thinking about my work productively is not to get more work done. My goal is to spend less time doing stuff I don't want to do and more time doing stuff I do want to do. 
 
