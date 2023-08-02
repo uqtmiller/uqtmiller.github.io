@@ -8,7 +8,7 @@ redirect_from:
   - /about.html
 ---
 
-I am a professor in the [School of Electrical Engineering and Computer Science](https://eecs.uq.edu.au/) at [The University of Queensland](https://www.uq.edu.au/), Brisbane, Australia.
+I am a professor in the [School of Electrical Engineering and Computer Science](https://eecs.uq.edu.au/) at [The University of Queensland](https://www.uq.edu.au/), Meaanjin/Brisbane, Australia.
 
 My primary area of expertise is in artificial intelligence, with particular emphasis on:
 
