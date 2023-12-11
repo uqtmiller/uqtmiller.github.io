@@ -1,5 +1,8 @@
 # main links links
 main:
+  - title: "Mission & Values"
+    url: /mission/
+
   - title: "Publications"
     url: /publications/
 
@@ -9,8 +12,8 @@ main:
   - title: "Teaching"
     url: /teaching/    
     
-  - title: "Projects"
-    url: /projects/
+#  - title: "Projects"
+#    url: /projects/
 
   - title: "Tips for work-life balance"
     url: /wl_balance/

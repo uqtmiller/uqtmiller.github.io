@@ -10,6 +10,8 @@ redirect_from:
 
 I am a Professor of Artificial Intelligence in the [School of Electrical Engineering and Computer Science](https://eecs.uq.edu.au/) at [The University of Queensland](https://www.uq.edu.au/), Meaanjin/Brisbane, Australia.
 
+My mission is to augment and amplifythe capabilities of people and organisations using artificial intelligence.
+
 My research draws on **machine learning, reinforcement learning, AI planning, interaction design, and cognitive science**, to help people to make better decisions.
 I have done work on areas **including explainable AI, human-AI mixed-initiative planning**, and **human-centered decision support**.
 
