@@ -1,11 +1,10 @@
 ---
 layout: archive
 title: "Mission & Values""
-permalink: /missions//
+permalink: /missions/
 author_profile: true
 ---
 
-## Mission
 
 Our mission is to augment and amplify the capabilities of people and organisations using artificial intelligence. 
 
