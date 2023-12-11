@@ -24,7 +24,7 @@ The student will take a human-centered approach to verification of model outputs
 
 Selection will be on a competitive basis. 
 
-Selection criteria:
+**Selection criteria**:
 
 * A qualification and strong background and in computer science or related area (essential).
 
@@ -49,7 +49,7 @@ The student will take a human-centered approach to decision support, framing the
 
 Selection will be on a competitive basis. 
 
-Selection criteria:
+**Selection criteria**:
 
 * A qualification and strong background and in computer science or related area (essential).
 
