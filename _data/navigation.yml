@@ -1,8 +1,5 @@
 # main links links
 main:
-  - title: "Mission & values"
-    url: /mission/
-
   - title: "Mission and values"
     url: /mission_and_values/
 
@@ -15,5 +12,5 @@ main:
   - title: "Tips for work-life balance"
     url: /wl_balance/
 
-  - title: "CV"
-    url: /cv/
+  #- title: "CV"
+  #  url: /cv/
