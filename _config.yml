@@ -196,6 +196,9 @@ collections:
   wl_balance:
     output: true
     permalink: /:collection/:path/
+  mission_and_values:
+    output: true
+    permalink: /:collection/:path/
 
 
 # Defaults
@@ -240,6 +243,15 @@ defaults:
   - scope:
       path: ""
       type: wl_balance
+    values:
+      layout: single
+      author_profile: true
+      share: true
+      comments: true
+  # _mission_and_values
+  - scope:
+      path: ""
+      type: mission_and_values
     values:
       layout: single
       author_profile: true

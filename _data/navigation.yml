@@ -3,6 +3,9 @@ main:
   - title: "Mission & values"
     url: /mission/
 
+  - title: "Mission and values"
+    url: /mission_and_values/
+
   - title: "Publications"
     url: /publications/
 
