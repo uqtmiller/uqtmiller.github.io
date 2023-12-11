@@ -1,7 +1,7 @@
 ---
 layout: archive
 title: "Mission & Values""
-permalink: /missions/
+permalink: /mission/
 author_profile: true
 ---
 
@@ -21,4 +21,4 @@ These are the values that hold in our lab and with our collaborators.
 
 **Respect**: We respect each other, what every individual brings to a collaboration, their time, their ideas, and their culture. This means listening to each other, providing constructive (not destructive) feedback, being on time with meetings & deliverables, or letting people know if we will be late.
 
-**Personal wellbeing**: We operate at our best when we are happy in our personal lives and are well rested. Weekends and eveningsbelong to us, not to our employer. We work hard and smart during work hours, but [self, family, and friends always take priority](wl-balance/).
+**Personal wellbeing**: We operate at our best when we are happy in our personal lives and are well rested. Weekends and eveningsbelong to us, not to our employer. We work hard and smart during work hours, but [self, family, and friends always take priority](/wl_balance/).

@@ -7,7 +7,7 @@ author_profile: true
 
 ## Research supervision/advising
 
-If you are considering apply for a PhD scholarship with me, please first read the [Missions and values](/mission.md) of our lab to ensure that our lab aligns with what you aim to do.
+If you are considering apply for a PhD scholarship in our lab, please first read our [Missions and values](/mission.md)  to ensure that our lab aligns with what you aim to do.
 
 **NEWS: 11 December, 2023**: I have two PhD scholarships currently being advertised. Applications due 15 January, 2024.
 
