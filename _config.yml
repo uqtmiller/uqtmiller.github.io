@@ -245,19 +245,19 @@ defaults:
       author_profile: true
       share: true
       comments: true
-  # _publications
+  # _mission
   - scope:
       path: ""
-      type: publications
+      type: mission
     values:
       layout: single
       author_profile: true
       share: true
       comments: true
-  # _mission
+  # _publications
   - scope:
       path: ""
-      type: mission
+      type: publications
     values:
       layout: single
       author_profile: true

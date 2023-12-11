@@ -1,6 +1,6 @@
 # main links links
 main:
-  - title: "Mission & Values"
+  - title: "Mission & values"
     url: /mission/
 
   - title: "Publications"
@@ -11,7 +11,6 @@ main:
 
   - title: "Tips for work-life balance"
     url: /wl_balance/
-        
+
   - title: "CV"
     url: /cv/
-    
