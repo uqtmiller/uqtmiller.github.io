@@ -9,12 +9,6 @@ main:
   - title: "Students"
     url: /students/
 
-  - title: "Teaching"
-    url: /teaching/    
-    
-#  - title: "Projects"
-#    url: /projects/
-
   - title: "Tips for work-life balance"
     url: /wl_balance/
         
