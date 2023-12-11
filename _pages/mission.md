@@ -1,7 +1,7 @@
 ---
 layout: archive
 title: "Mission & Values""
-permalink: /mission/
+permalink: /_pages/mission/
 author_profile: true
 ---
 
