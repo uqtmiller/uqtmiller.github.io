@@ -37,7 +37,7 @@ Selection will be on a competitive basis.
 * Experience running human behavioural experiments and field trials (desirable).
 
 
-**To apply:**: Please send your CV/resume, your relevant university transcripts (bachelor and masters), and a short description of how you meet the selection criteria in the body of your email (for criteria that are not addressed by your CV/resume).
+**To apply:** Please send your CV/resume, your relevant university transcripts (bachelor and masters), and a short description of how you meet the selection criteria in the body of your email (for criteria that are not addressed by your CV/resume).
 
 Further information about the PhD application process is available via [the project link at the Study@UQ page](https://study.uq.edu.au/study-options/phd-mphil-professional-doctorate/projects/human-centered-verification-language-model-outputs)
 
@@ -63,7 +63,7 @@ Selection will be on a competitive basis.
 
 * Experience running human behavioural experiments and field trials (desirable).
 
-**To apply:**: Please send your CV/resume, your relevant university transcripts (bachelor and masters), and a short description of how you meet the selection criteria in the body of your email (for criteria that are not addressed by your CV/resume).
+**To apply:** Please send your CV/resume, your relevant university transcripts (bachelor and masters), and a short description of how you meet the selection criteria in the body of your email (for criteria that are not addressed by your CV/resume).
 
 Further information about the PhD application process is available via [the project link at the Study@UQ page](https://study.uq.edu.au/study-options/phd-mphil-professional-doctorate/projects/explainable-decision-support-skin-cancer-detection-using-machine-learning)
 
