@@ -18,7 +18,7 @@ These are the values that hold in our lab and with our collaborators.
 
 **Human-centredness**: Our focus is on augmenting and amplifying human potential. To do this, we need to study how people use (and don't use) AI tools. Rather than just measuring accuracy, correctness, computational cost, etc., we also consider factors that amplify people's capabilities, such as **understandability**, **usefulness**, and **confidence**. 
 
-**Collaborative**: Our work is inhernelty inter-disciplinary. We need to work in teams to jointly explore problems and solutions, and be open to new ideas. This means communicating often and communicating clearly, being open, sharing ideas, and helping each other, even if it is not directly part of our role.
+**Collaboration**: Our work is inherently inter-disciplinary because it is problem-driven, not discipline-driven. We need to work in teams to jointly explore problems and solutions, and be open to new ideas. This means communicating often and communicating clearly, being open, sharing ideas, and helping each other, even if it is not directly part of our role.
 
 **Respect**: We respect each other, what every individual brings to a collaboration, their time, their ideas, and their culture. This means listening to each other, providing constructive (not destructive) feedback, being on time with meetings & deliverables, or letting people know if we will be late.
 
