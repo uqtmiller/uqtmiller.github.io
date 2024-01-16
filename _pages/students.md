@@ -7,67 +7,9 @@ author_profile: true
 
 ## Research supervision/advising
 
-If you are considering apply for a PhD scholarship in our lab, please first read our [Missions and values](/mission_and_values.md)  to ensure that our lab aligns with what you aim to do.
+Currently I do not have any new funding for PhD scholarships. 
 
-**NEWS: 11 December, 2023**: I have two PhD scholarships currently being advertised. Applications due 15 January, 2024.
-
-We are particular interested in applicants from areas that are under-represented in computer science, including gender, culture, and geographical location. 
-
-### PhD scholarship 1: Human-centered verification of language model outputs 
-
-**Co-supervisors**: [Dr Joel MacKenzie](https://researchers.uq.edu.au/researcher/33810) and [Professor Guido Zuccon](https://researchers.uq.edu.au/researcher/22857)
-
-This PhD project will investigate techniques for supporting people to verify the outputs from language models. 
-It will investigate techniques from information retrieval to support users to find evidence for/against statements made by language models, to help verify whether they can rely on this information.
-
-The student will take a human-centered approach to verification of model outputs, framing the problem as an [Evaluative AI](https://arxiv.org/abs/2302.12389) issue. They will work closely with supervisors and external partners to take a user-centred view of how to verify information for tasks such as reviewing machine-generated reports, machine diagnosis, etc.
-
-Selection will be on a competitive basis. 
-
-**Selection criteria**:
-
-* A qualification and strong background and in computer science or related area (essential).
-
-* Strong software development skills; e.g. version control, using clusters (desirable).
-
-* Demonstrated foundational knowledge and practice in the field/s of data structures, algorithms, and machine learning (essential).
-
-* A desire to work on human-centred AI problems (essential)
-
-* Experience running human behavioural experiments and field trials (desirable).
-
-
-**To apply:** Please [email the following to Tim](mailto:timothy.miller@uq.edu.au): your CV/resume, your relevant university transcripts (bachelor and masters), and a short description of how you meet the selection criteria in the body of your email (for criteria that are not addressed by your CV/resume).
-
-Further information about the PhD application process is available via [the project link at the Study@UQ page](https://study.uq.edu.au/study-options/phd-mphil-professional-doctorate/projects/human-centered-verification-language-model-outputs)
-
-### PhD scholarship 2: Explainable decision support for skin cancer detection using machine learning
-
-**Co-supervisors**: [Dr Alina Bialkowski](https://sites.google.com/site/alinabialkowski/) and [Professor Peter Soyer, Chair of Dermatology](https://researchers.uq.edu.au/researcher/1918)
-
-This PhD project will investigate techniques for improving decision support to dermatologists using explainable computer vision techniques. It will devise novel human-AI interaction methods that support rather than replace human decision-making.
-
-The student will take a human-centered approach to decision support, framing the problem as an [Evaluative AI](https://arxiv.org/abs/2302.12389) issue. They will work closely with the supervisors to take a dermatologist-centered view of how to detect skin cancers from images such as skin lesions and pathological slides. 
-
-Selection will be on a competitive basis. 
-
-**Selection criteria**:
-
-* A qualification and strong background and in computer science or related area (essential).
-
-* Strong software development skills; e.g. version control, using clusters (desirable).
-
-* Demonstrated practical experience in the field/s of machine learning, particularly deep learning for computer vision (essential).
-
-* A desire to work on human-centred AI problems (essential)
-
-* Experience running human behavioural experiments and field trials (desirable).
-
-**To apply:** Please [email the following to Tim](mailto:timothy.miller@uq.edu.au):  your CV/resume, your relevant university transcripts (bachelor and masters), and a short description of how you meet the selection criteria in the body of your email (for criteria that are not addressed by your CV/resume).
-
-Further information about the PhD application process is available via [the project link at the Study@UQ page](https://study.uq.edu.au/study-options/phd-mphil-professional-doctorate/projects/explainable-decision-support-skin-cancer-detection-using-machine-learning)
-
-<!--I am currently not taking on any new PhD or MPhil research students.-->
+If you have funding for a scholarship and would like to consider applying for a PhD scholarship in our lab, please first read our [Missions and values](/mission_and_values.md)  to ensure that our lab aligns with what you aim to do.
 
 ## Direct contact opportunities
 
