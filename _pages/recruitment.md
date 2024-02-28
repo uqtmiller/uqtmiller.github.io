@@ -1,8 +1,8 @@
-# Recruitment: 2 x postdoc research fellows for 2 years
+# Recruitment
+
+I'm recruiting 2 x postdoc research fellows for 2 years in the area of human-centered decision support using AI.
 
 **Applications close**: Wednesday 27th March 2024 at 11.00pm AEST.
-
-I'm recruiting two postdocs in human-centered decision support using AI.
 
 The first position is for a Postdoctoral Research Fellow with experience in human factors, HCI, psychology, or related area.
 
