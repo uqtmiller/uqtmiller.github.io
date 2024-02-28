@@ -14,6 +14,10 @@ The first position is for a Postdoctoral Research Fellow with experience in **hu
 
 The second position is for a Postdoctoral Research Fellow with experience in **human-centred machine learning**. 
 
+The successful candidates will work with the lab team and external experts to design, develop, and evaluate decision support tools for high-stakes decision making; including  working with Professor Peter Soyer and Professor Monika Janda on decision support for skin cancer detetion. 
+
+It is expected that the successful candidates will each contribute to research, some engagement, and to teaching part of one course per year or supervise thesis students. This is a valuable opportunity to develop a teaching portfolio and an emerging research portfolio when applying for academic and other research positions in the future.
+
 ## Selection criteria
 
 The successful candidate with have:
