@@ -5,7 +5,6 @@ permalink: /recruitment/
 author_profile: true
 ---
 
-# Recruitment
 
 I'm recruiting 2 x postdoc research fellows for 2 years in the area of human-centered decision support using AI.
 
