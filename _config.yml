@@ -195,6 +195,9 @@ collections:
     permalink: /:collection/:path/
   mission_and_values:
     output: true
+    permalink: /:collection/:path
+  recruitment:
+    output: true
     permalink: /:collection/:path/
 
 
@@ -254,10 +257,10 @@ defaults:
       author_profile: true
       share: true
       comments: true
-  # _mission
+  # _recruitment
   - scope:
       path: ""
-      type: mission
+      type: recruitment
     values:
       layout: single
       author_profile: true
