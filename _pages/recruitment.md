@@ -18,6 +18,8 @@ The successful candidates will work with the lab team and external experts to de
 
 It is expected that the successful candidates will each contribute to research, some engagement, and to teaching part of one course per year or supervise thesis students. This is a valuable opportunity to develop a teaching portfolio and an emerging research portfolio when applying for academic and other research positions in the future.
 
+The position is located at the St Lucia campus in Brisbane, Australia. Flexible working arrangements are possible including hybrid on site/WFH options, part time options, and flexible start/finish times. Fully remote is not available.
+
 ## Selection criteria
 
 The successful candidate with have:
