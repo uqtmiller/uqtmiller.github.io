@@ -10,7 +10,7 @@ redirect_from:
 
 I am a Professor of Artificial Intelligence in the [School of Electrical Engineering and Computer Science](https://eecs.uq.edu.au/) at [The University of Queensland](https://www.uq.edu.au/), Meaanjin/Brisbane, Australia.
 
-My mission is to augment and amplifythe capabilities of people and organisations using artificial intelligence.
+My mission is to use artificial intellignce to amplify the capabilities of expert decision makers.
 
 My research draws on **machine learning, reinforcement learning, AI planning, interaction design, and cognitive science**, to help people to make better decisions.
 I have done work on areas **including explainable AI, human-AI mixed-initiative planning**, and **human-centered decision support**.
@@ -33,7 +33,7 @@ And I'm not [Mr. Maker](https://en.wikipedia.org/wiki/Mister_Maker)  either:
 
 ## Recruitment: 2 x postdoc research fellows for 2 years
 
-I'm recruiting two postdocs in human-centered decision support using AI. To apply and find more detail, see the [UQ careers website](https://uq.wd3.myworkdayjobs.com/uqcareers/job/St-Lucia-Campus/Research-fellow-in-Human-Centred-AI-for-Decision-Support_R-36188-1).
+I'm recruiting two postdocs in human-centered decision support using AI.
 
 The first position is for a Postdoctoral Research Fellow with experience in human factors, HCI, psychology, or related area.
 
@@ -61,3 +61,10 @@ The successful candidate with have:
 
 - Demonstrated experience in the area of trust, reliance, explainability/interpretability, decision support, or cognitive/social psychology; as applied to artificial intelligence.
 
+### Considering applying?
+
+If you are considering applying, please first read our [Missions and values](/mission_and_values.md) to ensure that our lab aligns with what you aim to do.
+
+Then, to submit an application and find more detail about the position, see the [advert on the UQ careers website](https://uq.wd3.myworkdayjobs.com/uqcareers/job/St-Lucia-Campus/Research-fellow-in-Human-Centred-AI-for-Decision-Support_R-36188-1).
+
+As part of your application, you will need to provide: a resume/CV; and responses to the selection criteria above.
