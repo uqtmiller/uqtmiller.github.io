@@ -8,7 +8,7 @@ redirect_from:
   - /about.html
 ---
 
-**News (28 Feb, 2024)**: I'm recruiting [two postdoctorial research fellows in human-centered decsion support](recruitment).
+**News (28 Feb, 2024)**: I'm recruiting [two postdoctorial research fellows in human-centered decsion support](#recruitment).
 
 I am a Professor of Artificial Intelligence in the [School of Electrical Engineering and Computer Science](https://eecs.uq.edu.au/) at [The University of Queensland](https://www.uq.edu.au/), Meaanjin/Brisbane, Australia.
 
