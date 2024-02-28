@@ -71,3 +71,5 @@ If you are considering applying, please first read our [Missions and values](/mi
 Then, to submit an application and find more detail about the position, see the [advert on the UQ careers website](https://uq.wd3.myworkdayjobs.com/uqcareers/job/St-Lucia-Campus/Research-fellow-in-Human-Centred-AI-for-Decision-Support_R-36188-1).
 
 As part of your application, you will need to provide: a resume/CV; and responses to the selection criteria above.
+
+[Contact me](mailto:timothy.miller@uq.edu.au) if you have questions about the positions.
