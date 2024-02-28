@@ -4,9 +4,9 @@ I'm recruiting 2 x postdoc research fellows for 2 years in the area of human-cen
 
 **Applications close**: Wednesday 27th March 2024 at 11.00pm AEST.
 
-The first position is for a Postdoctoral Research Fellow with experience in human factors, HCI, psychology, or related area.
+The first position is for a Postdoctoral Research Fellow with experience in **human factors, HCI, psychology of AI**, or related area.
 
-The second position if for a Postdoctoral Research Fellow with experience in human-centred machine learning. 
+The second position is for a Postdoctoral Research Fellow with experience in **human-centred machine learning**. 
 
 ## Selection criteria
 
