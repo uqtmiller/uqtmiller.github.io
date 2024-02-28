@@ -8,6 +8,8 @@ redirect_from:
   - /about.html
 ---
 
+**News (28 Feb, 2024)**: I'm recruiting [two postdoctorial research fellows in human-centered decsion support](recruitment).
+
 I am a Professor of Artificial Intelligence in the [School of Electrical Engineering and Computer Science](https://eecs.uq.edu.au/) at [The University of Queensland](https://www.uq.edu.au/), Meaanjin/Brisbane, Australia.
 
 My mission is to use artificial intellignce to amplify the capabilities of expert decision makers.
@@ -31,6 +33,7 @@ And I'm not [Mr. Maker](https://en.wikipedia.org/wiki/Mister_Maker)  either:
 
 <img src="images/mr_maker.jpg"  width="30%" height="30%">
 
+(recruitment)=
 ## Recruitment: 2 x postdoc research fellows for 2 years
 
 I'm recruiting two postdocs in human-centered decision support using AI.
