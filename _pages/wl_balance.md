@@ -304,7 +304,7 @@ WL-balance tip #20. Do email training. We spend an incredible amount of time rea
 
 After some email training, I cut my email time from about 2.5 hours per day (I had a large admin role) to about 1.5 hours per day. A whole hour back every day! 2/7
 
-Where did that hour come from? Like most people, I spent a LOT of time just going over my email inbox to decide which email to read or respond to next. This meant I read a lot of emails several times. By processing email more systematically, I not only read each email once. 3/7
+Where did that hour come from? Like most people, I spent a LOT of time just going over my email inbox to decide which email to read or respond to next. This meant I read a lot of emails several times. By processing email more systematically, I only read each email once. 3/7
 
 Email training educates us on ways to process our inbox, and how to SEND email to ensure that ouur emails are clear, more likely to be read, and more likely to get a response. 4/7
 
