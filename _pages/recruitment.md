@@ -1,10 +1,12 @@
+I currently have no positions available.
+
+<!---
 ---
 layout: archive
 title: "Recruitment"
 permalink: /recruitment/
 author_profile: true
 ---
-
 
 I'm recruiting 2 x postdoc research fellows for 2 years in the area of human-centered decision support using AI.
 
@@ -51,3 +53,4 @@ Then, to submit an application and find more detail about the position, see the 
 As part of your application, you will need to provide: a resume/CV; and responses to the selection criteria above.
 
 [Contact me](mailto:timothy.miller@uq.edu.au) if you have questions about the positions.
+--!>
