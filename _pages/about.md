@@ -19,7 +19,7 @@ Prior to my appointment at The University of Queensland, I was a Professor of Co
 
 If you are an organisation applying artificial intelligence or looking to apply artificial intelligence, especially in south-east Queensland, [please reach out](mailto:timothy.miller@uq.edu.au). I am always interested to hear what organisations are currently doing, the opportunities and barriers in this space, and how the University of Queensland can help.
 
-If you are prospective PhD student interested in studying for a PhD under my supervisor, [see here](https://uqtmiller.github.io/students/).
+If you are prospective PhD student interested in studying for a PhD under my supervision, [see here](https://uqtmiller.github.io/students/).
 
 ## About not me
 
