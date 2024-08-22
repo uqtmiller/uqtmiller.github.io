@@ -21,16 +21,16 @@ Potential student interns: I do not usually have funding for internships. When I
 
 * [Henrietta Lyons](https://au.linkedin.com/in/henrietta-lyons-b4420370) - Contestability of automated decision-making; with Eduardo Velloso (The University of Melbourne)
 * [Abeer Alshehri](https://au.linkedin.com/in/abeer-alshehri-79b797121) ([<i class="fas fa-fw fa-graduation-cap"></i>](https://scholar.google.com/citations?user=qw3twmAAAAAJ&hl=en&oi=ao))- Explainable intention recognition; with Mor Vered (Monash University)
-* [Ruihan Zhang](https://scholar.google.com/citations?user=gjSlsnQAAAAJ&hl=en&oi=ao) - Explainable image classification using concepts; with Ben Rubinstein (The University of Melbourne) and Kris Ehinger (The University of Melbourne)
 * [Rinu Sebastian](https://au.linkedin.com/in/rinu-ann-sebastian-06323b157) - Explainable object recognition; with Kris Ehinger (The University of Melbourne)
-* [Steven Spratley](https://au.linkedin.com/in/stevenspratley) ([<i class="fas fa-fw fa-graduation-cap"></i>](https://scholar.google.com/citations?user=_8vZpYMAAAAJ&hl=en&oi=ao))  - Generalisation and analogical visual reasoning; with Kris Ehinger (The University of Melbourne)
 * [Thao Le](https://thaole.xyz/) ([<i class="fas fa-fw fa-graduation-cap"></i>](https://scholar.google.com/citations?user=lvj_SeIAAAAJ&hl=en&oi=ao))- Explainable machine learning; with Ronal Singh (CSIRO) and Liz Sonenberg (The University of Melbourne)
 * [Guang Hu](https://au.linkedin.com/in/guang-hu-7507b4115)  - Explainable agency via epistemic planning; with Nir Lipovetzky (The University of Melbourne)
 * [Lyndon Benke](https://scholar.google.com/citations?user=l5KtWPEAAAAJ&hl=en) - Deception in complex environments; with Michael Papasimeon (DST Group), Adrian Pearce (The University of Melbourne) and Nir Lipovetzky (The University of Melbourne)
+* [Scott Whittington](https://au.linkedin.com/in/scott-whittington-13399413b) - Clinical decision support using large language models; with Ian Scott (The University of Queensland and Metro South Health).
 
 ## Completed PhD and MPhil researchers
 
-
+* [Steven Spratley](https://au.linkedin.com/in/stevenspratley) ([<i class="fas fa-fw fa-graduation-cap"></i>](https://scholar.google.com/citations?user=_8vZpYMAAAAJ&hl=en&oi=ao))  - Generalisation and analogical visual reasoning; with Kris Ehinger (The University of Melbourne)
+* [Ruihan Zhang](https://scholar.google.com/citations?user=gjSlsnQAAAAJ&hl=en&oi=ao) - Explainable image classification using concepts; with Ben Rubinstein (The University of Melbourne) and Kris Ehinger (The University of Melbourne)
 * [Prashan Madumal](https://prashanm.com/) ([<i class="fas fa-fw fa-graduation-cap"></i>](https://scholar.google.com.au/citations?hl=en&pli=1&user=eT4CpUsAAAAJ)) - Explainable reinforcement learning; with Liz Sonenberg (The University of Melbourne) and Frank Vetere (The University of Melbourne) (PhD awarded July 2022)
 * [Fatma Faruq](https://fatmaf.github.io/) - Multi-agent planning (joint PhD supervision with the University of Birmingham)
 * [Eman Alatawi](https://sa.linkedin.com/in/emanalatawi) ([<i class="fas fa-fw fa-graduation-cap"></i>](https://scholar.google.com/citations?user=YshlYaYAAAAJ&hl=en&oi=ao)) - Automated software testing with dynamic symbolic execution; with Harald Sondergaard (The University of Melbourne)
