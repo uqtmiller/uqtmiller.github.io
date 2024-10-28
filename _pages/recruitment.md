@@ -5,7 +5,9 @@ permalink: /recruitment/
 author_profile: true
 ---
 
-I'm recruiting a postdoc (women applicants only) in area of human-centered decision support using AI.
+I'm recruiting a postdoc (women applicants only) in area of human-centered decision support using AI
+
+**Note**: The position is only open to women, gender diverse applicants and those who identify as women.
 
 **Applications close**: Sunday, 24th November 2024 at 11.00pm AEST
 
@@ -17,7 +19,7 @@ It is expected that the successful candidates will each contribute to research, 
 
 The position is located at the St Lucia campus in Brisbane, Australia. Flexible working arrangements are possible including hybrid on site/WFH options, part time options, and flexible start/finish times. Fully remote is not available for this position.
 
-The position is only open to women, gender diverse applicants and those who identify as women.
+
 
 ## Selection criteria
 
@@ -35,7 +37,7 @@ The successful candidate with have:
 
 * Demonstrated software engineering/development abilities, and the use of tools for software engineering.
 
-**Desirable: **
+**Desirable:**
 
 * Demonstrated experience in the area of trust, reliance, explainability/interpretability, decision support, or cognitive/social psychology; as applied to artificial intelligence.
 
