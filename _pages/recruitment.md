@@ -1,5 +1,3 @@
-<!-- I currently have no positions available.--!>
-
 ---
 layout: archive
 title: "Recruitment"
