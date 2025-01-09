@@ -8,7 +8,7 @@ redirect_from:
   - /about.html
 ---
 
-I am a Professor of Artificial Intelligence in the [School of Electrical Engineering and Computer Science](https://eecs.uq.edu.au/) at [The University of Queensland](https://www.uq.edu.au/), Meaanjin/Brisbane, Australia.
+I am the TIET-UQ Chair of Data Science and a Professor of Artificial Intelligence in the [School of Electrical Engineering and Computer Science](https://eecs.uq.edu.au/) at [The University of Queensland](https://www.uq.edu.au/), Meaanjin/Brisbane, Australia.
 
 My mission is to use artificial intelligence to amplify the capabilities of expert decision makers.
 
