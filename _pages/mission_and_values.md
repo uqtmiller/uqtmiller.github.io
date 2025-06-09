@@ -14,7 +14,7 @@ Our mission is to improve the capabilities of expert decision makers by using ar
 
 These are the values that hold in our lab and with our collaborators.
 
-**Excellence**: We do excellent work. We undertake projects that benefit people. This means sometimes taking a slow approach to science, while other times being able to rapidly try out ideas to fail early. We accept change and new ideas.
+**Impact**: We undertake projects that aim to benefit people. This means sometimes taking a slow approach to science, while other times being able to rapidly try out ideas to fail early. But the goal is always quality. We publish to share ideas, not just for the sake of publishing.
 
 **Human-centredness**: Our focus is on augmenting and amplifying human potential. We study how people use (and don't use) AI tools. Rather than just measuring accuracy, correctness, computational cost, etc., we also consider factors that amplify people's capabilities, such as **understandability**, **usefulness**, and **confidence**. 
 
