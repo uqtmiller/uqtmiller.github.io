@@ -20,16 +20,17 @@ Potential student interns: I do not usually have funding for internships. When I
 ## Current PhD and MPhil researchers
 
 * [Dice Yukita](https://daisukeyukita.com/) - Human-centered verification of large language model outputs; with Joel MacKenzie.
+* [Saied Salem](https://www.linkedin.com/in/saied-salem/) ([<i class="fas fa-fw fa-graduation-cap"></i>](https://scholar.google.com/citations?user=kY3zwMoAAAAJ&hl=en)).
 * [Bing Tuo](https://www.linkedin.com/in/bing-tuo-613814319) - Human-centered decision support; with Gianluca Demartini.
-* [Abeer Alshehri](https://au.linkedin.com/in/abeer-alshehri-79b797121) ([<i class="fas fa-fw fa-graduation-cap"></i>](https://scholar.google.com/citations?user=qw3twmAAAAAJ&hl=en&oi=ao))- Explainable intention recognition; with Mor Vered (Monash University)
-* [Rinu Sebastian](https://au.linkedin.com/in/rinu-ann-sebastian-06323b157) - Explainable object recognition; with Kris Ehinger (The University of Melbourne)
-* [Thao Le](https://thaole.xyz/) ([<i class="fas fa-fw fa-graduation-cap"></i>](https://scholar.google.com/citations?user=lvj_SeIAAAAJ&hl=en&oi=ao))- Explainable machine learning; with Ronal Singh (CSIRO) and Liz Sonenberg (The University of Melbourne)
-* [Guang Hu](https://au.linkedin.com/in/guang-hu-7507b4115) ([<i class="fas fa-fw fa-graduation-cap"></i>](https://scholar.google.com.au/citations?user=TmdpFkAAAAAJ&hl=en&oi=ao)) - Explainable agency via epistemic planning; with Nir Lipovetzky (The University of Melbourne)
-* [Lyndon Benke](https://scholar.google.com/citations?user=l5KtWPEAAAAJ&hl=en) - Deception in complex environments; with Michael Papasimeon (DST Group), Adrian Pearce (The University of Melbourne) and Nir Lipovetzky (The University of Melbourne)
-
+* [Pradeepa Bandara](https://www.linkedin.com/in/pradeepa-bandara-22114722/) - ([<i class="fas fa-fw fa-graduation-cap"></i>](https://scholar.google.com.au/citations?user=8XK6ur0AAAAJ&hl=en&oi=ao))
+* [Lyndon Benke](https://scholar.google.com/citations?user=l5KtWPEAAAAJ&hl=en) - Deception in complex environments; with Michael Papasimeon (DST Group), Adrian Pearce (The University of Melbourne) and Nir Lipovetzky (The University of Melbourne) 
 
 ## Completed PhD and MPhil researchers
 
+* [Abeer Alshehri](https://au.linkedin.com/in/abeer-alshehri-79b797121) ([<i class="fas fa-fw fa-graduation-cap"></i>](https://scholar.google.com/citations?user=qw3twmAAAAAJ&hl=en&oi=ao)) - Explainable intention recognition; with Mor Vered (Monash University)
+* [Rinu Sebastian](https://au.linkedin.com/in/rinu-ann-sebastian-06323b157) [<i class="fas fa-fw fa-graduation-cap"></i>](https://scholar.google.com.au/citations?user=2BwIXzsAAAAJ&hl=en&oi=ao)) - Explainable object recognition; with Kris Ehinger (The University of Melbourne)
+* [Thao Le](https://thaole.xyz/) ([<i class="fas fa-fw fa-graduation-cap"></i>](https://scholar.google.com/citations?user=lvj_SeIAAAAJ&hl=en&oi=ao))- Explainable machine learning; with Ronal Singh (CSIRO) and Liz Sonenberg (The University of Melbourne)
+* [Guang Hu](https://au.linkedin.com/in/guang-hu-7507b4115) ([<i class="fas fa-fw fa-graduation-cap"></i>](https://scholar.google.com.au/citations?user=TmdpFkAAAAAJ&hl=en&oi=ao)) - Explainable agency via epistemic planning; with Nir Lipovetzky (The University of Melbourne)
 * [Henrietta Lyons](https://au.linkedin.com/in/henrietta-lyons-b4420370) ([<i class="fas fa-fw fa-graduation-cap"></i>](https://scholar.google.com.au/citations?user=YEyqAHwAAAAJ&hl=en&oi=ao)) - Contestability of automated decision-making; with Eduardo Velloso (The University of Melbourne)
 * [Steven Spratley](https://au.linkedin.com/in/stevenspratley) ([<i class="fas fa-fw fa-graduation-cap"></i>](https://scholar.google.com/citations?user=_8vZpYMAAAAJ&hl=en&oi=ao))  - Generalisation and analogical visual reasoning; with Kris Ehinger (The University of Melbourne)
 * [Ruihan Zhang](https://scholar.google.com/citations?user=gjSlsnQAAAAJ&hl=en&oi=ao) ([<i class="fas fa-fw fa-graduation-cap"></i>](https://scholar.google.com.au/citations?user=gjSlsnQAAAAJ&hl=en&oi=ao)) - Explainable image classification using concepts; with Ben Rubinstein (The University of Melbourne) and Kris Ehinger (The University of Melbourne)
