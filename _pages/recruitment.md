@@ -11,7 +11,7 @@ I'm recruiting a postdoc in area of human-centered decision support using AI
 
 This position is for a Postdoctoral Research Fellow to investigate how to design decision support tools that balance the trade off between scalability and human control. While recent studies show that centering the human at the centre of the decision-making process leads to improved outcomes, this makes the human a rate-limiting factor.  We aim to design decision support tools to balance this trade off.
 
-The successful candidates will work with the team and external experts to design, implement, and evaluate decision support tools, and to run large-scale experiments to evaluate the impact of these tools on decision making.
+The successful candidates will work with the team and external medical/clinical experts to design, implement, and evaluate decision support tools, and to run large-scale experiments to evaluate the impact of these tools on decision making.
 
 It is expected that the successful candidates will each contribute to research and some engagement. There will also be opportunities to each part of one course per year and to supervise undergraduate and masters thesis students. This is a valuable opportunity to develop a teaching portfolio and an emerging research portfolio when applying for academic and other research positions in the future.
 
