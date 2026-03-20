@@ -306,7 +306,7 @@ After some email training, I cut my email time from about 2.5 hours per day (I h
 
 Where did that hour come from? Like most people, I spent a LOT of time just going over my email inbox to decide which email to read or respond to next. This meant I read a lot of emails several times. By processing email more systematically, I only read each email once. 3/7
 
-Email training educates us on ways to process our inbox, and how to SEND email to ensure that ouur emails are clear, more likely to be read, and more likely to get a response. 4/7
+Email training educates us on ways to process our inbox, and how to SEND email to ensure that our emails are clear, more likely to be read, and more likely to get a response. 4/7
 
 [@SteuartSnooks](https://twitter.com/SteuartSnooks) is an excellent trainer (Melbourne-based), with a whole bag of excellent tricks. I also did one with LeanMail (https://leanmail.com/). They have a program over a few weeks where they provide continual feedback on your email handling 5/7
 
