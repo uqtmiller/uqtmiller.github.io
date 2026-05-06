@@ -423,7 +423,7 @@ permalink: /scheduler.html
               <input id="maxSubdivisionsInput" type="number" min="1" value="4" />
             </div>
             <div>
-              <label for="maxOptimisationTimeInput">Max Optimisation Time (s)</label>
+              <label for="maxOptimisationTimeInput">Max Optimisation Time (seconds)</label>
               <input id="maxOptimisationTimeInput" type="number" min="1" value="10" />
             </div>
           </div>
@@ -439,7 +439,7 @@ permalink: /scheduler.html
           <div class="toolbar">
             <button id="exportExcelBtn" class="btn ghost">Export Excel</button>
           </div>
-          <input id="openCsvInput" type="file" accept=".csv,.xls,.xlsx,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" style="display:none;" />
+          <input id="openCsvInput" type="file" accept=".csv,.xls,.xlsx,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" tabindex="-1" />
           <p class="note">Divisions are read from the imported teams file.</p>
           <p class="note">Import format: Team name, Division, Level, School (CSV/XLS/XLSX).</p>
         </section>
@@ -2890,7 +2890,7 @@ self.onmessage = async function (event) {
       `;
 
       downloadTextFile(
-        VQ-schedule-${new Date().toISOString().slice(0, 10)}.xls`,
+        `VQ-schedule-${new Date().toISOString().slice(0, 10)}.xls`,
         excelHtml,
         "application/vnd.ms-excel"
       );
@@ -2978,9 +2978,27 @@ self.onmessage = async function (event) {
       showStatus("All teams cleared.", false);
     }
 
+    function openTeamsFilePicker(event) {
+      if (event) {
+        event.preventDefault();
+      }
+      if (!openCsvInput) {
+        return;
+      }
+      try {
+        if (typeof openCsvInput.showPicker === "function") {
+          openCsvInput.showPicker();
+          return;
+        }
+      } catch (err) {
+        // Ignore and fall back to click for older browsers or blocked showPicker calls.
+      }
+      openCsvInput.click();
+    }
+
     allocateBtn.addEventListener("click", allocateNow);
     specializedOptimizeBtn.addEventListener("click", allocateSpecializedNow);
-    importCsvBtn.addEventListener("click", () => openCsvInput.click());
+    importCsvBtn.addEventListener("click", openTeamsFilePicker);
     exportExcelBtn.addEventListener("click", exportExcel);
     moveTeamBtn.addEventListener("click", moveTeam);
     clearTeamsBtn.addEventListener("click", clearTeams);
