@@ -225,7 +225,7 @@ permalink: /scheduler.html
         <div class="row">
           <div>
             <label for="maxOptimisationTimeInput">Maximum Optimisation Time (seconds)</label>
-            <input id="maxOptimisationTimeInput" type="number" min="1" value="100" />
+            <input id="maxOptimisationTimeInput" type="number" min="1" value="5" />
           </div>
           <div></div>
         </div>
@@ -245,8 +245,7 @@ permalink: /scheduler.html
         </div>
 
         <div class="toolbar">
-          <button id="allocateCpSatBtn" class="btn" type="button">Allocate (CP-SAT)</button>
-          <button id="allocateSimpleBtn" class="btn secondary" type="button">Simple Allocation</button>
+          <button id="allocateSimpleBtn" class="btn secondary" type="button">Allocate</button>
           <button id="undoBtn" class="btn ghost" type="button">Undo</button>
           <button id="exportBtn" class="btn ghost" type="button">Export XLSX</button>
           <button id="printBtn" class="btn ghost" type="button">Print</button>
@@ -452,7 +451,7 @@ permalink: /scheduler.html
     }
 
     function deriveTeamName(school, teamNumber, fallbackIndex) {
-      return school + " Team " + (fallbackIndex + 1);
+      return school + " " + (fallbackIndex + 1);
     }
 
     function readRowsFromWorkbook(file, workbook) {
@@ -1365,7 +1364,141 @@ permalink: /scheduler.html
         return isolatedCoords;
       }
 
+      function tryTwoTeamSchoolReallocation() {
+        const schoolCoords = new Map();
+        for (let vi = 0; vi < venueState.length; vi += 1) {
+          const venue = venueState[vi];
+          for (let li = 0; li < venue.leagues.length; li += 1) {
+            const league = venue.leagues[li];
+            for (let ti = 0; ti < league.teams.length; ti += 1) {
+              const team = league.teams[ti];
+              if (!schoolCoords.has(team.school)) {
+                schoolCoords.set(team.school, []);
+              }
+              schoolCoords.get(team.school).push({ vi, li, ti, team });
+            }
+          }
+        }
+
+        const candidateSchools = [...schoolCoords.entries()]
+          .filter(([, coords]) => coords.length === 2 && coords[0].vi !== coords[1].vi)
+          .sort((a, b) => a[0].localeCompare(b[0]));
+
+        let bestDelta = 0;
+        let bestMove = null;
+
+        for (const [, coords] of candidateSchools) {
+          const ordered = [...coords].sort((a, b) => a.vi - b.vi || a.li - b.li || a.ti - b.ti);
+          const left = ordered[0];
+          const right = ordered[1];
+
+          const sourceVenueA = venueState[left.vi];
+          const sourceVenueB = venueState[right.vi];
+          const sourceLeagueA = sourceVenueA.leagues[left.li];
+          const sourceLeagueB = sourceVenueB.leagues[right.li];
+
+          if (sourceLeagueA.teams.length - 1 < minSize - 1 || sourceLeagueB.teams.length - 1 < minSize - 1) {
+            continue;
+          }
+
+          for (let targetVi = 0; targetVi < venueState.length; targetVi += 1) {
+            if (targetVi === left.vi || targetVi === right.vi) {
+              continue;
+            }
+
+            const targetVenue = venueState[targetVi];
+            if (targetVenue.used + 2 > targetVenue.capacity) {
+              continue;
+            }
+
+            const leftTargets = [];
+            const rightTargets = [];
+            for (let li = 0; li < targetVenue.leagues.length; li += 1) {
+              const league = targetVenue.leagues[li];
+              if (league.division === left.team.division && league.teams.length + 1 <= maxSize + 1) {
+                leftTargets.push(li);
+              }
+              if (league.division === right.team.division && league.teams.length + 1 <= maxSize + 1) {
+                rightTargets.push(li);
+              }
+            }
+
+            for (const leftTargetLi of leftTargets) {
+              for (const rightTargetLi of rightTargets) {
+                const targetLeagueLeft = targetVenue.leagues[leftTargetLi];
+                const targetLeagueRight = targetVenue.leagues[rightTargetLi];
+                if (leftTargetLi === rightTargetLi && targetLeagueLeft.teams.length + 2 > maxSize + 1) {
+                  continue;
+                }
+
+                const involvedVenueIndices = [...new Set([left.vi, right.vi, targetVi])];
+                const scoreBefore = involvedVenueIndices.reduce((sum, vi) => sum + venueScore(venueState[vi]), 0);
+
+                const removedLeft = sourceLeagueA.teams.splice(left.ti, 1)[0];
+                const removedRight = sourceLeagueB.teams.splice(right.ti, 1)[0];
+                targetLeagueLeft.teams.push(removedLeft);
+                targetLeagueRight.teams.push(removedRight);
+                sourceVenueA.used -= 1;
+                sourceVenueB.used -= 1;
+                targetVenue.used += 2;
+
+                const valid =
+                  venueAllowsStrictLevel(sourceVenueA) &&
+                  venueAllowsStrictLevel(sourceVenueB) &&
+                  venueAllowsStrictLevel(targetVenue);
+
+                const scoreAfter = valid
+                  ? involvedVenueIndices.reduce((sum, vi) => sum + venueScore(venueState[vi]), 0)
+                  : Number.NEGATIVE_INFINITY;
+                const delta = scoreAfter - scoreBefore;
+
+                targetLeagueRight.teams.pop();
+                targetLeagueLeft.teams.pop();
+                sourceLeagueA.teams.splice(left.ti, 0, removedLeft);
+                sourceLeagueB.teams.splice(right.ti, 0, removedRight);
+                sourceVenueA.used += 1;
+                sourceVenueB.used += 1;
+                targetVenue.used -= 2;
+
+                if (delta > bestDelta) {
+                  bestDelta = delta;
+                  bestMove = {
+                    left,
+                    right,
+                    targetVi,
+                    leftTargetLi,
+                    rightTargetLi,
+                  };
+                }
+              }
+            }
+          }
+        }
+
+        if (!bestMove) {
+          return false;
+        }
+
+        const sourceVenueA = venueState[bestMove.left.vi];
+        const sourceVenueB = venueState[bestMove.right.vi];
+        const sourceLeagueA = sourceVenueA.leagues[bestMove.left.li];
+        const sourceLeagueB = sourceVenueB.leagues[bestMove.right.li];
+        const targetVenue = venueState[bestMove.targetVi];
+        const targetLeagueLeft = targetVenue.leagues[bestMove.leftTargetLi];
+        const targetLeagueRight = targetVenue.leagues[bestMove.rightTargetLi];
+
+        const movedLeft = sourceLeagueA.teams.splice(bestMove.left.ti, 1)[0];
+        const movedRight = sourceLeagueB.teams.splice(bestMove.right.ti, 1)[0];
+        targetLeagueLeft.teams.push(movedLeft);
+        targetLeagueRight.teams.push(movedRight);
+        sourceVenueA.used -= 1;
+        sourceVenueB.used -= 1;
+        targetVenue.used += 2;
+        return true;
+      }
+
       const start = Date.now();
+      let pickCursor = 0;
       while (Date.now() - start < timeoutMs) {
         const priorityPool = getPriorityCoords();
         const pool = priorityPool.length ? priorityPool : buildTeamCoords();
@@ -1373,7 +1506,8 @@ permalink: /scheduler.html
           break;
         }
 
-        const pick = pool[randomInt(0, pool.length - 1)];
+        const pick = pool[pickCursor % pool.length];
+        pickCursor += 1;
         const leagueA = venueState[pick.vi].leagues[pick.li];
         const teamA = leagueA.teams[pick.ti];
 
@@ -1416,7 +1550,10 @@ permalink: /scheduler.html
           const teamB = leagueB.teams[bestSwap.bTi];
           leagueA.teams[pick.ti] = teamB;
           leagueB.teams[bestSwap.bTi] = teamA;
+          continue;
         }
+
+        tryTwoTeamSchoolReallocation();
       }
 
       // Phase 5: orphan rescue.
@@ -1576,7 +1713,7 @@ permalink: /scheduler.html
               venueCapacities: Object.fromEntries(DEFAULT_VENUES.map((item) => [item.name, item.capacity])),
               minSubdivisionSize: 7,
               maxSubdivisionSize: 9,
-              maxOptimizationTimeSeconds: 100,
+              maxOptimizationTimeSeconds: 5,
             },
           };
         }
@@ -2184,7 +2321,10 @@ permalink: /scheduler.html
       }
     });
 
-    document.getElementById("allocateCpSatBtn").addEventListener("click", allocateWithCpSat);
+    const allocateCpSatBtn = document.getElementById("allocateCpSatBtn");
+    if (allocateCpSatBtn) {
+      allocateCpSatBtn.addEventListener("click", allocateWithCpSat);
+    }
     document.getElementById("allocateSimpleBtn").addEventListener("click", allocateWithSimple);
 
     document.getElementById("undoBtn").addEventListener("click", () => {
