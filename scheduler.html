@@ -19,543 +19,274 @@ permalink: /scheduler.html
       --accent: #006a52;
       --accent-2: #004f89;
       --danger: #9d2a2a;
-      --shadow: 0 8px 24px rgba(31, 28, 24, 0.08);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      font-family: "Segoe UI", Tahoma, sans-serif;
-      color: var(--ink);
-      background:
-        radial-gradient(circle at 20% -20%, #fff9d9 0%, transparent 40%),
-        radial-gradient(circle at 80% 0%, #d8efe6 0%, transparent 30%),
-        var(--bg);
-    }
-
-    .wrap {
-      max-width: 1200px;
-      margin: 0 auto;
       padding: 20px;
-    }
-
-    h1 {
-      margin: 0 0 8px;
-      letter-spacing: 0.4px;
-    }
-
-    .sub {
-      margin: 0 0 16px;
-      color: var(--muted);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 360px 1fr;
-      gap: 16px;
-    }
-
-    .panel {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      box-shadow: var(--shadow);
-      padding: 14px;
-      margin-bottom: 14px;
-    }
-
-    .panel h2 {
-      margin: 0 0 12px;
-      font-size: 1.05rem;
-    }
-
-    label {
-      display: block;
-      font-size: 0.88rem;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    input, select, button {
-      width: 100%;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 9px 10px;
-      font-size: 0.92rem;
-    }
-
-    input, select {
-      background: #fff;
-    }
-
-    .row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-
-    .row.one {
-      grid-template-columns: 1fr;
-    }
-
-    .btn {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      font-weight: 700;
-    }
-
-    .btn.secondary {
-      background: var(--accent-2);
-    }
-
-    .btn.ghost {
-      background: #fff;
       color: var(--ink);
+      background: var(--bg);
+      font: 14px/1.4 "Segoe UI", Tahoma, Arial, sans-serif;
+    }
+
+    h1, h2 { margin: 0 0 10px; }
+    .layout { max-width: 1400px; margin: 0 auto; }
+    .top-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+    .toolbar { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn { border: 0; border-radius: 6px; padding: 8px 12px; cursor: pointer; color: #fff; background: var(--accent); }
+    .btn.secondary { background: var(--accent-2); }
+    .btn.ghost { background: #6a6a6a; }
+    .btn.danger { background: var(--danger); }
+    .tab-row { display: flex; gap: 8px; margin-bottom: 12px; }
+    .tab-btn { border: 1px solid var(--line); background: #fff; border-radius: 6px; padding: 7px 10px; cursor: pointer; }
+    .tab-btn.active { background: #e9f4ef; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .teams-table { width: 100%; border-collapse: collapse; }
+    .teams-table th, .teams-table td { border: 1px solid var(--line); padding: 6px 8px; text-align: left; }
+    .note { color: var(--muted); }
+    .status { margin-top: 10px; padding: 8px; border: 1px solid var(--line); border-radius: 6px; background: #fff; }
+    .status.error { border-color: #c44; background: #fff3f3; color: #7a1515; }
+    .venue-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+    .venue-table th, .venue-table td { border: 1px solid var(--line); padding: 6px 8px; }
+    .schedule-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+    input, select { width: 100%; padding: 7px 8px; border: 1px solid var(--line); border-radius: 6px; }
+
+    .small-btn {
+      border: 1px solid #bcae95;
+      border-radius: 6px;
+      padding: 5px 9px;
+      font-size: 12px;
+      cursor: pointer;
+      background: #fff;
+      color: #4a4033;
+    }
+
+    .venue-card {
       border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      padding: 10px;
+      min-height: 150px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
     }
 
-    .btn.danger {
-      background: var(--danger);
-    }
-
-    .btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .toolbar {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
+    .venue-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid #ece4d8;
+      padding-bottom: 7px;
       margin-bottom: 8px;
     }
 
-    .note {
-      font-size: 0.82rem;
+    .venue-name {
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .venue-cap {
+      font-size: 12px;
       color: var(--muted);
-      margin-top: 4px;
     }
 
-    .school-report {
-      margin-top: 24px;
-      border-top: 2px solid var(--accent);
-      padding-top: 12px;
+    .subdivision {
+      border: 1px solid #e2d7c7;
+      border-radius: 8px;
+      background: #fffefb;
+      padding: 8px;
+      margin-bottom: 8px;
+      transition: border-color 120ms ease, background-color 120ms ease;
     }
 
-    .warning-report {
-      margin-top: 16px;
-      border-top: 2px solid #b06900;
-      padding-top: 10px;
+    .subdivision-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: #655b4f;
+      border-bottom: 1px dashed #eadfce;
+      padding-bottom: 6px;
+      margin-bottom: 7px;
     }
 
-    .warning-report h3 {
-      font-size: 0.92rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: #b06900;
+    .subdivision-title {
+      font-weight: 700;
+      color: #3b332a;
+    }
+
+    .subdivision.drop-target {
+      border-color: #2f8f74;
+      background: #eef9f5;
+      box-shadow: inset 0 0 0 1px rgba(47, 143, 116, 0.18);
+    }
+
+    .team-card {
+      border: 1px solid #d7c8ad;
+      border-radius: 6px;
+      padding: 6px 8px;
+      margin-bottom: 6px;
+      background: #fff;
+      cursor: grab;
+      font-size: 13px;
+      line-height: 1.3;
+    }
+
+    .team-card strong {
+      color: #2c241a;
+    }
+
+    .team-card.dragging {
+      opacity: 0.55;
+      transform: scale(0.98);
+      cursor: grabbing;
+    }
+
+    .report {
       margin: 0 0 10px;
+      border: 1px solid #e8ddcc;
+      border-radius: 8px;
+      background: #fff;
+      overflow: hidden;
     }
 
-    .warning-clean {
-      margin-top: 12px;
-      font-size: 0.85rem;
-      color: #2a8a2a;
-    }
-
-    .school-report h3 {
-      font-size: 0.92rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--accent);
-      margin: 0 0 10px;
-    }
-
-    .school-report-clean {
-      margin-top: 20px;
-      font-size: 0.85rem;
-      color: #2a8a2a;
-      border-top: 1px solid var(--line);
-      padding-top: 10px;
+    .report h3 {
+      margin: 0;
+      padding: 8px 10px;
+      background: #f6efe3;
+      border-bottom: 1px solid #e8ddcc;
+      font-size: 13px;
     }
 
     .report-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.84rem;
+      font-size: 12px;
     }
 
     .report-table th,
     .report-table td {
-      border: 1px solid var(--line);
-      padding: 5px 8px;
+      border: 1px solid #efe7db;
+      padding: 6px 7px;
       text-align: left;
       vertical-align: top;
     }
 
     .report-table th {
-      background: var(--surface);
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--muted);
+      background: #faf6ee;
+      font-weight: 700;
     }
 
-    .report-table .school-cell {
-      font-weight: 600;
-      background: #fff8e6;
-    }
-
-    .teams-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.86rem;
-    }
-
-    .venue-cap-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.86rem;
-      margin-bottom: 10px;
-    }
-
-    .venue-cap-table th,
-    .venue-cap-table td {
-      border-bottom: 1px solid var(--line);
-      text-align: left;
-      padding: 7px 5px;
-    }
-
-    .venue-cap-table th {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--muted);
-    }
-
-    .venue-cap-table input {
-      max-width: 110px;
-    }
-
-    .teams-table th,
-    .teams-table td {
-      border-bottom: 1px solid var(--line);
-      text-align: left;
-      padding: 7px 5px;
-    }
-
-    .teams-table th {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--muted);
-    }
-
-    .small-btn {
-      width: auto;
-      padding: 5px 8px;
-      border-radius: 6px;
-      border: 1px solid var(--line);
-      background: #fff;
-      cursor: pointer;
-      font-size: 0.78rem;
-    }
-
-    .status {
-      min-height: 20px;
-      margin-bottom: 8px;
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    .status.error {
-      color: var(--danger);
-      font-weight: 600;
-    }
-
-    .venues {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 12px;
-    }
-
-    .venue {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 10px;
-      box-shadow: var(--shadow);
-      min-height: 120px;
-    }
-
-    .venue h3 {
-      margin: 0 0 8px;
-      font-size: 1rem;
-      border-bottom: 1px solid var(--line);
-      padding-bottom: 6px;
-    }
-
-    .subdivision {
-      background: #fffdf7;
-      border: 1px dashed #b7aa93;
-      border-radius: 10px;
-      padding: 8px;
-      margin-bottom: 8px;
-    }
-
-    .subdivision.over {
-      background: #e8f7f2;
-      border-color: #3f8b76;
-    }
-
-    .subheader {
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-bottom: 6px;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .team {
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 6px 8px;
-      margin-bottom: 6px;
-      background: #fff;
-      cursor: grab;
-    }
-
-    .team strong {
-      display: block;
-      font-size: 0.9rem;
-    }
-
-    .team .meta {
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-
-    .print-only {
-      display: none;
-    }
-
-    .print-schedule h3 {
-      font-size: 0.92rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--accent);
-      margin: 16px 0 10px;
-    }
-
-    .tabs {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-
-    .tab-btn {
-      width: auto;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: #fff;
-      color: var(--ink);
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    .tab-btn.active {
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
-    }
-
-    .tab-panel {
-      display: none;
-    }
-
-    .tab-panel.active {
-      display: block;
-    }
-
-    @media (max-width: 980px) {
-      .grid {
+    @media (max-width: 900px) {
+      .top-grid {
         grid-template-columns: 1fr;
-      }
-    }
-
-    @media print {
-      .no-print {
-        display: none !important;
-      }
-
-      body {
-        background: #fff;
-      }
-
-      .print-only {
-        display: block;
-      }
-
-      #venues,
-      #school-report {
-        display: none !important;
-      }
-
-      .venues {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .venue {
-        break-inside: avoid;
       }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <h1>VQ Scheduler</h1>
-    <p class="sub">Single-file scheduler: import teams file, allocate, manual moves, and export.</p>
+  <div class="layout">
+    <h1>Volleyball Queensland Scheduler</h1>
 
-    <div class="grid">
-      <div class="no-print">
-        <section class="panel">
-          <h2>Configuration</h2>
-          <label>Venue Max Teams</label>
-          <table class="venue-cap-table">
-            <thead>
-              <tr>
-                <th>Venue</th>
-                <th>Max Teams</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Carrara</td>
-                <td><input class="venue-cap-input" data-venue-name="Carrara" type="number" min="1" value="85" /></td>
-              </tr>
-              <tr>
-                <td>Coomera</td>
-                <td><input class="venue-cap-input" data-venue-name="Coomera" type="number" min="1" value="22" /></td>
-              </tr>
-              <tr>
-                <td>Runaway bay</td>
-                <td><input class="venue-cap-input" data-venue-name="Runaway bay" type="number" min="1" value="32" /></td>
-              </tr>
-              <tr>
-                <td>Mt Warren Part</td>
-                <td><input class="venue-cap-input" data-venue-name="Mt Warren Part" type="number" min="1" value="32" /></td>
-              </tr>
-              <tr>
-                <td>ABP</td>
-                <td><input class="venue-cap-input" data-venue-name="ABP" type="number" min="1" value="24" /></td>
-              </tr>
-              <tr>
-                <td>ASAS</td>
-                <td><input class="venue-cap-input" data-venue-name="ASAS" type="number" min="1" value="24" /></td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="row">
-            <div>
-              <label for="minSubdivisionSizeInput">Min Subdivision Size</label>
-              <input id="minSubdivisionSizeInput" type="number" min="1" value="7" />
-            </div>
-            <div>
-              <label for="maxSubdivisionSizeInput">Max Subdivision Size</label>
-              <input id="maxSubdivisionSizeInput" type="number" min="1" value="9" />
-            </div>
+    <div class="top-grid">
+      <div class="panel">
+        <h2>Configuration</h2>
+        <div class="row">
+          <div>
+            <label for="minSubdivisionSizeInput">Minimum Sub-division Size</label>
+            <input id="minSubdivisionSizeInput" type="number" min="1" value="6" />
           </div>
-          <div class="row one">
-            <div>
-              <label for="maxOptimisationTimeInput">Max Optimisation Time (seconds)</label>
-              <input id="maxOptimisationTimeInput" type="number" min="1" value="10" />
-            </div>
+          <div>
+            <label for="maxSubdivisionSizeInput">Maximum Sub-division Size</label>
+            <input id="maxSubdivisionSizeInput" type="number" min="1" value="8" />
           </div>
-        </section>
+        </div>
 
-        <section class="panel">
-          <h2>Actions</h2>
-          <div class="toolbar">
-            <button id="allocateBtn" class="btn">Allocate (CP-SAT)</button>
-            <button id="importCsvBtn" class="btn ghost">Import Teams File</button>
-            <button id="exportExcelBtn" class="btn ghost">Export to Excel</button>
-          </div>
-          <input id="openCsvInput" type="file" accept=".csv,.xls,.xlsx,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" tabindex="-1" />
-          <p class="note">Divisions are read from the imported teams file.</p>
-          <p class="note">Import format: Team name, Division, Level, School (CSV/XLS/XLSX).</p>
-        </section>
+        <table class="venue-table">
+          <thead>
+            <tr>
+              <th>Venue</th>
+              <th>Capacity</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="venueTableBody"></tbody>
+        </table>
 
-        <section class="panel">
-          <h2>Manual Move</h2>
-          <div class="row one">
-            <div>
-              <label for="moveTeamSelect">Team</label>
-              <select id="moveTeamSelect"></select>
-            </div>
-          </div>
-          <div class="row">
-            <div>
-              <label for="moveVenueSelect">To Venue</label>
-              <select id="moveVenueSelect"></select>
-            </div>
-            <div>
-              <label for="moveDivisionSelect">To Division</label>
-              <select id="moveDivisionSelect"></select>
-            </div>
-          </div>
-          <div class="row">
-            <button id="moveTeamBtn" class="btn secondary">Move Team</button>
-            <button id="clearTeamsBtn" class="btn danger">Clear Teams</button>
-          </div>
-          <p class="note">You can also drag a team card into another subdivision.</p>
-        </section>
+        <p style="margin-top: 10px;">
+          <button id="addVenueBtn" class="btn secondary" type="button">Add Venue</button>
+        </p>
 
+        <div class="row">
+          <div>
+            <label for="maxOptimisationTimeInput">Maximum Optimisation Time (seconds)</label>
+            <input id="maxOptimisationTimeInput" type="number" min="1" value="100" />
+          </div>
+          <div></div>
+        </div>
       </div>
 
-      <div>
-        <section class="panel">
-          <div class="tabs no-print">
-            <button id="scheduleTabBtn" class="tab-btn active" type="button">Schedule</button>
-            <button id="importedTeamsTabBtn" class="tab-btn" type="button">Imported Teams</button>
+      <div class="panel">
+        <h2>Input And Actions</h2>
+        <div class="row">
+          <div>
+            <label for="fileInput">Teams File (CSV/XLS/XLSX)</label>
+            <input id="fileInput" type="file" accept=".csv,.xls,.xlsx" />
           </div>
+          <div>
+            <label>&nbsp;</label>
+            <button id="clearTeamsBtn" class="btn danger" type="button">Clear Teams</button>
+          </div>
+        </div>
 
-          <div id="scheduleTabPanel" class="tab-panel active">
-            <h2>Schedule</h2>
-            <div id="status" class="status"></div>
-            <div id="school-report"></div>
-            <div id="level-warning"></div>
-            <div id="venues" class="venues"></div>
-            <div class="print-only">
-              <p>Generated by VQ Scheduler</p>
-              <div id="print-schedule" class="print-schedule"></div>
-            </div>
-          </div>
+        <div class="toolbar">
+          <button id="allocateCpSatBtn" class="btn" type="button">Allocate (CP-SAT)</button>
+          <button id="allocateSimpleBtn" class="btn secondary" type="button">Simple Allocation</button>
+          <button id="undoBtn" class="btn ghost" type="button">Undo</button>
+          <button id="exportBtn" class="btn ghost" type="button">Export XLSX</button>
+          <button id="printBtn" class="btn ghost" type="button">Print</button>
+        </div>
 
-          <div id="importedTeamsTabPanel" class="tab-panel">
-            <h2>Imported Teams</h2>
-            <div class="toolbar no-print">
-              <button id="importCsvBtnTeams" class="btn ghost" type="button">Import Teams File</button>
-            </div>
-            <table class="teams-table">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Division</th>
-                  <th>School</th>
-                  <th>Level</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody id="teamsTbody"></tbody>
-            </table>
-          </div>
-        </section>
+        <p class="note">Divisions and levels are inferred dynamically from imported teams.</p>
+        <div id="status" class="status">Ready.</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="tab-row">
+        <button id="scheduleTabBtn" class="tab-btn active" type="button">Allocation</button>
+        <button id="teamsTabBtn" class="tab-btn" type="button">Imported Teams</button>
+      </div>
+
+      <div id="scheduleTab" class="tab-panel active">
+        <div id="constraintViolationReport"></div>
+        <div id="splitSchoolReport"></div>
+        <div id="levelMismatchReport"></div>
+        <div id="swapReport"></div>
+
+        <h2 style="margin-top: 8px;">Schedule</h2>
+        <div id="scheduleGrid" class="schedule-grid"></div>
+      </div>
+
+      <div id="teamsTab" class="tab-panel">
+        <h2>Imported Teams</h2>
+        <table class="teams-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>School</th>
+              <th>Division</th>
+              <th>Team</th>
+              <th>Level</th>
+            </tr>
+          </thead>
+          <tbody id="teamsTableBody"></tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -563,1175 +294,42 @@ permalink: /scheduler.html
   <script>
     "use strict";
 
-    const DEFAULT_DIVISIONS = ["A", "B", "C", "D"];
-    const DEFAULT_VENUE_CAPACITIES = {
-      "Carrara": 85,
-      "Coomera": 22,
-      "Runaway bay": 32,
-      "Mt Warren Part": 32,
-      "ABP": 24,
-      "ASAS": 24,
-    };
-    const DEFAULT_VENUES = Object.keys(DEFAULT_VENUE_CAPACITIES);
-    const CPSAT_JS_URL = "https://cdn.jsdelivr.net/npm/cpsat-js@1.0.0/+esm";
-    const CPSAT_WASM_URL = "https://cdn.jsdelivr.net/npm/cpsat-js@1.0.0/build/cpsat.wasm";
+    const DEFAULT_VENUES = [
+      { name: "Carrara", capacity: 85 },
+      { name: "Coomera", capacity: 34 },
+      { name: "Runaway bay", capacity: 34 },
+      { name: "Mt Warren Part", capacity: 34 },
+      { name: "ABP", capacity: 34 },
+      { name: "ASAS", capacity: 34 },
+    ];
+
     const ACTIONS = {
+      SET_TEAMS: "SET_TEAMS",
       ALLOCATE: "ALLOCATE",
       MOVE_TEAM: "MOVE_TEAM",
-      SET_DIVISIONS: "SET_DIVISIONS",
-      SET_VENUES: "SET_VENUES",
+      SET_TAB: "SET_TAB",
+      CLEAR: "CLEAR",
+      UNDO: "UNDO",
     };
-    let cpSatRuntimePromise = null;
-    let cpSatWorkerUrl = null;
+
+    const app = {
+      cpRuntime: null,
+      history: [],
+      drag: { teamId: null },
+    };
 
     function createIdFactory(prefix) {
       let counter = 1;
       return function nextId() {
-        const id = `${prefix}-${counter}`;
+        const id = prefix + "-" + counter;
         counter += 1;
         return id;
       };
     }
 
-    function assertArray(name, value) {
-      if (!Array.isArray(value)) {
-        throw new Error(`${name} must be an array.`);
-      }
-    }
-
-    function normalizeTeam(team, index) {
-      const normalized = {
-        id: team.id || `team-${index + 1}`,
-        name: String(team.name || `Team ${index + 1}`),
-        division: String(team.division || "").trim(),
-        school: String(team.school || "Unknown School"),
-        level: Number(team.level),
-        levelLabel: String(team.levelLabel || "").trim(),
-      };
-
-      if (!Number.isInteger(normalized.level) || normalized.level < 1) {
-        throw new Error(
-          `Invalid level for ${normalized.name}. Expected an integer >= 1 and received ${team.level}.`
-        );
-      }
-
-      return normalized;
-    }
-
-    function validateConfig(config) {
-      const legacySize = Number(config.subdivisionSize) || 0;
-      const incomingVenueCaps = config.venueCapacities && typeof config.venueCapacities === "object"
-        ? config.venueCapacities
-        : null;
-      const merged = {
-        divisions: config.divisions || DEFAULT_DIVISIONS,
-        venues: config.venues || Object.keys(incomingVenueCaps || DEFAULT_VENUE_CAPACITIES),
-        minSubdivisionSize: Number(config.minSubdivisionSize) || legacySize || 7,
-        maxSubdivisionSize: Number(config.maxSubdivisionSize) || legacySize || 9,
-        venueCapacities: {},
-        maxOptimizationTimeSeconds: Number(config.maxOptimizationTimeSeconds) || 10,
-      };
-
-      assertArray("divisions", merged.divisions);
-      assertArray("venues", merged.venues);
-
-      if (merged.divisions.length === 0) {
-        throw new Error("At least one division is required.");
-      }
-
-      if (merged.venues.length === 0) {
-        throw new Error("At least one venue is required.");
-      }
-
-      if (merged.minSubdivisionSize < 1) {
-        throw new Error("minSubdivisionSize must be >= 1.");
-      }
-
-      if (merged.maxSubdivisionSize < merged.minSubdivisionSize) {
-        throw new Error("maxSubdivisionSize must be >= minSubdivisionSize.");
-      }
-
-      if (merged.maxOptimizationTimeSeconds < 1) {
-        throw new Error("maxOptimizationTimeSeconds must be >= 1.");
-      }
-
-      const seenVenueNames = new Set();
-      for (const venueNameRaw of merged.venues) {
-        const venueName = String(venueNameRaw || "").trim();
-        if (!venueName) {
-          throw new Error("Venue names must be non-empty.");
-        }
-        if (seenVenueNames.has(venueName)) {
-          throw new Error(`Duplicate venue name: ${venueName}`);
-        }
-        seenVenueNames.add(venueName);
-
-        const rawCapacity = incomingVenueCaps && incomingVenueCaps[venueName] != null
-          ? incomingVenueCaps[venueName]
-          : DEFAULT_VENUE_CAPACITIES[venueName];
-        const capacity = Number(rawCapacity);
-        if (!Number.isFinite(capacity) || capacity < 1) {
-          throw new Error(`Max teams for venue ${venueName} must be >= 1.`);
-        }
-        merged.venueCapacities[venueName] = Math.floor(capacity);
-      }
-
-      return merged;
-    }
-
-    function toLinearExpression(expression) {
-      if (expression && typeof expression.toLinearExpr === "function") {
-        return expression.toLinearExpr();
-      }
-      return expression;
-    }
-
-    function sumExpressions(model, expressions) {
-      return expressions.reduce(
-        (accumulator, expression) => accumulator.plus(toLinearExpression(expression)),
-        model.newConstant(0).toLinearExpr()
-      );
-    }
-
-    async function ensureCpSatRuntime() {
-      if (!cpSatRuntimePromise) {
-        cpSatRuntimePromise = (async function loadCpSatRuntime() {
-          const module = await import(CPSAT_JS_URL);
-          const solver = await module.CpSolver.create({
-            locateFile(path) {
-              return path.endsWith(".wasm") ? CPSAT_WASM_URL : path;
-            },
-          });
-
-          return {
-            CpModel: module.CpModel,
-            CpSolverStatus: module.CpSolverStatus,
-            solver,
-          };
-        })().catch((error) => {
-          cpSatRuntimePromise = null;
-          throw error;
-        });
-      }
-
-      return cpSatRuntimePromise;
-    }
-
-    function getCpSatWorkerUrl() {
-      if (cpSatWorkerUrl) {
-        return cpSatWorkerUrl;
-      }
-
-      const workerSource = String.raw`const DEFAULT_DIVISIONS = ["A", "B", "C", "D"];
-    const DEFAULT_VENUE_CAPACITIES = {
-      "Carrara": 85,
-      "Coomera": 22,
-      "Runaway bay": 32,
-      "Mt Warren Part": 32,
-      "ABP": 24,
-      "ASAS": 24,
-    };
-    const DEFAULT_VENUES = Object.keys(DEFAULT_VENUE_CAPACITIES);
-const CPSAT_JS_URL = "https://cdn.jsdelivr.net/npm/cpsat-js@1.0.0/+esm";
-const CPSAT_WASM_URL = "https://cdn.jsdelivr.net/npm/cpsat-js@1.0.0/build/cpsat.wasm";
-let runtimePromise = null;
-
-function assertArray(name, value) {
-  if (!Array.isArray(value)) {
-    throw new Error(name + " must be an array.");
-  }
-}
-
-function createIdFactory(prefix) {
-  let counter = 1;
-  return function nextId() {
-    const id = prefix + "-" + counter;
-    counter += 1;
-    return id;
-  };
-}
-
-function normalizeTeam(team, index) {
-  const normalized = {
-    id: team.id || ("team-" + (index + 1)),
-    name: String(team.name || ("Team " + (index + 1))),
-    division: String(team.division || "").trim(),
-    school: String(team.school || "Unknown School"),
-    level: Number(team.level),
-    levelLabel: String(team.levelLabel || "").trim(),
-  };
-
-  if (!Number.isInteger(normalized.level) || normalized.level < 1) {
-    throw new Error(
-      "Invalid level for " + normalized.name + ". Expected an integer >= 1 and received " + team.level + "."
-    );
-  }
-
-  return normalized;
-}
-
-function validateConfig(config) {
-  const legacySize = Number(config.subdivisionSize) || 0;
-  const incomingVenueCaps = config.venueCapacities && typeof config.venueCapacities === "object"
-    ? config.venueCapacities
-    : null;
-  const merged = {
-    divisions: config.divisions || DEFAULT_DIVISIONS,
-    venues: config.venues || Object.keys(incomingVenueCaps || DEFAULT_VENUE_CAPACITIES),
-    minSubdivisionSize: Number(config.minSubdivisionSize) || legacySize || 7,
-    maxSubdivisionSize: Number(config.maxSubdivisionSize) || legacySize || 9,
-    venueCapacities: {},
-    maxOptimizationTimeSeconds: Number(config.maxOptimizationTimeSeconds) || 10,
-  };
-
-  assertArray("divisions", merged.divisions);
-  assertArray("venues", merged.venues);
-
-  if (merged.divisions.length === 0) {
-    throw new Error("At least one division is required.");
-  }
-  if (merged.venues.length === 0) {
-    throw new Error("At least one venue is required.");
-  }
-  if (merged.minSubdivisionSize < 1) {
-    throw new Error("minSubdivisionSize must be >= 1.");
-  }
-  if (merged.maxSubdivisionSize < merged.minSubdivisionSize) {
-    throw new Error("maxSubdivisionSize must be >= minSubdivisionSize.");
-  }
-  if (merged.maxOptimizationTimeSeconds < 1) {
-    throw new Error("maxOptimizationTimeSeconds must be >= 1.");
-  }
-
-  const seenVenueNames = new Set();
-  for (const venueNameRaw of merged.venues) {
-    const venueName = String(venueNameRaw || "").trim();
-    if (!venueName) {
-      throw new Error("Venue names must be non-empty.");
-    }
-    if (seenVenueNames.has(venueName)) {
-      throw new Error("Duplicate venue name: " + venueName);
-    }
-    seenVenueNames.add(venueName);
-
-    const rawCapacity = incomingVenueCaps && incomingVenueCaps[venueName] != null
-      ? incomingVenueCaps[venueName]
-      : DEFAULT_VENUE_CAPACITIES[venueName];
-    const capacity = Number(rawCapacity);
-    if (!Number.isFinite(capacity) || capacity < 1) {
-      throw new Error("Max teams for venue " + venueName + " must be >= 1.");
-    }
-    merged.venueCapacities[venueName] = Math.floor(capacity);
-  }
-
-  return merged;
-}
-
-function toLinearExpression(expression) {
-  if (expression && typeof expression.toLinearExpr === "function") {
-    return expression.toLinearExpr();
-  }
-  return expression;
-}
-
-function sumExpressions(model, expressions) {
-  return expressions.reduce(
-    (accumulator, expression) => accumulator.plus(toLinearExpression(expression)),
-    model.newConstant(0).toLinearExpr()
-  );
-}
-
-function buildLevelBands(levels) {
-  const exactBands = levels.map((level) => ({
-    key: "exact-" + level,
-    levels: [level],
-  }));
-
-  const adjacentBands = [];
-  for (let index = 0; index < levels.length - 1; index += 1) {
-    const left = levels[index];
-    const right = levels[index + 1];
-    if (right - left === 1) {
-      adjacentBands.push({
-        key: "adjacent-" + left + "-" + right,
-        levels: [left, right],
-      });
-    }
-  }
-
-  return exactBands.concat(adjacentBands);
-}
-
-async function ensureRuntime() {
-  if (!runtimePromise) {
-    runtimePromise = (async function loadRuntime() {
-      const module = await import(CPSAT_JS_URL);
-      const solver = await module.CpSolver.create({
-        locateFile(path) {
-          return path.endsWith(".wasm") ? CPSAT_WASM_URL : path;
-        },
-      });
-
-      return {
-        CpModel: module.CpModel,
-        CpSolverStatus: module.CpSolverStatus,
-        solver,
-      };
-    })().catch((error) => {
-      runtimePromise = null;
-      throw error;
-    });
-  }
-
-  return runtimePromise;
-}
-
-async function allocateOptimalCpSatWorker(teams, userConfig) {
-  assertArray("teams", teams);
-  const config = validateConfig(userConfig || {});
-  const normalizedTeams = teams.map(normalizeTeam);
-  const defaultDivision = config.divisions[0];
-
-  const divisionSet = new Set(config.divisions);
-  for (const team of normalizedTeams) {
-    const effectiveDivision = String(team.division || "").trim() || defaultDivision;
-    if (!divisionSet.has(effectiveDivision)) {
-      throw new Error(
-        "Team " + team.name + " nominated division " + effectiveDivision + ", but it is not in configured divisions."
-      );
-    }
-  }
-
-  const venueCapacities = config.venues.map((venueName) => Number(config.venueCapacities[venueName]) || 0);
-  const totalCapacity = venueCapacities.reduce((sum, capacity) => sum + capacity, 0);
-  if (normalizedTeams.length > totalCapacity) {
-    throw new Error(
-      "Not enough venue capacity. " + normalizedTeams.length + " teams but only " + totalCapacity + " slots across all venues."
-    );
-  }
-
-  const slots = [];
-  config.venues.forEach((venueName, venueIndex) => {
-    const maxSubdivisionsForVenue = Math.max(1, Math.ceil(venueCapacities[venueIndex] / config.minSubdivisionSize));
-    for (let slot = 0; slot < maxSubdivisionsForVenue; slot += 1) {
-      slots.push({
-        id: venueName + "-slot-" + (slot + 1),
-        venueName,
-        venueIndex,
-        slotNumber: slot + 1,
-      });
-    }
-  });
-
-  const levels = [...new Set(normalizedTeams.map((team) => team.level))].sort((a, b) => a - b);
-  const divisions = [...config.divisions];
-  const levelBands = buildLevelBands(levels);
-
-  const teamsBySchool = new Map();
-  const teamsByLevel = new Map();
-  normalizedTeams.forEach((team, teamIndex) => {
-    if (!teamsBySchool.has(team.school)) {
-      teamsBySchool.set(team.school, []);
-    }
-    teamsBySchool.get(team.school).push(teamIndex);
-
-    if (!teamsByLevel.has(team.level)) {
-      teamsByLevel.set(team.level, []);
-    }
-    teamsByLevel.get(team.level).push(teamIndex);
-  });
-
-  const schoolNames = [...teamsBySchool.keys()].sort((left, right) => left.localeCompare(right));
-  const venueSlotIndices = config.venues.map((_, venueIndex) =>
-    slots
-      .map((slot, slotIndex) => ({ slot, slotIndex }))
-      .filter((item) => item.slot.venueIndex === venueIndex)
-      .map((item) => item.slotIndex)
-  );
-
-  const { CpModel, CpSolverStatus, solver } = await ensureRuntime();
-  const model = new CpModel();
-
-  const teamSlot = normalizedTeams.map((_, teamIndex) =>
-    slots.map((slot) => model.newBoolVar("team_" + teamIndex + "_slot_" + slot.id))
-  );
-  const slotActive = slots.map((slot) => model.newBoolVar("slot_active_" + slot.id));
-  const schoolVenue = schoolNames.map((school) =>
-    config.venues.map((venueName) => model.newBoolVar("school_" + school + "_venue_" + venueName))
-  );
-  const hasLevel = slots.map((slot) =>
-    levels.map((level) => model.newBoolVar("slot_" + slot.id + "_has_level_" + level))
-  );
-
-  const mixedLevelFlags = [];
-
-  normalizedTeams.forEach((_, teamIndex) => {
-    model.add(sumExpressions(model, teamSlot[teamIndex]).equals(1));
-  });
-
-  slots.forEach((slot, slotIndex) => {
-    const slotSizeExpr = sumExpressions(
-      model,
-      normalizedTeams.map((_, teamIndex) => teamSlot[teamIndex][slotIndex])
-    );
-
-    model.add(slotSizeExpr.ge(slotActive[slotIndex].times(config.minSubdivisionSize)));
-    model.add(slotSizeExpr.le(slotActive[slotIndex].times(config.maxSubdivisionSize)));
-
-    levels.forEach((level, levelIndex) => {
-      const levelTeamExpr = sumExpressions(
-        model,
-        (teamsByLevel.get(level) || []).map((teamIndex) => teamSlot[teamIndex][slotIndex])
-      );
-      model.add(levelTeamExpr.ge(hasLevel[slotIndex][levelIndex]));
-      model.add(levelTeamExpr.le(hasLevel[slotIndex][levelIndex].times(config.maxSubdivisionSize)));
-    });
-
-    for (let leftIndex = 0; leftIndex < levels.length; leftIndex += 1) {
-      for (let rightIndex = leftIndex + 1; rightIndex < levels.length; rightIndex += 1) {
-        if (Math.abs(levels[leftIndex] - levels[rightIndex]) > 1) {
-          model.add(
-            sumExpressions(model, [
-              hasLevel[slotIndex][leftIndex],
-              hasLevel[slotIndex][rightIndex],
-            ]).le(1)
-          );
-        }
-      }
-    }
-
-    levelBands.forEach((band) => {
-      if (band.levels.length !== 2) {
-        return;
-      }
-
-      const leftIndex = levels.indexOf(band.levels[0]);
-      const rightIndex = levels.indexOf(band.levels[1]);
-      const mixed = model.newBoolVar("slot_" + slot.id + "_mixed_" + band.key);
-
-      model.add(mixed.le(hasLevel[slotIndex][leftIndex]));
-      model.add(mixed.le(hasLevel[slotIndex][rightIndex]));
-      model.add(
-        mixed.ge(
-          sumExpressions(model, [
-            hasLevel[slotIndex][leftIndex],
-            hasLevel[slotIndex][rightIndex],
-          ]).minus(1)
-        )
-      );
-
-      mixedLevelFlags.push(mixed);
-    });
-  });
-
-  config.venues.forEach((_, venueIndex) => {
-    const venueAssignments = [];
-    venueSlotIndices[venueIndex].forEach((slotIndex) => {
-      normalizedTeams.forEach((_, teamIndex) => {
-        venueAssignments.push(teamSlot[teamIndex][slotIndex]);
-      });
-    });
-    model.add(sumExpressions(model, venueAssignments).le(venueCapacities[venueIndex]));
-  });
-
-  schoolNames.forEach((school, schoolIndex) => {
-    teamsBySchool.get(school).forEach((teamIndex) => {
-      config.venues.forEach((_, venueIndex) => {
-        const teamInVenue = sumExpressions(
-          model,
-          venueSlotIndices[venueIndex].map((slotIndex) => teamSlot[teamIndex][slotIndex])
-        );
-        model.add(teamInVenue.le(schoolVenue[schoolIndex][venueIndex]));
-      });
-    });
-  });
-
-  const schoolSplitTerms = schoolVenue.flatMap((perSchool) => perSchool.map((venueUse) => venueUse.times(5000)));
-  const levelMixTerms = mixedLevelFlags.map((flag) => flag.times(800));
-  const objectiveTerms = schoolSplitTerms.concat(levelMixTerms).concat(slotActive);
-  model.minimize(sumExpressions(model, objectiveTerms));
-
-  const result = solver.solve(model, { maxTimeInSeconds: config.maxOptimizationTimeSeconds });
-  if (result.status !== CpSolverStatus.OPTIMAL && result.status !== CpSolverStatus.FEASIBLE) {
-    throw new Error(
-      "No feasible allocation satisfies venue capacity and subdivision size constraints."
-    );
-  }
-
-  const nextSubdivisionId = createIdFactory("subdivision");
-  const nextVenueId = createIdFactory("venue");
-  const venues = config.venues.map((name) => ({ id: nextVenueId(), name, subdivisions: [] }));
-
-  slots.forEach((slot, slotIndex) => {
-    const assignedTeams = normalizedTeams.filter(
-      (_, teamIndex) => result.value(teamSlot[teamIndex][slotIndex]) === 1
-    );
-    if (assignedTeams.length === 0) {
-      return;
-    }
-
-    const divisionCounts = new Map();
-    for (const team of assignedTeams) {
-      const division = String(team.division || "").trim() || defaultDivision;
-      divisionCounts.set(division, (divisionCounts.get(division) || 0) + 1);
-    }
-    let division = defaultDivision;
-    let maxCount = -1;
-    for (const candidateDivision of divisions) {
-      const count = divisionCounts.get(candidateDivision) || 0;
-      if (count > maxCount) {
-        maxCount = count;
-        division = candidateDivision;
-      }
-    }
-
-    venues[slot.venueIndex].subdivisions.push({
-      id: nextSubdivisionId(),
-      division,
-      teams: assignedTeams,
-    });
-  });
-
-  return {
-    config,
-    venues,
-    unallocated: [],
-    solverStatus: result.status,
-    solveWallTime: result.wallTime,
-  };
-}
-
-self.onmessage = async function (event) {
-  const payload = event.data || {};
-  try {
-    const state = await allocateOptimalCpSatWorker(payload.teams || [], payload.config || {});
-    self.postMessage({ ok: true, state });
-  } catch (error) {
-    self.postMessage({ ok: false, error: error && error.message ? error.message : String(error) });
-  }
-};`;
-
-      cpSatWorkerUrl = URL.createObjectURL(
-        new Blob([workerSource], { type: "text/javascript" })
-      );
-      return cpSatWorkerUrl;
-    }
-
-    function createCpSatWorker() {
-      const workerScriptUrl = new URL("./cpsat-worker.js", window.location.href).href;
-      const attempts = [
-        () => new Worker(workerScriptUrl, { type: "module" }),
-        () => new Worker(workerScriptUrl),
-        () => new Worker(getCpSatWorkerUrl(), { type: "module" }),
-        () => new Worker(getCpSatWorkerUrl()),
-      ];
-      const errors = [];
-
-      for (const attempt of attempts) {
-        try {
-          return attempt();
-        } catch (error) {
-          errors.push(error && error.message ? error.message : String(error));
-        }
-      }
-
-      throw new Error(`CP-SAT worker startup failed: ${errors.join(" | ")}`);
-    }
-
-    function runCpSatInWorker(teams, config) {
-      return new Promise((resolve, reject) => {
-        let worker = null;
-        try {
-          worker = createCpSatWorker();
-        } catch (error) {
-          reject(new Error(error.message || String(error)));
-          return;
-        }
-
-        worker.onmessage = function (event) {
-          const data = event.data || {};
-          worker.terminate();
-
-          if (data.ok) {
-            resolve(data.state);
-          } else {
-            reject(new Error(data.error || "CP-SAT worker failed."));
-          }
-        };
-
-        worker.onerror = function (event) {
-          worker.terminate();
-          const detail = event && event.message
-            ? `${event.message}${event.filename ? ` (${event.filename}:${event.lineno || 0})` : ""}`
-            : "Unknown worker error";
-          reject(new Error(`CP-SAT worker crashed: ${detail}`));
-        };
-
-        worker.postMessage({ teams, config });
-      });
-    }
-
-    function buildLevelBands(levels) {
-      const exactBands = levels.map((level) => ({
-        key: `exact-${level}`,
-        levels: [level],
-      }));
-
-      const adjacentBands = [];
-      for (let index = 0; index < levels.length - 1; index += 1) {
-        const left = levels[index];
-        const right = levels[index + 1];
-        if (right - left === 1) {
-          adjacentBands.push({
-            key: `adjacent-${left}-${right}`,
-            levels: [left, right],
-          });
-        }
-      }
-
-      return exactBands.concat(adjacentBands);
-    }
-
-    function getAssignedLevel(teams) {
-      const counts = new Map();
-      for (const team of teams) {
-        counts.set(team.level, (counts.get(team.level) || 0) + 1);
-      }
-
-      let assignedLevel = null;
-      let bestCount = -1;
-      for (const [level, count] of counts.entries()) {
-        if (count > bestCount || (count === bestCount && level < assignedLevel)) {
-          assignedLevel = level;
-          bestCount = count;
-        }
-      }
-
-      return assignedLevel;
-    }
-
-    async function allocateOptimalCpSat(teams, userConfig) {
-      assertArray("teams", teams);
-      const config = validateConfig(userConfig || {});
-      const normalizedTeams = teams.map(normalizeTeam);
-      const defaultDivision = config.divisions[0];
-
-      const divisionSet = new Set(config.divisions);
-      const effectiveDivisionByTeam = normalizedTeams.map((team) => {
-        const effectiveDivision = String(team.division || "").trim() || defaultDivision;
-        if (!divisionSet.has(effectiveDivision)) {
-          throw new Error(
-            `Team ${team.name} nominated division ${effectiveDivision}, but it is not in configured divisions.`
-          );
-        }
-        return effectiveDivision;
-      });
-
-      const venueCapacities = config.venues.map((venueName) => Number(config.venueCapacities[venueName]) || 0);
-      const totalCapacity = venueCapacities.reduce((sum, capacity) => sum + capacity, 0);
-      if (normalizedTeams.length > totalCapacity) {
-        throw new Error(
-          `Not enough venue capacity. ${normalizedTeams.length} teams but only ${totalCapacity} slots across all venues.`
-        );
-      }
-
-      const slots = [];
-      config.venues.forEach((venueName, venueIndex) => {
-        const maxSubdivisionsForVenue = Math.max(1, Math.ceil(venueCapacities[venueIndex] / config.minSubdivisionSize));
-        for (let slot = 0; slot < maxSubdivisionsForVenue; slot += 1) {
-          slots.push({
-            id: `${venueName}-slot-${slot + 1}`,
-            venueName,
-            venueIndex,
-            slotNumber: slot + 1,
-          });
-        }
-      });
-
-      const levels = [...new Set(normalizedTeams.map((team) => team.level))].sort((a, b) => a - b);
-      const divisions = [...config.divisions];
-      const levelBands = buildLevelBands(levels);
-
-      const teamsBySchool = new Map();
-      const teamsByLevel = new Map();
-      normalizedTeams.forEach((team, teamIndex) => {
-        if (!teamsBySchool.has(team.school)) {
-          teamsBySchool.set(team.school, []);
-        }
-        teamsBySchool.get(team.school).push(teamIndex);
-
-        if (!teamsByLevel.has(team.level)) {
-          teamsByLevel.set(team.level, []);
-        }
-        teamsByLevel.get(team.level).push(teamIndex);
-      });
-
-      const schoolNames = [...teamsBySchool.keys()].sort((left, right) => left.localeCompare(right));
-      const venueSlotIndices = config.venues.map((_, venueIndex) =>
-        slots
-          .map((slot, slotIndex) => ({ slot, slotIndex }))
-          .filter((item) => item.slot.venueIndex === venueIndex)
-          .map((item) => item.slotIndex)
-      );
-
-      const { CpModel, CpSolverStatus, solver } = await ensureCpSatRuntime();
-      const model = new CpModel();
-
-      const teamSlot = normalizedTeams.map((_, teamIndex) =>
-        slots.map((slot) => model.newBoolVar(`team_${teamIndex}_slot_${slot.id}`))
-      );
-      const slotActive = slots.map((slot) => model.newBoolVar(`slot_active_${slot.id}`));
-      const schoolVenue = schoolNames.map((school) =>
-        config.venues.map((venueName) => model.newBoolVar(`school_${school}_venue_${venueName}`))
-      );
-      const hasLevel = slots.map((slot) =>
-        levels.map((level) => model.newBoolVar(`slot_${slot.id}_has_level_${level}`))
-      );
-
-      const mixedLevelFlags = [];
-
-      normalizedTeams.forEach((_, teamIndex) => {
-        model.add(sumExpressions(model, teamSlot[teamIndex]).equals(1));
-      });
-
-      slots.forEach((slot, slotIndex) => {
-        const slotSizeExpr = sumExpressions(
-          model,
-          normalizedTeams.map((_, teamIndex) => teamSlot[teamIndex][slotIndex])
-        );
-
-        model.add(slotSizeExpr.ge(slotActive[slotIndex].times(config.minSubdivisionSize)));
-        model.add(slotSizeExpr.le(slotActive[slotIndex].times(config.maxSubdivisionSize)));
-
-        levels.forEach((level, levelIndex) => {
-          const levelTeamExpr = sumExpressions(
-            model,
-            (teamsByLevel.get(level) || []).map((teamIndex) => teamSlot[teamIndex][slotIndex])
-          );
-          model.add(levelTeamExpr.ge(hasLevel[slotIndex][levelIndex]));
-          model.add(levelTeamExpr.le(hasLevel[slotIndex][levelIndex].times(config.maxSubdivisionSize)));
-        });
-
-        // Hard constraint: a slot cannot contain levels more than 1 apart.
-        for (let leftIndex = 0; leftIndex < levels.length; leftIndex += 1) {
-          for (let rightIndex = leftIndex + 1; rightIndex < levels.length; rightIndex += 1) {
-            if (Math.abs(levels[leftIndex] - levels[rightIndex]) > 1) {
-              model.add(
-                sumExpressions(model, [
-                  hasLevel[slotIndex][leftIndex],
-                  hasLevel[slotIndex][rightIndex],
-                ]).le(1)
-              );
-            }
-          }
-        }
-
-        levelBands.forEach((band) => {
-          if (band.levels.length !== 2) {
-            return;
-          }
-
-          const leftIndex = levels.indexOf(band.levels[0]);
-          const rightIndex = levels.indexOf(band.levels[1]);
-          const mixed = model.newBoolVar(`slot_${slot.id}_mixed_${band.key}`);
-
-          model.add(mixed.le(hasLevel[slotIndex][leftIndex]));
-          model.add(mixed.le(hasLevel[slotIndex][rightIndex]));
-          model.add(
-            mixed.ge(
-              sumExpressions(model, [
-                hasLevel[slotIndex][leftIndex],
-                hasLevel[slotIndex][rightIndex],
-              ]).minus(1)
-            )
-          );
-
-          mixedLevelFlags.push(mixed);
-        });
-      });
-
-      config.venues.forEach((_, venueIndex) => {
-        const venueAssignments = [];
-        venueSlotIndices[venueIndex].forEach((slotIndex) => {
-          normalizedTeams.forEach((_, teamIndex) => {
-            venueAssignments.push(teamSlot[teamIndex][slotIndex]);
-          });
-        });
-        model.add(sumExpressions(model, venueAssignments).le(venueCapacities[venueIndex]));
-      });
-
-      schoolNames.forEach((school, schoolIndex) => {
-        teamsBySchool.get(school).forEach((teamIndex) => {
-          config.venues.forEach((_, venueIndex) => {
-            const teamInVenue = sumExpressions(
-              model,
-              venueSlotIndices[venueIndex].map((slotIndex) => teamSlot[teamIndex][slotIndex])
-            );
-            model.add(teamInVenue.le(schoolVenue[schoolIndex][venueIndex]));
-          });
-        });
-      });
-
-      const schoolSplitTerms = schoolVenue.flatMap((perSchool) => perSchool.map((venueUse) => venueUse.times(5000)));
-      const levelMixTerms = mixedLevelFlags.map((flag) => flag.times(800));
-      const objectiveTerms = schoolSplitTerms.concat(levelMixTerms).concat(slotActive);
-      model.minimize(sumExpressions(model, objectiveTerms));
-
-      const result = solver.solve(model, { maxTimeInSeconds: config.maxOptimizationTimeSeconds });
-      if (result.status !== CpSolverStatus.OPTIMAL && result.status !== CpSolverStatus.FEASIBLE) {
-        throw new Error(
-          "No feasible allocation satisfies venue capacity and subdivision size constraints."
-        );
-      }
-
-      const nextSubdivisionId = createIdFactory("subdivision");
-      const nextVenueId = createIdFactory("venue");
-      const venues = config.venues.map((name) => ({ id: nextVenueId(), name, subdivisions: [] }));
-
-      slots.forEach((slot, slotIndex) => {
-        const assignedTeams = normalizedTeams.filter(
-          (_, teamIndex) => result.value(teamSlot[teamIndex][slotIndex]) === 1
-        );
-        if (assignedTeams.length === 0) {
-          return;
-        }
-
-        const divisionCounts = new Map();
-        for (const team of assignedTeams) {
-          const division = String(team.division || "").trim() || defaultDivision;
-          divisionCounts.set(division, (divisionCounts.get(division) || 0) + 1);
-        }
-        let division = defaultDivision;
-        let maxCount = -1;
-        for (const candidateDivision of divisions) {
-          const count = divisionCounts.get(candidateDivision) || 0;
-          if (count > maxCount) {
-            maxCount = count;
-            division = candidateDivision;
-          }
-        }
-
-        venues[slot.venueIndex].subdivisions.push({
-          id: nextSubdivisionId(),
-          division,
-          teams: assignedTeams,
-        });
-      });
-
-      return {
-        config,
-        venues,
-        unallocated: [],
-        teamIndex: indexTeams(venues),
-        solverStatus: result.status,
-        solveWallTime: result.wallTime,
-      };
-    }
-
-    // ─── Phase 1+2: School Clustering → Venue Seeding (First Fit Decreasing) ───
-    // Groups teams by school, then packs school clusters into venues greedily so
-    // that teams from the same school end up at the same venue.
-    function seedVenuesWithSchools(normalizedTeams, config) {
-      const venueCapacities = config.venues.map((venueName) => Number(config.venueCapacities[venueName]) || 0);
-      const totalCapacity = venueCapacities.reduce((sum, capacity) => sum + capacity, 0);
-
-      if (normalizedTeams.length > totalCapacity) {
-        throw new Error(
-          `Not enough venue capacity. ${normalizedTeams.length} teams but only ${totalCapacity} slots across all venues.`
-        );
-      }
-
-      // Phase 1: cluster by school, largest first
-      const clusterMap = new Map();
-      for (const team of normalizedTeams) {
-        if (!clusterMap.has(team.school)) {
-          clusterMap.set(team.school, []);
-        }
-        clusterMap.get(team.school).push(team);
-      }
-      const clusters = [...clusterMap.values()].sort((a, b) => b.length - a.length);
-
-      // Phase 2: bin-pack clusters into venues (best-fit: pick the fullest venue
-      // that still has room, to keep venues dense and leave empty venues for
-      // overflow rather than fragmenting every venue).
-      const venueTeams = config.venues.map(() => []);
-
-      for (const cluster of clusters) {
-        // Try to fit the whole cluster into one venue (best-fit decreasing)
-        let bestVenue = -1;
-        let bestUsed = -1;
-        for (let v = 0; v < config.venues.length; v += 1) {
-          const used = venueTeams[v].length;
-          const remaining = venueCapacities[v] - used;
-          if (remaining >= cluster.length && used > bestUsed) {
-            bestVenue = v;
-            bestUsed = used;
-          }
-        }
-
-        if (bestVenue >= 0) {
-          venueTeams[bestVenue].push(...cluster);
-          continue;
-        }
-
-        // Cluster is larger than any single venue's remaining space — split it.
-        // Sort by level so the split still produces level-cohesive subdivisions.
-        const sorted = [...cluster].sort((a, b) => a.level - b.level);
-        let remaining = [...sorted];
-        while (remaining.length > 0) {
-          let maxSpace = 0;
-          let targetVenue = 0;
-          for (let v = 0; v < config.venues.length; v += 1) {
-            const space = venueCapacities[v] - venueTeams[v].length;
-            if (space > maxSpace) {
-              maxSpace = space;
-              targetVenue = v;
-            }
-          }
-          if (maxSpace === 0) {
-            throw new Error("Not enough total venue capacity for all teams.");
-          }
-          venueTeams[targetVenue].push(...remaining.splice(0, maxSpace));
-        }
-      }
-
-      return venueTeams;
-    }
-
-    // ─── Phase 3: Division-preserving + level-balanced partitioning ─────────
-    // Teams stay in their nominated division. Inside each division, teams are
-    // grouped by level with target ±1, but may relax to ±2 to satisfy minimum size.
-    function partitionVenueIntoSubdivisions(venueTeamList, config, nextSubdivisionId) {
-      function levelRange(teams) {
-        if (!teams.length) {
-          return 0;
-        }
-        const levels = teams.map((team) => team.level);
-        return Math.max(...levels) - Math.min(...levels);
-      }
-
-      function canAcceptTeam(group, team, maxLevelRange) {
-        if (group.length >= config.maxSubdivisionSize) {
-          return false;
-        }
-        const withTeam = group.concat([team]);
-        return levelRange(withTeam) <= maxLevelRange;
-      }
-
-      function tryBorrowOne(groups, targetIndex, maxLevelRange) {
-        const target = groups[targetIndex];
-        let best = null;
-
-        for (let donorIndex = 0; donorIndex < groups.length; donorIndex += 1) {
-          if (donorIndex === targetIndex) {
-            continue;
-          }
-          const donor = groups[donorIndex];
-          if (donor.length <= config.minSubdivisionSize) {
-            continue;
-          }
-
-          for (let teamIndex = 0; teamIndex < donor.length; teamIndex += 1) {
-            const candidate = donor[teamIndex];
-            if (!canAcceptTeam(target, candidate, maxLevelRange)) {
-              continue;
-            }
-            const distance = Math.abs(targetIndex - donorIndex);
-            const score = distance * 10 + Math.abs(candidate.level - target[0].level);
-            if (!best || score < best.score) {
-              best = { donorIndex, teamIndex, score };
-            }
-          }
-        }
-
-        if (!best) {
-          return false;
-        }
-
-        const moved = groups[best.donorIndex].splice(best.teamIndex, 1)[0];
-        target.push(moved);
-        return true;
-      }
-
-      function tryMergeSmallGroup(groups, smallIndex, maxLevelRange) {
-        const small = groups[smallIndex];
-        const candidates = [];
-        if (smallIndex > 0) {
-          candidates.push(smallIndex - 1);
-        }
-        if (smallIndex < groups.length - 1) {
-          candidates.push(smallIndex + 1);
-        }
-
-        for (const candidateIndex of candidates) {
-          const other = groups[candidateIndex];
-          const combined = other.concat(small);
-          if (
-            combined.length <= config.maxSubdivisionSize &&
-            levelRange(combined) <= maxLevelRange
-          ) {
-            groups[candidateIndex] = combined;
-            groups.splice(smallIndex, 1);
-            return true;
-          }
-        }
-
-        return false;
-      }
-
-      function enforceMinimumSize(groups) {
-        let changed = true;
-        while (changed) {
-          changed = false;
-          for (let i = 0; i < groups.length; i += 1) {
-            while (groups[i] && groups[i].length < config.minSubdivisionSize) {
-              const borrowedStrict = tryBorrowOne(groups, i, 1);
-              if (borrowedStrict) {
-                changed = true;
-                continue;
-              }
-
-              const borrowedRelaxed = tryBorrowOne(groups, i, 2);
-              if (borrowedRelaxed) {
-                changed = true;
-                continue;
-              }
-
-              const mergedStrict = tryMergeSmallGroup(groups, i, 1);
-              if (mergedStrict) {
-                changed = true;
-                i = Math.max(-1, i - 1);
-                break;
-              }
-
-              const mergedRelaxed = tryMergeSmallGroup(groups, i, 2);
-              if (mergedRelaxed) {
-                changed = true;
-                i = Math.max(-1, i - 1);
-                break;
-              }
-
-              // Could not improve this group further; leave it as unavoidable undersize.
-              break;
-            }
-          }
-        }
-      }
-
-      function splitByLevel(teams) {
-        const sorted = [...teams].sort(
-          (a, b) => a.level - b.level || a.name.localeCompare(b.name)
-        );
-
-        const groups = [];
-        let current = [];
-
-        for (const team of sorted) {
-          const levels = current.map((t) => t.level);
-          const currentMin = levels.length ? Math.min(...levels) : team.level;
-          const currentMax = levels.length ? Math.max(...levels) : team.level;
-          const levelOk = Math.max(currentMax, team.level) - Math.min(currentMin, team.level) <= 1;
-
-          if (current.length > 0 && (!levelOk || current.length >= config.maxSubdivisionSize)) {
-            groups.push(current);
-            current = [];
-          }
-          current.push(team);
-        }
-
-        if (current.length > 0) {
-          groups.push(current);
-        }
-        return groups;
-      }
-
-      const divisionTeams = new Map(config.divisions.map((division) => [division, []]));
-      const defaultDivision = config.divisions[0];
-
-      for (const team of venueTeamList) {
-        const division = team.division || defaultDivision;
-        if (!divisionTeams.has(division)) {
-          throw new Error(`Team ${team.name} has unknown division: ${division}`);
-        }
-        divisionTeams.get(division).push(team);
-      }
-
-      const subdivisions = [];
-      for (const division of config.divisions) {
-        const teamsInDivision = divisionTeams.get(division) || [];
-        if (teamsInDivision.length === 0) {
-          continue;
-        }
-
-        const groups = splitByLevel(teamsInDivision);
-        enforceMinimumSize(groups);
-        for (const subdivisionTeams of groups) {
-          subdivisions.push({
-            id: nextSubdivisionId(),
-            division,
-            teams: subdivisionTeams,
-          });
-        }
-      }
-
-      return subdivisions;
-    }
-
-    function indexTeams(venues) {
-      const teamIndex = new Map();
-      for (const venue of venues) {
-        for (const subdivision of venue.subdivisions) {
-          for (const team of subdivision.teams) {
-            teamIndex.set(team.id, {
-              team,
-              venueId: venue.id,
-              venueName: venue.name,
-              subdivisionId: subdivision.id,
-              division: subdivision.division,
-            });
-          }
-        }
-      }
-      return teamIndex;
-    }
-
-    function allocate(teams, userConfig) {
-      assertArray("teams", teams);
-      const config = validateConfig(userConfig || {});
-      const normalizedTeams = teams.map(normalizeTeam);
-
-      const divisionSet = new Set(config.divisions);
-      for (const team of normalizedTeams) {
-        if (team.division && !divisionSet.has(team.division)) {
-          throw new Error(
-            `Team ${team.name} nominated division ${team.division}, but it is not in configured divisions.`
-          );
-        }
-      }
-
-      // Phase 1+2: pack school clusters into venues
-      const venueTeams = seedVenuesWithSchools(normalizedTeams, config);
-
-      // Phase 3: level-balanced subdivision partitioning within each venue
-      const nextSubdivisionId = createIdFactory("subdivision");
-      const nextVenueId = createIdFactory("venue");
-
-      const venues = config.venues.map((name, venueIndex) => {
-        const subdivisions = partitionVenueIntoSubdivisions(venueTeams[venueIndex], config, nextSubdivisionId);
-        return { id: nextVenueId(), name, subdivisions };
-      });
-
-      return {
-        config,
-        venues,
-        unallocated: [],
-        teamIndex: indexTeams(venues),
-      };
-    }
-
     function deepCloneState(state) {
       return {
-        config: { ...state.config },
+        teams: state.teams.map((team) => ({ ...team })),
         venues: state.venues.map((venue) => ({
           ...venue,
           subdivisions: venue.subdivisions.map((subdivision) => ({
@@ -1740,146 +338,15 @@ self.onmessage = async function (event) {
           })),
         })),
         unallocated: state.unallocated.map((team) => ({ ...team })),
-        teamIndex: new Map(),
+        swapReport: (state.swapReport || []).map((item) => ({ ...item })),
+        config: {
+          ...state.config,
+          divisions: [...state.config.divisions],
+          levels: [...state.config.levels],
+          venueCapacities: { ...state.config.venueCapacities },
+        },
+        activeTab: state.activeTab,
       };
-    }
-
-    function findVenue(venues, venueId) {
-      const venue = venues.find((v) => v.id === venueId || v.name === venueId);
-      if (!venue) {
-        throw new Error(`Venue not found: ${venueId}`);
-      }
-      return venue;
-    }
-
-    function findSubdivision(venue, subdivisionId) {
-      const subdivision = venue.subdivisions.find(
-        (s) => s.id === subdivisionId || s.division === subdivisionId
-      );
-      if (!subdivision) {
-        throw new Error(`Subdivision not found in venue ${venue.name}: ${subdivisionId}`);
-      }
-      return subdivision;
-    }
-
-    function removeTeamFromCurrentLocation(venues, teamId) {
-      for (const venue of venues) {
-        for (const subdivision of venue.subdivisions) {
-          const idx = subdivision.teams.findIndex((team) => team.id === teamId);
-          if (idx >= 0) {
-            return subdivision.teams.splice(idx, 1)[0];
-          }
-        }
-      }
-      return null;
-    }
-
-    function validateHardLevelConstraint(subdivision) {
-      if (subdivision.teams.length <= 1) {
-        return true;
-      }
-      const levels = subdivision.teams.map((t) => t.level);
-      return Math.max(...levels) - Math.min(...levels) <= 1;
-    }
-
-    function applyMoveTeam(state, payload) {
-      const next = deepCloneState(state);
-      const {
-        teamId,
-        toVenueId,
-        toSubdivisionId,
-        toDivision,
-        allowConstraintViolation = true,
-        allowOverCapacity = false,
-      } = payload;
-
-      const movedTeam = removeTeamFromCurrentLocation(next.venues, teamId);
-      if (!movedTeam) {
-        throw new Error(`Team not found: ${teamId}`);
-      }
-
-      const venue = findVenue(next.venues, toVenueId);
-      let subdivision = null;
-      const requiredDivision = String(movedTeam.division || "").trim();
-
-      if (toSubdivisionId) {
-        subdivision = findSubdivision(venue, toSubdivisionId);
-      } else if (toDivision) {
-        subdivision = venue.subdivisions.find((s) => s.division === toDivision) || null;
-      }
-
-      if (toDivision && requiredDivision && toDivision !== requiredDivision) {
-        throw new Error(
-          `Team ${movedTeam.name} is nominated for division ${requiredDivision} and cannot be moved to ${toDivision}.`
-        );
-      }
-
-      if (!subdivision) {
-        const venueCapacity = Number(next.config.venueCapacities[venue.name]) || 0;
-        const maxSubdivisionsForVenue = Math.max(1, Math.ceil(venueCapacity / next.config.minSubdivisionSize));
-        if (venue.subdivisions.length >= maxSubdivisionsForVenue) {
-          throw new Error(`Venue ${venue.name} has no room for another subdivision.`);
-        }
-
-        const targetDivision = requiredDivision || toDivision || next.config.divisions[0];
-
-        subdivision = {
-          id: `manual-${Date.now()}-${Math.floor(Math.random() * 10000)}`,
-          division: targetDivision,
-          teams: [],
-        };
-        venue.subdivisions.push(subdivision);
-      }
-
-      if (requiredDivision && subdivision.division !== requiredDivision) {
-        throw new Error(
-          `Team ${movedTeam.name} is nominated for division ${requiredDivision} and cannot be moved to ${subdivision.division}.`
-        );
-      }
-
-      if (!allowOverCapacity && subdivision.teams.length >= next.config.maxSubdivisionSize) {
-        throw new Error(`Subdivision ${subdivision.id} is full.`);
-      }
-
-      subdivision.teams.push(movedTeam);
-
-      if (!allowOverCapacity) {
-        const venueCapacity = Number(next.config.venueCapacities[venue.name]) || 0;
-        const venueTeamCount = venue.subdivisions.reduce((sum, sub) => sum + sub.teams.length, 0);
-        if (venueTeamCount > venueCapacity) {
-          throw new Error(`Venue ${venue.name} exceeds max teams (${venueCapacity}).`);
-        }
-      }
-
-      if (!allowConstraintViolation && !validateHardLevelConstraint(subdivision)) {
-        throw new Error(
-          `Move violates level hard constraint in subdivision ${subdivision.id}.`
-        );
-      }
-
-      next.teamIndex = indexTeams(next.venues);
-      return next;
-    }
-
-    function reducer(state, action) {
-      switch (action.type) {
-        case ACTIONS.ALLOCATE:
-          return allocate(action.payload.teams, action.payload.config);
-        case ACTIONS.MOVE_TEAM:
-          return applyMoveTeam(state, action.payload);
-        case ACTIONS.SET_DIVISIONS: {
-          const next = deepCloneState(state);
-          next.config.divisions = [...action.payload.divisions];
-          return next;
-        }
-        case ACTIONS.SET_VENUES: {
-          const next = deepCloneState(state);
-          next.config.venues = [...action.payload.venues];
-          return next;
-        }
-        default:
-          return state;
-      }
     }
 
     function createStore(initialState) {
@@ -1887,10 +354,15 @@ self.onmessage = async function (event) {
       const listeners = new Set();
 
       return {
-        getState() {
-          return state;
-        },
+        getState() { return state; },
         dispatch(action) {
+          if (action.type !== ACTIONS.UNDO && action.type !== ACTIONS.SET_TAB) {
+            app.history.push(deepCloneState(state));
+            if (app.history.length > 20) {
+              app.history.shift();
+            }
+          }
+
           state = reducer(state, action);
           for (const listener of listeners) {
             listener(state, action);
@@ -1899,145 +371,1502 @@ self.onmessage = async function (event) {
         },
         subscribe(listener) {
           listeners.add(listener);
-          return function unsubscribe() {
-            listeners.delete(listener);
-          };
+          return function unsubscribe() { listeners.delete(listener); };
         },
       };
     }
 
-    const appState = {
-      teams: [],
-      teamCounter: 1,
-      store: null,
-    };
-
-    const minSubdivisionSizeInput = document.getElementById("minSubdivisionSizeInput");
-    const maxSubdivisionSizeInput = document.getElementById("maxSubdivisionSizeInput");
-    const maxOptimisationTimeInput = document.getElementById("maxOptimisationTimeInput");
-    const venueCapInputs = Array.from(document.querySelectorAll(".venue-cap-input"));
-    const teamsTbody = document.getElementById("teamsTbody");
-    const venuesEl = document.getElementById("venues");
-    const statusEl = document.getElementById("status");
-    const printScheduleEl = document.getElementById("print-schedule");
-    const levelWarningEl = document.getElementById("level-warning");
-    const scheduleTabBtn = document.getElementById("scheduleTabBtn");
-    const importedTeamsTabBtn = document.getElementById("importedTeamsTabBtn");
-    const scheduleTabPanel = document.getElementById("scheduleTabPanel");
-    const importedTeamsTabPanel = document.getElementById("importedTeamsTabPanel");
-
-    const allocateBtn = document.getElementById("allocateBtn");
-    const importCsvBtn = document.getElementById("importCsvBtn");
-    const importCsvBtnTeams = document.getElementById("importCsvBtnTeams");
-    const openCsvInput = document.getElementById("openCsvInput");
-    const exportExcelBtn = document.getElementById("exportExcelBtn");
-    const moveTeamSelect = document.getElementById("moveTeamSelect");
-    const moveVenueSelect = document.getElementById("moveVenueSelect");
-    const moveDivisionSelect = document.getElementById("moveDivisionSelect");
-    const moveTeamBtn = document.getElementById("moveTeamBtn");
-    const clearTeamsBtn = document.getElementById("clearTeamsBtn");
-
-    function showStatus(text, isError) {
-      statusEl.textContent = text || "";
-      statusEl.className = isError ? "status error" : "status";
+    function normalizeText(value) {
+      return String(value == null ? "" : value).trim();
     }
 
-    function getTeamLevelDisplay(team) {
-      const label = String(team.levelLabel || "").trim();
-      return label || String(team.level);
-    }
-
-    function buildLevelLabelLookup(teams) {
-      const lookup = new Map();
-      for (const team of teams || []) {
-        const label = String(team.levelLabel || "").trim();
-        if (label && !lookup.has(Number(team.level))) {
-          lookup.set(Number(team.level), label);
-        }
-      }
-      return lookup;
-    }
-
-    function getLevelDisplayFromLookup(level, lookup) {
-      return (lookup && lookup.get(Number(level))) || String(level);
-    }
-
-    function parseList(value, fallback) {
-      const list = value
-        .split(",")
-        .map((v) => v.trim())
-        .filter(Boolean);
-      return list.length ? list : fallback;
-    }
-
-    function getImportedDivisions() {
-      const divisions = [];
-      const seen = new Set();
-      for (const team of appState.teams) {
-        const division = String(team.division || "").trim();
-        if (division && !seen.has(division)) {
-          seen.add(division);
-          divisions.push(division);
-        }
-      }
-      return divisions.length ? divisions : DEFAULT_DIVISIONS;
-    }
-
-    function getInputConfig() {
-      const venueCapEntries = venueCapInputs.map((input) => {
-        const name = String(input.getAttribute("data-venue-name") || "").trim();
-        const capacity = Number(input.value);
-        return { name, capacity };
-      }).filter((entry) => entry.name);
-
-      const venues = venueCapEntries.map((entry) => entry.name);
-      const venueCapacities = Object.fromEntries(
-        venueCapEntries.map((entry) => [entry.name, entry.capacity])
+    function getRowValueByHeader(row, headerCandidates) {
+      const keys = Object.keys(row || {});
+      const normalizedMap = new Map(
+        keys.map((key) => [normalizeText(key).toLowerCase(), key])
       );
 
+      for (const candidate of headerCandidates) {
+        const matched = normalizedMap.get(normalizeText(candidate).toLowerCase());
+        if (matched != null) {
+          return row[matched];
+        }
+      }
+
+      return "";
+    }
+
+    function getRowValueByHeaderStart(row, startsWithText) {
+      const prefix = normalizeText(startsWithText).toLowerCase();
+      const keys = Object.keys(row || {});
+      for (const key of keys) {
+        if (normalizeText(key).toLowerCase().startsWith(prefix)) {
+          return row[key];
+        }
+      }
+      return "";
+    }
+
+    function parseLevel(value) {
+      const text = normalizeText(value);
+      if (!text) {
+        return { key: "", order: Number.MAX_SAFE_INTEGER };
+      }
+      const lowered = text.toLowerCase();
+      const compact = lowered.replace(/[^a-z0-9]+/g, " ").trim();
+
+      // Canonical ability labels used in the template data.
+      if (lowered === "we are just here for fun") {
+        return { key: "1", order: 1 };
+      }
+      if (lowered === "we can play a bit") {
+        return { key: "2", order: 2 };
+      }
+      if (lowered === "we are almost div 1 standard") {
+        return { key: "3", order: 3 };
+      }
+
+      // Accept common textual variants of the three ability labels.
+      if (/\bjust\b/.test(compact) && /\bfun\b/.test(compact)) {
+        return { key: "1", order: 1 };
+      }
+      if (/\bcan\b/.test(compact) && /\bplay\b/.test(compact) && /\bbit\b/.test(compact)) {
+        return { key: "2", order: 2 };
+      }
+      if (/\balmost\b/.test(compact) && /\bdiv\b/.test(compact) && /\b1\b/.test(compact)) {
+        return { key: "3", order: 3 };
+      }
+
+      // Accept common textual forms containing explicit level numbers.
+      const levelNumberMatch = lowered.match(/\blevel\s*([1-3])\b/);
+      if (levelNumberMatch) {
+        const parsed = Number(levelNumberMatch[1]);
+        return { key: String(parsed), order: parsed };
+      }
+
+      const asNumber = Number(text);
+      if (Number.isFinite(asNumber)) {
+        return { key: text, order: asNumber };
+      }
+      return { key: text, order: Number.MAX_SAFE_INTEGER };
+    }
+
+    function deriveTeamName(school, teamNumber, fallbackIndex) {
+      return school + " Team " + (fallbackIndex + 1);
+    }
+
+    function readRowsFromWorkbook(file, workbook) {
+      const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+      return XLSX.utils.sheet_to_json(firstSheet, { defval: "" });
+    }
+
+    function parseImportedRows(rows) {
+      const teams = [];
+      const seen = new Set();
+
+      rows.forEach((row, index) => {
+        const school = normalizeText(
+          getRowValueByHeader(row, ["Name of School", "School"])
+        );
+        const division = normalizeText(
+          getRowValueByHeader(row, ["Team's Division", "Division"])
+        );
+        const teamNumber = normalizeText(
+          getRowValueByHeaderStart(row, "Team Number") ||
+          getRowValueByHeader(row, ["Team Number", "TeamNumber"])
+        );
+        const levelRaw = normalizeText(
+          getRowValueByHeader(row, ["Team's playing ability", "Level"])
+        );
+
+        if (!school || !division || !levelRaw) {
+          return;
+        }
+
+        const levelParsed = parseLevel(levelRaw);
+        const name = deriveTeamName(school, teamNumber, index);
+        const id = school + "|" + division + "|" + name + "|" + levelParsed.key;
+
+        if (seen.has(id)) {
+          return;
+        }
+        seen.add(id);
+
+        teams.push({
+          id: "team-" + (teams.length + 1),
+          school,
+          division,
+          name,
+          level: levelParsed.order,
+          levelLabel: levelParsed.key,
+        });
+      });
+
+      return teams;
+    }
+
+    function getDivisions(teams) {
+      return [...new Set(teams.map((team) => team.division))].sort((a, b) => a.localeCompare(b));
+    }
+
+    function getLevels(teams) {
+      const map = new Map();
+      for (const team of teams) {
+        const key = team.level;
+        if (!map.has(key)) {
+          map.set(key, team.levelLabel || String(team.level));
+        }
+      }
+      return [...map.keys()].sort((a, b) => a - b);
+    }
+
+    function configFromInputs(teams) {
+      const venueRows = Array.from(document.querySelectorAll(".venue-row"));
+      const venues = [];
+      const venueCapacities = {};
+
+      for (const row of venueRows) {
+        const nameInput = row.querySelector(".venue-name");
+        const capInput = row.querySelector(".venue-capacity");
+        const name = normalizeText(nameInput.value);
+        const cap = Number(capInput.value);
+        if (!name) {
+          continue;
+        }
+        if (!Number.isFinite(cap) || cap < 1) {
+          throw new Error("Venue capacity must be at least 1 for " + name + ".");
+        }
+        venues.push(name);
+        venueCapacities[name] = Math.floor(cap);
+      }
+
+      if (venues.length === 0) {
+        throw new Error("At least one venue is required.");
+      }
+
+      const minSize = Number(document.getElementById("minSubdivisionSizeInput").value);
+      const maxSize = Number(document.getElementById("maxSubdivisionSizeInput").value);
+      const maxOptimisationTime = Number(document.getElementById("maxOptimisationTimeInput").value);
+
+      if (!Number.isFinite(minSize) || minSize < 1) {
+        throw new Error("Minimum sub-division size must be >= 1.");
+      }
+      if (!Number.isFinite(maxSize) || maxSize < minSize) {
+        throw new Error("Maximum sub-division size must be >= minimum size.");
+      }
+      if (!Number.isFinite(maxOptimisationTime) || maxOptimisationTime < 1) {
+        throw new Error("Maximum optimisation time must be >= 1 second.");
+      }
+
       return {
-        divisions: getImportedDivisions(),
+        divisions: getDivisions(teams),
+        levels: getLevels(teams),
         venues,
         venueCapacities,
-        minSubdivisionSize: Number(minSubdivisionSizeInput.value) || 7,
-        maxSubdivisionSize: Number(maxSubdivisionSizeInput.value) || 9,
-        maxOptimizationTimeSeconds: Number(maxOptimisationTimeInput.value) || 10,
+        minSubdivisionSize: Math.floor(minSize),
+        maxSubdivisionSize: Math.floor(maxSize),
+        maxOptimizationTimeSeconds: Math.floor(maxOptimisationTime),
       };
     }
 
-    function setActiveTab(tabName) {
-      const showSchedule = tabName !== "teams";
-
-      scheduleTabBtn.classList.toggle("active", showSchedule);
-      importedTeamsTabBtn.classList.toggle("active", !showSchedule);
-      scheduleTabPanel.classList.toggle("active", showSchedule);
-      importedTeamsTabPanel.classList.toggle("active", !showSchedule);
+    function randomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    function renderTeamsTable() {
-      teamsTbody.innerHTML = "";
-      for (const team of appState.teams) {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${escapeHtml(team.name)}</td>
-          <td>${escapeHtml(team.division || "")}</td>
-          <td>${escapeHtml(team.school)}</td>
-          <td>${escapeHtml(getTeamLevelDisplay(team))}</td>
-          <td><button class="small-btn" data-remove-id="${team.id}">Remove</button></td>
-        `;
-        teamsTbody.appendChild(tr);
+    function shuffle(items) {
+      const copy = [...items];
+      for (let i = copy.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function leagueAverageLevel(league) {
+      if (!league.teams.length) {
+        return 0;
+      }
+      return league.teams.reduce((sum, team) => sum + team.level, 0) / league.teams.length;
+    }
+
+    function venueLevelRangeFromLeagues(venue) {
+      const allTeams = venue.leagues.flatMap((league) => league.teams);
+      if (!allTeams.length) {
+        return null;
+      }
+      const levels = allTeams.map((team) => team.level);
+      return { min: Math.min(...levels), max: Math.max(...levels) };
+    }
+
+    function venueMatchesLeagueLevel(venue, league) {
+      const avgLevel = leagueAverageLevel(league);
+      const range = venueLevelRangeFromLeagues(venue);
+      if (!range) {
+        return true;
+      }
+      return avgLevel >= range.min - 1 && avgLevel <= range.max + 1;
+    }
+
+    function leagueLevelSpread(league) {
+      if (!league || !league.teams.length) {
+        return 0;
+      }
+      let minLevel = Number.POSITIVE_INFINITY;
+      let maxLevel = Number.NEGATIVE_INFINITY;
+      for (const team of league.teams) {
+        minLevel = Math.min(minLevel, team.level);
+        maxLevel = Math.max(maxLevel, team.level);
+      }
+      return maxLevel - minLevel;
+    }
+
+    function venueLevelSpread(venue) {
+      if (!venue || !venue.leagues.length) {
+        return 0;
+      }
+      let minLevel = Number.POSITIVE_INFINITY;
+      let maxLevel = Number.NEGATIVE_INFINITY;
+      let hasTeams = false;
+      for (const league of venue.leagues) {
+        for (const team of league.teams) {
+          hasTeams = true;
+          minLevel = Math.min(minLevel, team.level);
+          maxLevel = Math.max(maxLevel, team.level);
+        }
+      }
+      if (!hasTeams) {
+        return 0;
+      }
+      return maxLevel - minLevel;
+    }
+
+    function canPlaceLeagueInVenue(venue, league) {
+      const avgCompatible = venueMatchesLeagueLevel(venue, league);
+      if (!avgCompatible) {
+        return false;
+      }
+      const draftVenue = {
+        leagues: venue.leagues.concat([league]),
+      };
+      return venueLevelSpread(draftVenue) <= 1;
+    }
+
+    function getDominantSchoolCount(league) {
+      const counts = new Map();
+      for (const team of league.teams) {
+        counts.set(team.school, (counts.get(team.school) || 0) + 1);
+      }
+      let maxCount = 0;
+      for (const value of counts.values()) {
+        maxCount = Math.max(maxCount, value);
+      }
+      return maxCount;
+    }
+
+    function getSchoolClumpBonusForPlacement(venue, league) {
+      const venueSchoolCounts = new Map();
+      for (const existingLeague of venue.leagues) {
+        for (const team of existingLeague.teams) {
+          venueSchoolCounts.set(team.school, (venueSchoolCounts.get(team.school) || 0) + 1);
+        }
       }
 
-      const removeButtons = teamsTbody.querySelectorAll("button[data-remove-id]");
-      for (const btn of removeButtons) {
-        btn.addEventListener("click", function () {
-          const id = this.getAttribute("data-remove-id");
-          appState.teams = appState.teams.filter((t) => t.id !== id);
-          renderTeamsTable();
-          populateMoveSelectors();
-          showStatus("Team removed.", false);
-        });
+      let bonus = 0;
+      const leagueSchoolCounts = new Map();
+      for (const team of league.teams) {
+        leagueSchoolCounts.set(team.school, (leagueSchoolCounts.get(team.school) || 0) + 1);
       }
+
+      for (const [school, count] of leagueSchoolCounts.entries()) {
+        const existing = venueSchoolCounts.get(school) || 0;
+        bonus += 10 * ((existing + count) * (existing + count) - existing * existing);
+      }
+
+      return bonus;
+    }
+
+    function calculateTournamentScore(venueState) {
+      let score = 0;
+
+      const schoolVenueCounts = new Map();
+      for (const venue of venueState) {
+        const counts = new Map();
+        for (const league of venue.leagues) {
+          for (const team of league.teams) {
+            counts.set(team.school, (counts.get(team.school) || 0) + 1);
+          }
+        }
+        schoolVenueCounts.set(venue.name, counts);
+      }
+
+      for (const counts of schoolVenueCounts.values()) {
+        for (const n of counts.values()) {
+          score += 10 * n * n;
+        }
+      }
+
+      for (const venue of venueState) {
+        const overflow = Math.max(0, venue.used - venue.capacity);
+        score -= 500 * overflow;
+      }
+
+      for (const venue of venueState) {
+        for (const league of venue.leagues) {
+          const avg = leagueAverageLevel(league);
+          for (const team of league.teams) {
+            if (Math.abs(team.level - avg) > 1) {
+              score -= 50;
+            }
+          }
+        }
+      }
+
+      return score;
+    }
+
+    function mapTeamLocations(venueState) {
+      const locations = new Map();
+      venueState.forEach((venue, venueIndex) => {
+        venue.leagues.forEach((league, leagueIndex) => {
+          league.teams.forEach((team, teamIndex) => {
+            locations.set(team.id, { venueIndex, leagueIndex, teamIndex });
+          });
+        });
+      });
+      return locations;
+    }
+
+    function findConstraintOffender(venueState) {
+      const locations = mapTeamLocations(venueState);
+
+      // First priority: teams in over-capacity venues.
+      for (const venue of venueState) {
+        if (venue.used <= venue.capacity) {
+          continue;
+        }
+        for (const league of venue.leagues) {
+          if (league.teams.length) {
+            return league.teams[0];
+          }
+        }
+      }
+
+      // Second priority: school split singletons (N=1 in a venue).
+      const schoolVenueCounts = new Map();
+      for (const venue of venueState) {
+        for (const league of venue.leagues) {
+          for (const team of league.teams) {
+            const key = team.school + "|" + venue.name;
+            schoolVenueCounts.set(key, (schoolVenueCounts.get(key) || 0) + 1);
+          }
+        }
+      }
+
+      for (const venue of venueState) {
+        for (const league of venue.leagues) {
+          for (const team of league.teams) {
+            const key = team.school + "|" + venue.name;
+            if ((schoolVenueCounts.get(key) || 0) === 1) {
+              return team;
+            }
+          }
+        }
+      }
+
+      // Third priority: level mismatch > ±1 from league average.
+      for (const venue of venueState) {
+        for (const league of venue.leagues) {
+          const avg = leagueAverageLevel(league);
+          for (const team of league.teams) {
+            if (Math.abs(team.level - avg) > 1) {
+              return team;
+            }
+          }
+        }
+      }
+
+      // Fallback: any team.
+      for (const venue of venueState) {
+        for (const league of venue.leagues) {
+          if (league.teams.length) {
+            return league.teams[0];
+          }
+        }
+      }
+
+      return null;
+    }
+
+    function venueStateToSchedule(venueState, unallocated) {
+      const nextSubdivisionId = createIdFactory("subdivision");
+      const nextVenueId = createIdFactory("venue");
+
+      const venues = venueState.map((venue) => ({
+        id: nextVenueId(),
+        name: venue.name,
+        subdivisions: venue.leagues.map((league) => ({
+          id: nextSubdivisionId(),
+          division: league.division,
+          teams: [...league.teams],
+        })),
+      }));
+
+      return { venues, unallocated: unallocated || [] };
+    }
+
+    function buildSchoolVenueLinks(model, teamSlot, teamsBySchool, venueSlotIndices, schoolNames, venues) {
+      const schoolVenueVars = schoolNames.map((school, schoolIndex) =>
+        venues.map((venueName) => model.newBoolVar("school_" + school + "_venue_" + venueName + "_" + schoolIndex))
+      );
+
+      function sum(modelRef, exprs) {
+        return exprs.reduce((acc, expr) => acc.plus(expr.toLinearExpr ? expr.toLinearExpr() : expr), modelRef.newConstant(0).toLinearExpr());
+      }
+
+      schoolNames.forEach((school, schoolIndex) => {
+        const teamIndices = teamsBySchool.get(school) || [];
+        teamIndices.forEach((teamIndex) => {
+          venues.forEach((_, venueIndex) => {
+            const inVenue = sum(model, venueSlotIndices[venueIndex].map((slotIndex) => teamSlot[teamIndex][slotIndex]));
+            model.add(inVenue.le(schoolVenueVars[schoolIndex][venueIndex]));
+          });
+        });
+      });
+
+      return schoolVenueVars;
+    }
+
+    async function ensureCpSatRuntime() {
+      if (app.cpRuntime) {
+        return app.cpRuntime;
+      }
+
+      const module = await import("https://cdn.jsdelivr.net/npm/cpsat-js@1.0.0/+esm");
+      const solver = await module.CpSolver.create({
+        locateFile(path) {
+          if (path.endsWith(".wasm")) {
+            return "https://cdn.jsdelivr.net/npm/cpsat-js@1.0.0/build/cpsat.wasm";
+          }
+          return path;
+        },
+      });
+
+      app.cpRuntime = {
+        CpModel: module.CpModel,
+        CpSolverStatus: module.CpSolverStatus,
+        solver,
+      };
+      return app.cpRuntime;
+    }
+
+    async function allocateCpSat(teams, config) {
+      const runtime = await ensureCpSatRuntime();
+      const model = new runtime.CpModel();
+
+      const venueCapacities = config.venues.map((name) => config.venueCapacities[name]);
+      const totalCapacity = venueCapacities.reduce((sum, value) => sum + value, 0);
+      if (teams.length > totalCapacity) {
+        throw new Error("Not enough total venue capacity for all teams.");
+      }
+      const divisions = [...config.divisions];
+
+      function sum(exprs) {
+        return exprs.reduce((acc, expr) => acc.plus(expr.toLinearExpr ? expr.toLinearExpr() : expr), model.newConstant(0).toLinearExpr());
+      }
+
+      // Build slots: one per possible subdivision per venue.
+      const slots = [];
+      config.venues.forEach((venueName, venueIndex) => {
+        const maxSlots = Math.max(1, Math.ceil(venueCapacities[venueIndex] / config.minSubdivisionSize));
+        for (let i = 0; i < maxSlots; i += 1) {
+          slots.push({ id: venueName + "-slot-" + (i + 1), venueIndex, venueName });
+        }
+      });
+
+      // team × slot assignment variables.
+      const teamSlot = teams.map((_, teamIndex) =>
+        slots.map((slot) => model.newBoolVar("t" + teamIndex + "_s" + slot.id))
+      );
+      const slotActive = slots.map((slot) => model.newBoolVar("active_" + slot.id));
+
+      // Index helpers.
+      const teamsByDivision = new Map(divisions.map((d) => [d, []]));
+      const teamsBySchool = new Map();
+      teams.forEach((team, index) => {
+        if (teamsByDivision.has(team.division)) teamsByDivision.get(team.division).push(index);
+        if (!teamsBySchool.has(team.school)) teamsBySchool.set(team.school, []);
+        teamsBySchool.get(team.school).push(index);
+      });
+
+      const venueSlotIndices = config.venues.map((_, venueIndex) =>
+        slots
+          .map((slot, slotIndex) => ({ slotIndex, venueIndex: slot.venueIndex }))
+          .filter((item) => item.venueIndex === venueIndex)
+          .map((item) => item.slotIndex)
+      );
+
+      // Only truly hard constraint: every team is in exactly one slot.
+      teams.forEach((_, teamIndex) => {
+        model.add(sum(teamSlot[teamIndex]).equals(1));
+      });
+
+      // slotActive = 1 iff slot has at least one team (needed for size-penalty expressions).
+      slots.forEach((slot, slotIndex) => {
+        const slotSize = sum(teams.map((_, ti) => teamSlot[ti][slotIndex]));
+        model.add(slotSize.ge(slotActive[slotIndex]));
+        model.add(slotSize.le(slotActive[slotIndex].times(teams.length)));
+      });
+
+      // hasDivision[s][d] = 1 iff any team from division d is in slot s.
+      // Used to build the division-purity penalty.
+      const hasDivision = slots.map((slot) =>
+        divisions.map((division) => model.newBoolVar("div_" + slot.id + "_" + division))
+      );
+
+      slots.forEach((slot, slotIndex) => {
+        divisions.forEach((division, di) => {
+          const divExpr = sum((teamsByDivision.get(division) || []).map((ti) => teamSlot[ti][slotIndex]));
+          model.add(divExpr.ge(hasDivision[slotIndex][di]));
+          model.add(divExpr.le(hasDivision[slotIndex][di].times(teams.length)));
+        });
+        // Note: no longer hard sum(hasDivision) <= 1 — handled by penalty below.
+      });
+
+      // ── Soft penalty weights ─────────────────────────────────────────────
+      // Division purity: very expensive — strongly discourages mixing divisions.
+      // Subdivision size: moderate — prefer right-sized groups but allow flexibility.
+      const PENALTY_DIV   = 5000;
+      const PENALTY_UNDER = 500;
+      const PENALTY_OVER  = 500;
+
+      // Soft: division purity — penalise each extra division beyond 1 per slot.
+      const divViolVars = slots.map((slot, slotIndex) => {
+        const v = model.newIntVar(0, divisions.length - 1, "dv_" + slot.id);
+        // sum(hasDivision[s]) <= v + 1  →  extra = sum - 1, penalise v
+        model.add(sum(hasDivision[slotIndex]).le(sum([v, model.newConstant(1)])));
+        return v;
+      });
+
+      // Hard: venue capacity — no venue may exceed its configured maximum.
+      config.venues.forEach((_, vi) => {
+        const inVenueTerms = venueSlotIndices[vi].flatMap((si) =>
+          teams.map((_, ti) => teamSlot[ti][si])
+        );
+        model.add(sum(inVenueTerms).le(venueCapacities[vi]));
+      });
+
+      // Soft: subdivision minimum size — penalise each missing team in active slots.
+      const sizeUnderVars = slots.map((slot, slotIndex) => {
+        const v = model.newIntVar(0, config.minSubdivisionSize, "su_" + slot.id);
+        const slotSize = sum(teams.map((_, ti) => teamSlot[ti][slotIndex]));
+        // slotActive * minSize <= slotSize + v
+        model.add(slotActive[slotIndex].times(config.minSubdivisionSize).le(sum([slotSize, v])));
+        return v;
+      });
+
+      // Soft: subdivision maximum size — penalise each extra team beyond maxSize.
+      const sizeOverVars = slots.map((slot, slotIndex) => {
+        const v = model.newIntVar(0, teams.length, "so_" + slot.id);
+        const slotSize = sum(teams.map((_, ti) => teamSlot[ti][slotIndex]));
+        // slotSize <= slotActive * maxSize + v
+        model.add(slotSize.le(sum([slotActive[slotIndex].times(config.maxSubdivisionSize), v])));
+        return v;
+      });
+
+      // Soft objective: school consolidation + all penalty terms.
+      const schoolNames = [...teamsBySchool.keys()].sort((a, b) => a.localeCompare(b));
+      const schoolVenueVars = buildSchoolVenueLinks(model, teamSlot, teamsBySchool, venueSlotIndices, schoolNames, config.venues);
+      const schoolSplitTerms = schoolVenueVars.flatMap((row) => row.map((v) => v.times(10)));
+      const activeSlotPenalty = slotActive.map((v) => v.times(1));
+
+      model.minimize(sum([
+        ...schoolSplitTerms,
+        ...activeSlotPenalty,
+        ...divViolVars.map((v) => v.times(PENALTY_DIV)),
+        ...sizeUnderVars.map((v) => v.times(PENALTY_UNDER)),
+        ...sizeOverVars.map((v) => v.times(PENALTY_OVER)),
+      ]));
+
+      const result = runtime.solver.solve(model, { maxTimeInSeconds: config.maxOptimizationTimeSeconds || 100 });
+      // With only soft constraints the model is always trivially feasible.
+      if (!result || (result.status !== runtime.CpSolverStatus.OPTIMAL && result.status !== runtime.CpSolverStatus.FEASIBLE)) {
+        throw new Error("CP-SAT solver returned no solution. Try adjusting venue capacities or subdivision sizes.");
+      }
+
+      // Extract solution into venue/subdivision structure.
+      const nextSubdivisionId = createIdFactory("subdivision");
+      const nextVenueId = createIdFactory("venue");
+      const venues = config.venues.map((name) => ({ id: nextVenueId(), name, subdivisions: [] }));
+
+      slots.forEach((slot, slotIndex) => {
+        const assigned = teams.filter((_, ti) => result.value(teamSlot[ti][slotIndex]) === 1);
+        if (!assigned.length) return;
+        const division = assigned[0].division;
+        venues[slot.venueIndex].subdivisions.push({
+          id: nextSubdivisionId(),
+          division,
+          teams: assigned,
+        });
+      });
+
+      // Post-solve orphan absorption: move any team that is the sole
+      // representative of their school at a venue into a sibling subdivision
+      // that already contains a teammate.  Allows that sibling to grow to
+      // maxSize + 1.
+      venues.forEach((venue) => {
+        const schoolCountInVenue = new Map();
+        venue.subdivisions.forEach((sub) => {
+          sub.teams.forEach((team) => {
+            schoolCountInVenue.set(team.school, (schoolCountInVenue.get(team.school) || 0) + 1);
+          });
+        });
+
+        let changed = true;
+        while (changed) {
+          changed = false;
+          for (let sIdx = 0; sIdx < venue.subdivisions.length; sIdx += 1) {
+            const sub = venue.subdivisions[sIdx];
+            const orphans = sub.teams.filter((team) => (schoolCountInVenue.get(team.school) || 0) === 1);
+
+            for (const orphan of orphans) {
+              const sibling = venue.subdivisions.find(
+                (other, otherIdx) =>
+                  otherIdx !== sIdx &&
+                  other.division === sub.division &&
+                  other.teams.some((t) => t.school === orphan.school) &&
+                  other.teams.length <= config.maxSubdivisionSize
+              );
+              if (sibling) {
+                sibling.teams.push(orphan);
+                sub.teams = sub.teams.filter((t) => t.id !== orphan.id);
+                changed = true;
+                break;
+              }
+            }
+            if (changed) break;
+          }
+        }
+
+        venue.subdivisions = venue.subdivisions.filter((sub) => sub.teams.length > 0);
+      });
+
+      return { venues, unallocated: [], swapReport: [] };
+    }
+
+    /**
+     * VOLLEYBALL QUEENSLAND: GLOBAL SCHEDULER (V1.2)
+     *
+     * Phase 1: Mega-bucketing & orphan level merging
+     * Phase 2: Sequential block-fill seeding
+     * Phase 3: Liquidity-aware venue anchoring
+     * Phase 4: Timed targeted swap optimisation
+     * Phase 5: Orphan rescue polishing
+     * Phase 6: UI mapping/export shape
+     */
+    function allocateSimple(teams, config) {
+      const minSize = config.minSubdivisionSize;
+      const maxSize = config.maxSubdivisionSize;
+      const timeoutMs = Math.max(1, Number(config.maxOptimizationTimeSeconds || 2)) * 1000;
+
+      function getPrimarySchool(league) {
+        const counts = new Map();
+        for (const team of league.teams) {
+          counts.set(team.school, (counts.get(team.school) || 0) + 1);
+        }
+        let bestSchool = "";
+        let bestCount = -1;
+        for (const [school, count] of counts.entries()) {
+          if (count > bestCount) {
+            bestCount = count;
+            bestSchool = school;
+          }
+        }
+        return bestSchool;
+      }
+
+      function leagueAverage(league) {
+        if (!league.teams.length) {
+          return 0;
+        }
+        let total = 0;
+        for (const team of league.teams) {
+          total += team.level;
+        }
+        return total / league.teams.length;
+      }
+
+      function venueSchoolCount(venue, school) {
+        let count = 0;
+        for (const league of venue.leagues) {
+          for (const team of league.teams) {
+            if (team.school === school) {
+              count += 1;
+            }
+          }
+        }
+        return count;
+      }
+
+      function leagueScore(league) {
+        if (!league.teams.length) {
+          return 0;
+        }
+
+        const division = league.teams[0].division;
+        for (const team of league.teams) {
+          if (team.division !== division) {
+            return Number.NEGATIVE_INFINITY;
+          }
+        }
+
+        let score = 0;
+        if (league.teams.length > maxSize || league.teams.length < minSize) {
+          score -= 100;
+        }
+
+        const avg = leagueAverage(league);
+        for (const team of league.teams) {
+          const diff = Math.abs(team.level - avg);
+          if (diff > 1) {
+            score -= 500;
+          } else if (Math.abs(diff - 1) < 1e-9) {
+            score -= 10;
+          }
+        }
+
+        return score;
+      }
+
+      function venueScore(venue) {
+        let score = 0;
+        const schoolCounts = new Map();
+
+        for (const league of venue.leagues) {
+          score += leagueScore(league);
+          for (const team of league.teams) {
+            schoolCounts.set(team.school, (schoolCounts.get(team.school) || 0) + 1);
+          }
+        }
+
+        for (const count of schoolCounts.values()) {
+          score += 10 * count * count * count;
+        }
+
+        if (venue.used > venue.capacity) {
+          score -= 1000;
+        }
+
+        return score;
+      }
+
+      // Phase 1: division bins and multi-sort by level then school.
+      const teamsByDivision = new Map();
+      for (const team of teams) {
+        if (!teamsByDivision.has(team.division)) {
+          teamsByDivision.set(team.division, []);
+        }
+        teamsByDivision.get(team.division).push(team);
+      }
+
+      const divisionOrder = (config.divisions || []).filter((division) => teamsByDivision.has(division));
+      for (const division of teamsByDivision.keys()) {
+        if (!divisionOrder.includes(division)) {
+          divisionOrder.push(division);
+        }
+      }
+
+      // Phase 2: equal-slice league formation.
+      const divisionLeagues = new Map();
+      for (const division of divisionOrder) {
+        const divisionTeams = teamsByDivision.get(division) || [];
+        const sorted = [...divisionTeams].sort(
+          (a, b) => a.level - b.level || a.school.localeCompare(b.school) || a.name.localeCompare(b.name)
+        );
+
+        if (!sorted.length) {
+          divisionLeagues.set(division, []);
+          continue;
+        }
+
+        const numLeagues = Math.max(1, Math.ceil(sorted.length / maxSize));
+        const baseSize = Math.floor(sorted.length / numLeagues);
+        const remainder = sorted.length - baseSize * numLeagues;
+        const leagues = [];
+
+        let cursor = 0;
+        for (let i = 0; i < numLeagues; i += 1) {
+          const size = baseSize + (i < remainder ? 1 : 0);
+          const leagueTeams = sorted.slice(cursor, cursor + size);
+          cursor += size;
+          if (leagueTeams.length) {
+            leagues.push({ division, teams: leagueTeams });
+          }
+        }
+        divisionLeagues.set(division, leagues);
+      }
+
+      // Phase 3/4 seed: striped venue assignment with overlap-aware pull order.
+      const venueState = config.venues.map((name, originalIndex) => ({
+        originalIndex,
+        name,
+        capacity: config.venueCapacities[name],
+        used: 0,
+        leagues: [],
+      })).sort((a, b) => b.capacity - a.capacity || a.originalIndex - b.originalIndex);
+
+      const unallocated = [];
+      const divisionQueues = new Map();
+      for (const division of divisionOrder) {
+        divisionQueues.set(division, [...(divisionLeagues.get(division) || [])]);
+      }
+
+      function pickBestLeagueIndex(queue, venue, remainingCapacity) {
+        let bestIndex = -1;
+        let bestOverlap = -1;
+        let bestSize = -1;
+        for (let i = 0; i < queue.length; i += 1) {
+          const league = queue[i];
+          if (league.teams.length > remainingCapacity) {
+            continue;
+          }
+          const overlap = league.teams.reduce(
+            (sum, team) => sum + (venueSchoolCount(venue, team.school) > 0 ? 1 : 0),
+            0
+          );
+          if (overlap > bestOverlap || (overlap === bestOverlap && league.teams.length > bestSize)) {
+            bestOverlap = overlap;
+            bestSize = league.teams.length;
+            bestIndex = i;
+          }
+        }
+        return bestIndex;
+      }
+
+      for (const venue of venueState) {
+        while (venue.used < venue.capacity) {
+          let placedInStripe = false;
+
+          for (const division of divisionOrder) {
+            const remaining = venue.capacity - venue.used;
+            if (remaining <= 0) {
+              break;
+            }
+
+            const queue = divisionQueues.get(division) || [];
+            if (!queue.length) {
+              continue;
+            }
+
+            const index = pickBestLeagueIndex(queue, venue, remaining);
+            if (index < 0) {
+              continue;
+            }
+
+            const [league] = queue.splice(index, 1);
+            venue.leagues.push(league);
+            venue.used += league.teams.length;
+            placedInStripe = true;
+          }
+
+          if (!placedInStripe) {
+            break;
+          }
+        }
+      }
+
+      // Backfill any remaining leagues after first striping pass.
+      for (const division of divisionOrder) {
+        const queue = divisionQueues.get(division) || [];
+        while (queue.length) {
+          const league = queue.shift();
+          let bestVenue = null;
+          let bestOverlap = -1;
+          let bestRemaining = -1;
+
+          for (const venue of venueState) {
+            const remaining = venue.capacity - venue.used;
+            if (remaining < league.teams.length) {
+              continue;
+            }
+            const overlap = league.teams.reduce(
+              (sum, team) => sum + (venueSchoolCount(venue, team.school) > 0 ? 1 : 0),
+              0
+            );
+            if (overlap > bestOverlap || (overlap === bestOverlap && remaining > bestRemaining)) {
+              bestOverlap = overlap;
+              bestRemaining = remaining;
+              bestVenue = venue;
+            }
+          }
+
+          if (bestVenue) {
+            bestVenue.leagues.push(league);
+            bestVenue.used += league.teams.length;
+          } else {
+            unallocated.push(...league.teams);
+          }
+        }
+      }
+
+      // Phase 4: timed targeted swap optimizer.
+      function buildTeamCoords() {
+        const coords = [];
+        for (let vi = 0; vi < venueState.length; vi += 1) {
+          const venue = venueState[vi];
+          for (let li = 0; li < venue.leagues.length; li += 1) {
+            const league = venue.leagues[li];
+            for (let ti = 0; ti < league.teams.length; ti += 1) {
+              coords.push({ vi, li, ti });
+            }
+          }
+        }
+        return coords;
+      }
+
+      function leagueAllowsStrictLevel(league) {
+        const avg = leagueAverage(league);
+        return league.teams.every((team) => Math.abs(team.level - avg) <= 1);
+      }
+
+      function venueAllowsStrictLevel(venue) {
+        return venue.leagues.every((league) => leagueAllowsStrictLevel(league));
+      }
+
+      function getPriorityCoords() {
+        const schoolVenueCounts = new Map();
+
+        for (let vi = 0; vi < venueState.length; vi += 1) {
+          const venue = venueState[vi];
+          for (let li = 0; li < venue.leagues.length; li += 1) {
+            const league = venue.leagues[li];
+            for (let ti = 0; ti < league.teams.length; ti += 1) {
+              const team = league.teams[ti];
+              const key = team.school + "|" + venue.name;
+              schoolVenueCounts.set(key, (schoolVenueCounts.get(key) || 0) + 1);
+            }
+          }
+        }
+
+        const isolatedCoords = [];
+        for (let vi = 0; vi < venueState.length; vi += 1) {
+          const venue = venueState[vi];
+          for (let li = 0; li < venue.leagues.length; li += 1) {
+            const league = venue.leagues[li];
+            for (let ti = 0; ti < league.teams.length; ti += 1) {
+              const team = league.teams[ti];
+              const key = team.school + "|" + venue.name;
+              if ((schoolVenueCounts.get(key) || 0) === 1) {
+                isolatedCoords.push({ vi, li, ti });
+              }
+            }
+          }
+        }
+
+        return isolatedCoords;
+      }
+
+      const start = Date.now();
+      while (Date.now() - start < timeoutMs) {
+        const priorityPool = getPriorityCoords();
+        const pool = priorityPool.length ? priorityPool : buildTeamCoords();
+        if (!pool.length) {
+          break;
+        }
+
+        const pick = pool[randomInt(0, pool.length - 1)];
+        const leagueA = venueState[pick.vi].leagues[pick.li];
+        const teamA = leagueA.teams[pick.ti];
+
+        let bestDelta = 0;
+        let bestSwap = null;
+        const beforeA = venueScore(venueState[pick.vi]);
+
+        for (let bVi = 0; bVi < venueState.length; bVi += 1) {
+          if (bVi === pick.vi) {
+            continue;
+          }
+          const venueB = venueState[bVi];
+          const beforeB = venueScore(venueB);
+          for (let bLi = 0; bLi < venueB.leagues.length; bLi += 1) {
+            const leagueB = venueB.leagues[bLi];
+            for (let bTi = 0; bTi < leagueB.teams.length; bTi += 1) {
+              const teamB = leagueB.teams[bTi];
+              if (teamA.division !== teamB.division) {
+                continue;
+              }
+
+              leagueA.teams[pick.ti] = teamB;
+              leagueB.teams[bTi] = teamA;
+
+              const delta = venueScore(venueState[pick.vi]) + venueScore(venueB) - beforeA - beforeB;
+
+              leagueA.teams[pick.ti] = teamA;
+              leagueB.teams[bTi] = teamB;
+
+              if (delta > bestDelta) {
+                bestDelta = delta;
+                bestSwap = { bVi, bLi, bTi };
+              }
+            }
+          }
+        }
+
+        if (bestSwap) {
+          const leagueB = venueState[bestSwap.bVi].leagues[bestSwap.bLi];
+          const teamB = leagueB.teams[bestSwap.bTi];
+          leagueA.teams[pick.ti] = teamB;
+          leagueB.teams[bestSwap.bTi] = teamA;
+        }
+      }
+
+      // Phase 5: orphan rescue.
+      for (let srcVi = 0; srcVi < venueState.length; srcVi += 1) {
+        const sourceVenue = venueState[srcVi];
+
+        for (let srcLi = 0; srcLi < sourceVenue.leagues.length; srcLi += 1) {
+          const sourceLeague = sourceVenue.leagues[srcLi];
+
+          for (let srcTi = sourceLeague.teams.length - 1; srcTi >= 0; srcTi -= 1) {
+            const team = sourceLeague.teams[srcTi];
+            if (venueSchoolCount(sourceVenue, team.school) !== 1) {
+              continue;
+            }
+
+            const candidateVenues = venueState
+              .map((venue, index) => ({ index, count: venueSchoolCount(venue, team.school) }))
+              .filter((entry) => entry.index !== srcVi && entry.count > 1)
+              .sort((a, b) => b.count - a.count)
+              .map((entry) => entry.index);
+
+            let moved = false;
+            for (const dstVi of candidateVenues) {
+              const targetVenue = venueState[dstVi];
+
+              for (let dstLi = 0; dstLi < targetVenue.leagues.length; dstLi += 1) {
+                const targetLeague = targetVenue.leagues[dstLi];
+                if (targetLeague.division !== team.division) {
+                  continue;
+                }
+                if (targetLeague.teams.length + 1 > maxSize + 1) {
+                  continue;
+                }
+                if (sourceLeague.teams.length - 1 < minSize - 1) {
+                  continue;
+                }
+                if (targetVenue.used + 1 > targetVenue.capacity) {
+                  continue;
+                }
+
+                const sourceBackup = sourceLeague.teams[srcTi];
+                sourceLeague.teams.splice(srcTi, 1);
+                targetLeague.teams.push(team);
+                sourceVenue.used -= 1;
+                targetVenue.used += 1;
+
+                if (venueAllowsStrictLevel(targetVenue)) {
+                  moved = true;
+                  break;
+                }
+
+                targetLeague.teams.pop();
+                sourceLeague.teams.splice(srcTi, 0, sourceBackup);
+                sourceVenue.used += 1;
+                targetVenue.used -= 1;
+              }
+
+              if (moved) {
+                break;
+              }
+            }
+          }
+        }
+      }
+
+      const venueByName = new Map(venueState.map((venue) => [venue.name, venue]));
+      const orderedVenues = config.venues.map((name) =>
+        venueByName.get(name) || { name, capacity: config.venueCapacities[name], used: 0, leagues: [] }
+      );
+
+      const result = venueStateToSchedule(orderedVenues, unallocated);
+      return { ...result, swapReport: [] };
+    }
+
+    function findSubdivision(venues, venueId, subdivisionId) {
+      const venue = venues.find((item) => item.id === venueId);
+      if (!venue) {
+        return null;
+      }
+      const subdivision = venue.subdivisions.find((item) => item.id === subdivisionId);
+      if (!subdivision) {
+        return null;
+      }
+      return { venue, subdivision };
+    }
+
+    function moveTeamReducer(state, payload) {
+      const next = deepCloneState(state);
+      const { teamId, toVenueId, toSubdivisionId } = payload;
+
+      let movingTeam = null;
+      for (const venue of next.venues) {
+        for (const subdivision of venue.subdivisions) {
+          const index = subdivision.teams.findIndex((team) => team.id === teamId);
+          if (index >= 0) {
+            movingTeam = subdivision.teams.splice(index, 1)[0];
+            break;
+          }
+        }
+        if (movingTeam) {
+          break;
+        }
+      }
+
+      if (!movingTeam) {
+        return next;
+      }
+
+      const target = findSubdivision(next.venues, toVenueId, toSubdivisionId);
+      if (!target) {
+        return next;
+      }
+
+      target.subdivision.teams.push(movingTeam);
+      return next;
+    }
+
+    function reducer(state, action) {
+      switch (action.type) {
+        case ACTIONS.SET_TEAMS: {
+          const config = configFromInputs(action.payload.teams);
+          return {
+            ...state,
+            teams: action.payload.teams,
+            config,
+            venues: [],
+            unallocated: [],
+            swapReport: [],
+          };
+        }
+        case ACTIONS.ALLOCATE: {
+          return {
+            ...state,
+            config: action.payload.config,
+            venues: action.payload.venues,
+            unallocated: action.payload.unallocated,
+            swapReport: action.payload.swapReport || [],
+          };
+        }
+        case ACTIONS.MOVE_TEAM: {
+          return moveTeamReducer(state, action.payload);
+        }
+        case ACTIONS.SET_TAB: {
+          return { ...state, activeTab: action.payload.tab };
+        }
+        case ACTIONS.CLEAR: {
+          return {
+            teams: [],
+            venues: [],
+            unallocated: [],
+            swapReport: [],
+            activeTab: "schedule",
+            config: {
+              divisions: [],
+              levels: [],
+              venues: DEFAULT_VENUES.map((item) => item.name),
+              venueCapacities: Object.fromEntries(DEFAULT_VENUES.map((item) => [item.name, item.capacity])),
+              minSubdivisionSize: 7,
+              maxSubdivisionSize: 9,
+              maxOptimizationTimeSeconds: 100,
+            },
+          };
+        }
+        case ACTIONS.UNDO: {
+          const previous = app.history.pop();
+          return previous || state;
+        }
+        default:
+          return state;
+      }
+    }
+
+    function getSubdivisionAssignedLevel(subdivision) {
+      const counts = new Map();
+      for (const team of subdivision.teams) {
+        counts.set(team.level, (counts.get(team.level) || 0) + 1);
+      }
+      let assigned = null;
+      let best = -1;
+      for (const [level, count] of counts.entries()) {
+        if (count > best || (count === best && level < assigned)) {
+          assigned = level;
+          best = count;
+        }
+      }
+      return assigned;
+    }
+
+    function getSubdivisionLevelRange(subdivision) {
+      if (!subdivision || !subdivision.teams.length) {
+        return null;
+      }
+      let min = Number.POSITIVE_INFINITY;
+      let max = Number.NEGATIVE_INFINITY;
+      subdivision.teams.forEach((team) => {
+        min = Math.min(min, team.level);
+        max = Math.max(max, team.level);
+      });
+      return { min, max, spread: max - min };
+    }
+
+    function renderSplitSchoolReport(state) {
+      const reportEl = document.getElementById("splitSchoolReport");
+      if (!state.venues.length) {
+        reportEl.innerHTML = "";
+        return;
+      }
+      const map = new Map();
+
+      state.venues.forEach((venue) => {
+        venue.subdivisions.forEach((subdivision) => {
+          subdivision.teams.forEach((team) => {
+            if (!map.has(team.school)) {
+              map.set(team.school, new Map());
+            }
+            const schoolMap = map.get(team.school);
+            if (!schoolMap.has(venue.name)) {
+              schoolMap.set(venue.name, []);
+            }
+            schoolMap.get(venue.name).push(team.name);
+          });
+        });
+      });
+
+      const split = [...map.entries()].filter(([, venueMap]) => venueMap.size > 1);
+      if (split.length === 0) {
+        reportEl.innerHTML = '<div class="report"><h3>Schools Across Multiple Venues</h3><div class="ok">&#10003; No schools are split across venues.</div></div>';
+        return;
+      }
+
+      let html = '<div class="report"><h3>Schools Across Multiple Venues</h3>';
+      html += '<table class="report-table"><thead><tr><th>School</th><th>Venue</th><th>Teams</th></tr></thead><tbody>';
+      split.sort((a, b) => a[0].localeCompare(b[0])).forEach(([school, venueMap]) => {
+        const rows = [...venueMap.entries()].sort((a, b) => a[0].localeCompare(b[0]));
+        rows.forEach((row, index) => {
+          html += '<tr>';
+          if (index === 0) {
+            html += '<td rowspan="' + rows.length + '">' + escapeHtml(school) + '</td>';
+          }
+          html += '<td>' + escapeHtml(row[0]) + '</td>';
+          html += '<td>' + row[1].map(escapeHtml).join(', ') + '</td>';
+          html += '</tr>';
+        });
+      });
+      html += '</tbody></table></div>';
+      reportEl.innerHTML = html;
+    }
+
+    function renderConstraintViolationReport(state) {
+      const reportEl = document.getElementById("constraintViolationReport");
+      if (!state.venues.length) {
+        reportEl.innerHTML = "";
+        return;
+      }
+
+      const config = state.config || {};
+      const capacities = config.venueCapacities || {};
+      const minSize = Number(config.minSubdivisionSize || 0);
+      const maxSize = Number(config.maxSubdivisionSize || Number.MAX_SAFE_INTEGER);
+
+      const overCapacityRows = [];
+      const subSizeRows = [];
+
+      state.venues.forEach((venue) => {
+        const totalTeams = venue.subdivisions.reduce((sum, subdivision) => sum + subdivision.teams.length, 0);
+        const capacity = Number(capacities[venue.name] || 0);
+        if (totalTeams > capacity) {
+          overCapacityRows.push({
+            venue: venue.name,
+            teams: totalTeams,
+            capacity,
+            overflow: totalTeams - capacity,
+          });
+        }
+
+        venue.subdivisions.forEach((subdivision) => {
+          const size = subdivision.teams.length;
+          if (size < minSize || size > maxSize) {
+            subSizeRows.push({
+              venue: venue.name,
+              subdivision: subdivision.id,
+              division: subdivision.division,
+              size,
+              min: minSize,
+              max: maxSize,
+            });
+          }
+        });
+      });
+
+      if (!overCapacityRows.length && !subSizeRows.length) {
+        reportEl.innerHTML = '<div class="report"><h3>Constraint Violations</h3><div class="ok">&#10003; No capacity or subdivision size violations detected.</div></div>';
+        return;
+      }
+
+      let html = '<div class="report"><h3>Constraint Violations</h3>';
+      html += '<div class="warn">Found ' + (overCapacityRows.length + subSizeRows.length) + ' violation row(s) across capacity and subdivision size constraints.</div>';
+
+      if (overCapacityRows.length) {
+        html += '<h4>Venue Capacity Overflows</h4>';
+        html += '<table class="report-table"><thead><tr><th>Venue</th><th>Allocated Teams</th><th>Capacity</th><th>Overflow</th></tr></thead><tbody>';
+        overCapacityRows
+          .sort((a, b) => b.overflow - a.overflow || a.venue.localeCompare(b.venue))
+          .forEach((row) => {
+            html += '<tr>' +
+              '<td>' + escapeHtml(row.venue) + '</td>' +
+              '<td>' + escapeHtml(String(row.teams)) + '</td>' +
+              '<td>' + escapeHtml(String(row.capacity)) + '</td>' +
+              '<td>' + escapeHtml(String(row.overflow)) + '</td>' +
+              '</tr>';
+          });
+        html += '</tbody></table>';
+      }
+
+      if (subSizeRows.length) {
+        html += '<h4>Subdivision Size Violations</h4>';
+        html += '<table class="report-table"><thead><tr><th>Venue</th><th>Sub-division</th><th>Division</th><th>Size</th><th>Min</th><th>Max</th></tr></thead><tbody>';
+        subSizeRows
+          .sort((a, b) => a.venue.localeCompare(b.venue) || a.subdivision.localeCompare(b.subdivision))
+          .forEach((row) => {
+            html += '<tr>' +
+              '<td>' + escapeHtml(row.venue) + '</td>' +
+              '<td>' + escapeHtml(row.subdivision) + '</td>' +
+              '<td>' + escapeHtml(row.division) + '</td>' +
+              '<td>' + escapeHtml(String(row.size)) + '</td>' +
+              '<td>' + escapeHtml(String(row.min)) + '</td>' +
+              '<td>' + escapeHtml(String(row.max)) + '</td>' +
+              '</tr>';
+          });
+        html += '</tbody></table>';
+      }
+
+      html += '</div>';
+      reportEl.innerHTML = html;
+    }
+
+    function renderLevelMismatchReport(state) {
+      const reportEl = document.getElementById("levelMismatchReport");
+      if (!state.venues.length) {
+        reportEl.innerHTML = "";
+        return;
+      }
+      const rows = [];
+      const invalidSubdivisions = [];
+
+      state.venues.forEach((venue) => {
+        venue.subdivisions.forEach((subdivision) => {
+          const range = getSubdivisionLevelRange(subdivision);
+          if (range && range.spread > 1) {
+            invalidSubdivisions.push({
+              venue: venue.name,
+              subdivision: subdivision.id,
+              division: subdivision.division,
+              min: range.min,
+              max: range.max,
+              spread: range.spread,
+            });
+          }
+
+          const assigned = getSubdivisionAssignedLevel(subdivision);
+          subdivision.teams.forEach((team) => {
+            if (assigned == null) {
+              return;
+            }
+            if (Math.abs(team.level - assigned) > 1) {
+              rows.push({
+                team: team.name,
+                school: team.school,
+                venue: venue.name,
+                subdivision: subdivision.id,
+                requested: team.levelLabel || String(team.level),
+                assigned: String(assigned),
+              });
+            }
+          });
+        });
+      });
+
+      if (rows.length === 0 && invalidSubdivisions.length === 0) {
+        reportEl.innerHTML = '<div class="report"><h3>Level Mismatch Report</h3><div class="ok">&#10003; All subdivisions satisfy level spread <= 1, and all teams are within ±1 of their subdivision assigned level.</div></div>';
+        return;
+      }
+
+      let html = '<div class="report"><h3>Level Mismatch Report</h3>';
+
+      if (invalidSubdivisions.length) {
+        html += '<div class="warn">' + invalidSubdivisions.length + ' subdivision(s) contain a level spread greater than 1.</div>';
+        html += '<table class="report-table"><thead><tr><th>Venue</th><th>Sub-division</th><th>Division</th><th>Min Level</th><th>Max Level</th><th>Spread</th></tr></thead><tbody>';
+        invalidSubdivisions.forEach((row) => {
+          html += '<tr>' +
+            '<td>' + escapeHtml(row.venue) + '</td>' +
+            '<td>' + escapeHtml(row.subdivision) + '</td>' +
+            '<td>' + escapeHtml(row.division) + '</td>' +
+            '<td>' + escapeHtml(String(row.min)) + '</td>' +
+            '<td>' + escapeHtml(String(row.max)) + '</td>' +
+            '<td>' + escapeHtml(String(row.spread)) + '</td>' +
+            '</tr>';
+        });
+        html += '</tbody></table>';
+      }
+
+      if (rows.length) {
+        html += '<h4>Team-Level Mismatches (beyond ±1 from assigned level)</h4>';
+      html += '<table class="report-table"><thead><tr><th>Team</th><th>School</th><th>Venue</th><th>Sub-division</th><th>Requested Level</th><th>Assigned Level</th></tr></thead><tbody>';
+      rows.forEach((row) => {
+        html += '<tr>' +
+          '<td>' + escapeHtml(row.team) + '</td>' +
+          '<td>' + escapeHtml(row.school) + '</td>' +
+          '<td>' + escapeHtml(row.venue) + '</td>' +
+          '<td>' + escapeHtml(row.subdivision) + '</td>' +
+          '<td>' + escapeHtml(row.requested) + '</td>' +
+          '<td>' + escapeHtml(row.assigned) + '</td>' +
+          '</tr>';
+      });
+      html += '</tbody></table></div>';
+      } else {
+        html += '<div class="ok">&#10003; No team-level mismatches beyond ±1 from assigned level were found.</div></div>';
+      }
+      reportEl.innerHTML = html;
+    }
+
+    function renderSwapReport(state) {
+      const reportEl = document.getElementById("swapReport");
+      if (!state.venues.length) {
+        reportEl.innerHTML = "";
+        return;
+      }
+
+      const rows = state.swapReport || [];
+      if (!rows.length) {
+        reportEl.innerHTML = '<div class="report"><h3>Optimisation Swaps</h3><div class="ok">\u2713 No swap changes were applied in the optimisation loop.</div></div>';
+        return;
+      }
+
+      let html = '<div class="report"><h3>Optimisation Swaps</h3>';
+      html += '<table class="report-table"><thead><tr><th>#</th><th>Iteration</th><th>Division</th><th>Team A</th><th>From Venue</th><th>Team B</th><th>To Venue</th><th>Score \u0394</th></tr></thead><tbody>';
+      rows.forEach((row, index) => {
+        html += '<tr>' +
+          '<td>' + (index + 1) + '</td>' +
+          '<td>' + escapeHtml(row.iteration) + '</td>' +
+          '<td>' + escapeHtml(row.division) + '</td>' +
+          '<td>' + escapeHtml(row.teamA) + '</td>' +
+          '<td>' + escapeHtml(row.fromVenue) + '</td>' +
+          '<td>' + escapeHtml(row.teamB) + '</td>' +
+          '<td>' + escapeHtml(row.toVenue) + '</td>' +
+          '<td>' + escapeHtml((Number(row.delta) >= 0 ? '+' : '') + Number(row.delta || 0).toFixed(1)) + '</td>' +
+          '</tr>';
+      });
+      html += '</tbody></table></div>';
+      reportEl.innerHTML = html;
     }
 
     function escapeHtml(value) {
@@ -2049,686 +1878,351 @@ self.onmessage = async function (event) {
         .replaceAll("'", "&#39;");
     }
 
-    function buildGroupedScheduleRows(state) {
-      const groupedRows = [];
-      let maxTeamColumns = 0;
-
-      for (const venue of state.venues) {
-        for (const subdivision of venue.subdivisions) {
-          const levels = new Set();
-          const teams = [];
-          for (const team of subdivision.teams) {
-            levels.add(getTeamLevelDisplay(team));
-            teams.push(team.name);
-          }
-
-          const row = {
-            venue: venue.name,
-            division: subdivision.division,
-            subdivision: subdivision.id,
-            levels: [...levels].sort((left, right) => Number(left) - Number(right)).join(", "),
-            teams: teams.sort((left, right) => left.localeCompare(right)),
-          };
-
-          maxTeamColumns = Math.max(maxTeamColumns, row.teams.length);
-          groupedRows.push(row);
-        }
-      }
-
-      groupedRows.sort(
-        (left, right) =>
-          left.venue.localeCompare(right.venue) ||
-          left.division.localeCompare(right.division) ||
-          left.subdivision.localeCompare(right.subdivision)
-      );
-
-      return {
-        headers: ["Venue", "Division", "Subdivision", "Levels"].concat(
-          Array.from({ length: maxTeamColumns }, (_, index) => `Team ${index + 1}`)
-        ),
-        rows: groupedRows.map((row) => [row.venue, row.division, row.subdivision, row.levels].concat(row.teams)),
-      };
+    function renderTeamsTable(state) {
+      const body = document.getElementById("teamsTableBody");
+      body.innerHTML = "";
+      state.teams.forEach((team, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML =
+          "<td>" + (index + 1) + "</td>" +
+          "<td>" + escapeHtml(team.school) + "</td>" +
+          "<td>" + escapeHtml(team.division) + "</td>" +
+          "<td>" + escapeHtml(team.name) + "</td>" +
+          "<td>" + escapeHtml(team.levelLabel || String(team.level)) + "</td>";
+        body.appendChild(row);
+      });
     }
 
-    function buildScheduleTableHtml(tableData) {
-      return ["<table class=\"report-table\"><thead><tr>"]
-        .concat(tableData.headers.map((header) => `<th>${escapeHtml(header)}</th>`))
-        .concat(["</tr></thead><tbody>"])
-        .concat(
-          tableData.rows.map(
-            (row) =>
-              `<tr>${tableData.headers
-                .map((_, index) => `<td>${escapeHtml(row[index] || "")}</td>`)
-                .join("")}</tr>`
-          )
-        )
-        .concat(["</tbody></table>"])
-        .join("");
-    }
+    function renderSchedule(state) {
+      const grid = document.getElementById("scheduleGrid");
+      grid.innerHTML = "";
 
-    function renderPrintSchedule() {
-      if (!appState.store) {
-        printScheduleEl.innerHTML = "";
-        return;
-      }
+      state.venues.forEach((venue) => {
+        const used = venue.subdivisions.reduce((sum, subdivision) => sum + subdivision.teams.length, 0);
+        const cap = state.config.venueCapacities[venue.name] || 0;
 
-      const tableData = buildGroupedScheduleRows(appState.store.getState());
-      printScheduleEl.innerHTML = `<h3>Schedule Export</h3>${buildScheduleTableHtml(tableData)}`;
-    }
+        const venueCard = document.createElement("div");
+        venueCard.className = "venue-card";
+        venueCard.innerHTML =
+          '<div class="venue-head">' +
+            '<div class="venue-name">' + escapeHtml(venue.name) + '</div>' +
+            '<div class="venue-cap">' + used + ' / ' + cap + ' teams</div>' +
+          '</div>';
 
-    function renderSchedule() {
-      venuesEl.innerHTML = "";
-      const store = appState.store;
+        venue.subdivisions.forEach((subdivision) => {
+          const assignedLevel = getSubdivisionAssignedLevel(subdivision);
+          const subdivisionEl = document.createElement("div");
+          subdivisionEl.className = "subdivision";
+          subdivisionEl.dataset.venueId = venue.id;
+          subdivisionEl.dataset.subdivisionId = subdivision.id;
 
-      if (!store) {
-        venuesEl.innerHTML = "<p class=\"note\">No allocation yet.</p>";
-        printScheduleEl.innerHTML = "";
-        levelWarningEl.innerHTML = "";
-        return;
-      }
+          subdivisionEl.innerHTML =
+            '<div class="subdivision-head">' +
+              '<div class="subdivision-title">' + escapeHtml(subdivision.id) + ' (' + escapeHtml(subdivision.division) + ')</div>' +
+              '<div>' + subdivision.teams.length + ' teams · L' + (assignedLevel == null ? '-' : assignedLevel) + '</div>' +
+            '</div>';
 
-      const state = store.getState();
-      for (const venue of state.venues) {
-        const venueDiv = document.createElement("div");
-        venueDiv.className = "venue";
-
-        const heading = document.createElement("h3");
-        const venueCapacity = Number(state.config.venueCapacities[venue.name]) || 0;
-        const venueTeams = venue.subdivisions.reduce((sum, subdivision) => sum + subdivision.teams.length, 0);
-        heading.textContent = `${venue.name} (${venueTeams}/${venueCapacity} teams)`;
-        venueDiv.appendChild(heading);
-
-        if (venue.subdivisions.length === 0) {
-          const empty = document.createElement("p");
-          empty.className = "note";
-          empty.textContent = "No subdivisions yet.";
-          venueDiv.appendChild(empty);
-        }
-
-        for (const subdivision of venue.subdivisions) {
-          const subdivisionDiv = document.createElement("div");
-          subdivisionDiv.className = "subdivision";
-          subdivisionDiv.dataset.venueName = venue.name;
-          subdivisionDiv.dataset.subdivisionId = subdivision.id;
-
-          subdivisionDiv.addEventListener("dragover", function (event) {
+          subdivisionEl.addEventListener("dragover", (event) => {
             event.preventDefault();
-            this.classList.add("over");
+            subdivisionEl.classList.add("drop-target");
           });
-          subdivisionDiv.addEventListener("dragleave", function () {
-            this.classList.remove("over");
+
+          subdivisionEl.addEventListener("dragleave", () => {
+            subdivisionEl.classList.remove("drop-target");
           });
-          subdivisionDiv.addEventListener("drop", function (event) {
+
+          subdivisionEl.addEventListener("drop", (event) => {
             event.preventDefault();
-            this.classList.remove("over");
-            const teamId = event.dataTransfer.getData("text/plain");
-            if (!teamId) {
+            subdivisionEl.classList.remove("drop-target");
+            if (!app.drag.teamId) {
               return;
             }
-
-            try {
-              appState.store.dispatch({
-                type: ACTIONS.MOVE_TEAM,
-                payload: {
-                  teamId,
-                  toVenueId: this.dataset.venueName,
-                  toSubdivisionId: this.dataset.subdivisionId,
-                  allowConstraintViolation: true,
-                  allowOverCapacity: true,
-                },
-              });
-              renderSchedule();
-              populateMoveSelectors();
-              showStatus(`Moved ${teamId}.`, false);
-            } catch (err) {
-              showStatus(err.message, true);
-            }
+            store.dispatch({
+              type: ACTIONS.MOVE_TEAM,
+              payload: {
+                teamId: app.drag.teamId,
+                toVenueId: venue.id,
+                toSubdivisionId: subdivision.id,
+              },
+            });
+            const latestState = store.getState();
+            renderConstraintViolationReport(latestState);
+            renderSplitSchoolReport(latestState);
+            renderLevelMismatchReport(latestState);
+            renderSwapReport(latestState);
+            showStatus("Manual move applied.", false);
+            app.drag.teamId = null;
           });
 
-          const subHead = document.createElement("div");
-          subHead.className = "subheader";
-          subHead.innerHTML = `
-            <span>${escapeHtml(subdivision.division)} / ${escapeHtml(subdivision.id)}</span>
-            <span>${subdivision.teams.length}/${state.config.minSubdivisionSize}-${state.config.maxSubdivisionSize}</span>
-          `;
-          subdivisionDiv.appendChild(subHead);
+          subdivision.teams.forEach((team) => {
+            const teamEl = document.createElement("div");
+            teamEl.className = "team-card";
+            teamEl.draggable = true;
+            teamEl.dataset.teamId = team.id;
+            teamEl.innerHTML =
+              '<strong>' + escapeHtml(team.name) + '</strong> · ' +
+              escapeHtml(team.school) +
+              ' · L' + escapeHtml(team.levelLabel || String(team.level));
 
-          for (const team of subdivision.teams) {
-            const teamDiv = document.createElement("div");
-            teamDiv.className = "team";
-            teamDiv.draggable = true;
-            teamDiv.dataset.teamId = team.id;
-            teamDiv.innerHTML = `
-              <strong>${escapeHtml(team.name)}</strong>
-              <div class="meta">${escapeHtml(team.school)} | Level ${escapeHtml(getTeamLevelDisplay(team))} | ${escapeHtml(team.id)}</div>
-            `;
-            teamDiv.addEventListener("dragstart", function (event) {
-              event.dataTransfer.setData("text/plain", team.id);
+            teamEl.addEventListener("dragstart", () => {
+              app.drag.teamId = team.id;
+              teamEl.classList.add("dragging");
             });
-            subdivisionDiv.appendChild(teamDiv);
-          }
+            teamEl.addEventListener("dragend", () => {
+              teamEl.classList.remove("dragging");
+            });
 
-          venueDiv.appendChild(subdivisionDiv);
-        }
+            subdivisionEl.appendChild(teamEl);
+          });
 
-        venuesEl.appendChild(venueDiv);
-      }
+          venueCard.appendChild(subdivisionEl);
+        });
 
-      renderSchoolReport();
-      renderLevelWarningReport();
-      renderPrintSchedule();
+        grid.appendChild(venueCard);
+      });
     }
 
-    function renderLevelWarningReport() {
-      if (!appState.store) {
-        levelWarningEl.innerHTML = "";
-        return;
+    function setTabUi(tab) {
+      const scheduleTabBtn = document.getElementById("scheduleTabBtn");
+      const teamsTabBtn = document.getElementById("teamsTabBtn");
+      const scheduleTab = document.getElementById("scheduleTab");
+      const teamsTab = document.getElementById("teamsTab");
+
+      const scheduleActive = tab === "schedule";
+      scheduleTabBtn.classList.toggle("active", scheduleActive);
+      teamsTabBtn.classList.toggle("active", !scheduleActive);
+      scheduleTab.classList.toggle("active", scheduleActive);
+      teamsTab.classList.toggle("active", !scheduleActive);
+    }
+
+    function renderAll(state) {
+      renderTeamsTable(state);
+      renderSchedule(state);
+      renderConstraintViolationReport(state);
+      renderSplitSchoolReport(state);
+      renderLevelMismatchReport(state);
+      renderSwapReport(state);
+      setTabUi(state.activeTab);
+      document.getElementById("undoBtn").disabled = app.history.length === 0;
+    }
+
+    function showStatus(text, isError) {
+      const status = document.getElementById("status");
+      status.textContent = text || "";
+      status.className = isError ? "status error" : "status";
+    }
+
+    function populateVenueTable(defaults) {
+      const body = document.getElementById("venueTableBody");
+      body.innerHTML = "";
+      defaults.forEach((item) => addVenueRow(item.name, item.capacity));
+    }
+
+    function addVenueRow(name, capacity) {
+      const body = document.getElementById("venueTableBody");
+      const tr = document.createElement("tr");
+      tr.className = "venue-row";
+      tr.innerHTML =
+        '<td><input class="venue-name" value="' + escapeHtml(name || "") + '" /></td>' +
+        '<td><input class="venue-capacity" type="number" min="1" value="' + (Number(capacity) || 1) + '" /></td>' +
+        '<td><button class="small-btn remove-venue-btn" type="button">Remove</button></td>';
+      tr.querySelector(".remove-venue-btn").addEventListener("click", () => tr.remove());
+      body.appendChild(tr);
+    }
+
+    function buildExportRows(state) {
+      const rows = [];
+      state.venues.forEach((venue) => {
+        venue.subdivisions.forEach((subdivision) => {
+          const levelSet = [...new Set(subdivision.teams.map((team) => team.levelLabel || String(team.level)))].sort((a, b) => a.localeCompare(b));
+          rows.push({
+            Venue: venue.name,
+            SubDivision: subdivision.id,
+            Division: subdivision.division,
+            TeamCount: subdivision.teams.length,
+            Levels: levelSet.join(", "),
+            Teams: subdivision.teams.map((team) => team.name),
+          });
+        });
+      });
+      return rows;
+    }
+
+    function exportXlsx(state) {
+      const rows = buildExportRows(state);
+      const maxTeams = rows.reduce((max, row) => Math.max(max, row.Teams.length), 0);
+      const header = ["Venue", "Sub-division", "Division", "Number of teams", "Levels"];
+      for (let i = 1; i <= Math.max(1, maxTeams); i += 1) {
+        header.push("Team " + i);
       }
+      const matrix = [header];
 
-      const state = appState.store.getState();
-      const levelLabelLookup = buildLevelLabelLookup(appState.teams);
-      const mismatches = [];
-
-      for (const venue of state.venues) {
-        for (const subdivision of venue.subdivisions) {
-          if (subdivision.teams.length === 0) {
-            continue;
-          }
-
-          const levelCounts = new Map();
-          for (const team of subdivision.teams) {
-            const level = Number(team.level);
-            levelCounts.set(level, (levelCounts.get(level) || 0) + 1);
-          }
-
-          let allocatedLevel = null;
-          let highestCount = -1;
-          for (const [level, count] of levelCounts.entries()) {
-            if (count > highestCount || (count === highestCount && level < allocatedLevel)) {
-              allocatedLevel = level;
-              highestCount = count;
-            }
-          }
-
-          for (const team of subdivision.teams) {
-            if (Number(team.level) !== allocatedLevel) {
-              mismatches.push({
-                teamName: team.name,
-                school: team.school,
-                preferredLevel: getTeamLevelDisplay(team),
-                allocatedLevel: getLevelDisplayFromLookup(allocatedLevel, levelLabelLookup),
-                venueName: venue.name,
-                subdivisionId: subdivision.id,
-                division: subdivision.division,
-              });
-            }
-          }
+      rows.forEach((row) => {
+        const record = [row.Venue, row.SubDivision, row.Division, row.TeamCount, row.Levels];
+        row.Teams.forEach((teamName, index) => {
+          record.push(teamName);
+        });
+        while (record.length < header.length) {
+          record.push("");
         }
-      }
-
-      mismatches.sort((left, right) => {
-        const leftSubdivision = `${left.division} / ${left.subdivisionId}`;
-        const rightSubdivision = `${right.division} / ${right.subdivisionId}`;
-        return (
-          leftSubdivision.localeCompare(rightSubdivision) ||
-          left.venueName.localeCompare(right.venueName) ||
-          left.teamName.localeCompare(right.teamName)
-        );
+        matrix.push(record);
       });
 
-      if (mismatches.length === 0) {
-        levelWarningEl.innerHTML = '<div class="warning-clean">\u2713 Level check: all teams are in their subdivision\'s allocated level.</div>';
-        return;
-      }
-
-      let html = '<div class="warning-report">';
-      html += `<h3>Level mismatch warning (${mismatches.length})</h3>`;
-      html += '<table class="report-table"><thead><tr><th>Team</th><th>School</th><th>Preferred Level</th><th>Allocated Level</th><th>Venue</th><th>Subdivision</th></tr></thead><tbody>';
-      for (const item of mismatches) {
-        html += `<tr><td>${escapeHtml(item.teamName)}</td><td>${escapeHtml(item.school)}</td><td>${escapeHtml(item.preferredLevel)}</td><td>${escapeHtml(item.allocatedLevel)}</td><td>${escapeHtml(item.venueName)}</td><td>${escapeHtml(item.division)} / ${escapeHtml(item.subdivisionId)}</td></tr>`;
-      }
-      html += "</tbody></table></div>";
-      levelWarningEl.innerHTML = html;
+      const ws = XLSX.utils.aoa_to_sheet(matrix);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Schedule");
+      XLSX.writeFile(wb, "VQ-schedule-" + new Date().toISOString().slice(0, 10) + ".xlsx");
     }
 
-    function renderSchoolReport() {
-      const reportEl = document.getElementById("school-report");
-      if (!appState.store) {
-        reportEl.innerHTML = "";
-        return;
-      }
-      const state = appState.store.getState();
-
-      // Build map: school -> { venueName -> [teamName, ...] }
-      const schoolMap = new Map();
-      for (const venue of state.venues) {
-        for (const subdivision of venue.subdivisions) {
-          for (const team of subdivision.teams) {
-            const school = team.school || "(unknown)";
-            if (!schoolMap.has(school)) schoolMap.set(school, new Map());
-            const venueMap = schoolMap.get(school);
-            if (!venueMap.has(venue.name)) venueMap.set(venue.name, []);
-            venueMap.get(venue.name).push(team.name);
-          }
-        }
-      }
-
-      // Only schools split across more than one venue
-      const splitSchools = [...schoolMap.entries()]
-        .filter(([, venueMap]) => venueMap.size > 1)
-        .sort((a, b) => a[0].localeCompare(b[0]));
-
-      if (splitSchools.length === 0) {
-        reportEl.innerHTML = `<div class="school-report-clean">&#10003; All schools are at a single venue.</div>`;
-        return;
-      }
-
-      let html = `<div class="school-report">`;
-      html += `<h3>Split-school report &mdash; ${splitSchools.length} school${splitSchools.length === 1 ? "" : "s"} split across venues</h3>`;
-      html += `<table class="report-table"><thead><tr><th>School</th><th>Venue</th><th>Teams</th></tr></thead><tbody>`;
-      for (const [school, venueMap] of splitSchools) {
-        let first = true;
-        const venueRows = [...venueMap.entries()].sort((a, b) => a[0].localeCompare(b[0]));
-        for (const [venueName, teamNames] of venueRows) {
-          html += `<tr>`;
-          if (first) {
-            html += `<td rowspan="${venueRows.length}" class="school-cell">${escapeHtml(school)}</td>`;
-            first = false;
-          }
-          html += `<td>${escapeHtml(venueName)}</td>`;
-          html += `<td>${teamNames.map(escapeHtml).join(", ")}</td>`;
-          html += `</tr>`;
-        }
-      }
-      html += `</tbody></table></div>`;
-      reportEl.innerHTML = html;
-    }
-
-    function populateMoveSelectors() {
-      moveTeamSelect.innerHTML = "";
-      moveVenueSelect.innerHTML = "";
-      moveDivisionSelect.innerHTML = "";
-
-      for (const team of appState.teams) {
-        const opt = document.createElement("option");
-        opt.value = team.id;
-        opt.textContent = `${team.name} (${team.school})`;
-        moveTeamSelect.appendChild(opt);
-      }
-
-      const config = getInputConfig();
-      for (const venue of config.venues) {
-        const opt = document.createElement("option");
-        opt.value = venue;
-        opt.textContent = venue;
-        moveVenueSelect.appendChild(opt);
-      }
-
-      for (const division of config.divisions) {
-        const opt = document.createElement("option");
-        opt.value = division;
-        opt.textContent = division;
-        moveDivisionSelect.appendChild(opt);
-      }
-    }
-
-    function downloadTextFile(filename, text, mimeType) {
-      const blob = new Blob([text], { type: mimeType });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-    }
-
-    function parseCsvLine(line) {
-      const cells = [];
-      let current = "";
-      let inQuotes = false;
-
-      for (let i = 0; i < line.length; i += 1) {
-        const char = line[i];
-
-        if (char === '"') {
-          const isEscapedQuote = inQuotes && line[i + 1] === '"';
-          if (isEscapedQuote) {
-            current += '"';
-            i += 1;
-          } else {
-            inQuotes = !inQuotes;
-          }
-        } else if (char === "," && !inQuotes) {
-          cells.push(current.trim());
-          current = "";
-        } else {
-          current += char;
-        }
-      }
-
-      cells.push(current.trim());
-      return cells;
-    }
-
-    function parseCsv(text) {
-      const normalized = String(text || "").replace(/\r\n/g, "\n").replace(/\r/g, "\n");
-      const lines = normalized
-        .split("\n")
-        .map((line) => line.trim())
-        .filter((line) => line.length > 0);
-
-      return lines.map(parseCsvLine);
-    }
-
-    function normalizeHeader(text) {
-      return String(text || "")
-        .toLowerCase()
-        .replace(/[\u2018\u2019]/g, "'")
-        .replace(/[^a-z0-9]+/g, " ")
-        .trim();
-    }
-
-    function findImportHeaders(rows) {
-      const maxScanRows = Math.min(rows.length, 25);
-      for (let rowIndex = 0; rowIndex < maxScanRows; rowIndex += 1) {
-        const row = Array.isArray(rows[rowIndex]) ? rows[rowIndex] : [];
-        const normalized = row.map(normalizeHeader);
-
-        const schoolCol = normalized.findIndex((value) => value === "name of school");
-        const divisionCol = normalized.findIndex((value) => value === "team s division" || value === "teams division");
-        const teamNumberCol = normalized.findIndex((value) => value.startsWith("team number"));
-        const abilityCol = normalized.findIndex((value) => value === "team s playing ability" || value === "teams playing ability");
-
-        if (schoolCol >= 0 && divisionCol >= 0 && teamNumberCol >= 0 && abilityCol >= 0) {
-          return {
-            headerRowIndex: rowIndex,
-            schoolCol,
-            divisionCol,
-            teamNumberCol,
-            abilityCol,
-          };
-        }
-      }
-
-      throw new Error(
-        "Could not find required headers. Expected: Name of school, Team's division, Team number..., Team's playing ability."
-      );
-    }
-
-    function loadTeamsFromRows(rows, sourceLabel) {
-      if (!Array.isArray(rows) || rows.length === 0) {
-        throw new Error(`${sourceLabel} file is empty.`);
-      }
-
-      const normalizedRows = rows
-        .map((row) => (Array.isArray(row) ? row.map((cell) => String(cell || "").trim()) : []))
-        .filter((row) => row.some((cell) => cell.length > 0));
-
-      if (normalizedRows.length === 0) {
-        throw new Error(`${sourceLabel} file is empty.`);
-      }
-
-      const headerInfo = findImportHeaders(normalizedRows);
-      const startIndex = headerInfo.headerRowIndex + 1;
-
-      const importedTeams = [];
-      const csvDivisions = [];
-      const abilityMap = new Map();
-      let skipped = 0;
-
-      for (let i = startIndex; i < normalizedRows.length; i += 1) {
-        const row = normalizedRows[i];
-        const school = String(row[headerInfo.schoolCol] || "").trim();
-        const division = String(row[headerInfo.divisionCol] || "").trim();
-        const teamNumberOrName = String(row[headerInfo.teamNumberCol] || "").trim();
-        const abilityText = String(row[headerInfo.abilityCol] || "").trim();
-
-        if (!school || !division || !abilityText) {
-          skipped += 1;
-          continue;
-        }
-
-        if (!abilityMap.has(abilityText)) {
-          abilityMap.set(abilityText, abilityMap.size + 1);
-        }
-        const level = abilityMap.get(abilityText);
-
-        // Keep import naming consistent: School Division X.
-        const teamNumberMatch = teamNumberOrName.match(/\d+/);
-        const teamSuffix = teamNumberMatch
-          ? teamNumberMatch[0]
-          : (teamNumberOrName || "1");
-        const name = `${school} ${division} ${teamSuffix}`;
-
-        if (division && !csvDivisions.includes(division)) {
-          csvDivisions.push(division);
-        }
-
-        importedTeams.push({
-          id: `team-${importedTeams.length + 1}`,
-          name,
-          division,
-          level,
-          levelLabel: abilityText,
-          school,
-        });
-      }
-
-      if (importedTeams.length === 0) {
-        throw new Error(
-          "No valid team rows found. Ensure required headers and non-empty school, division, and playing ability values."
-        );
-      }
-
-      appState.teams = importedTeams;
-      appState.teamCounter = importedTeams.length + 1;
-      appState.store = null;
-
-      renderTeamsTable();
-      renderSchedule();
-      populateMoveSelectors();
-      showStatus(`Imported ${importedTeams.length} teams from ${sourceLabel}${skipped ? ` (${skipped} row(s) skipped)` : ""}.`, false);
-    }
-
-    function loadTeamsFromCsvText(text) {
-      const rows = parseCsv(text);
-      loadTeamsFromRows(rows, "CSV");
-    }
-
-    function loadTeamsFromSpreadsheetBuffer(arrayBuffer, filename) {
-      if (typeof XLSX === "undefined") {
-        throw new Error("Spreadsheet reader could not be loaded. Check internet access, then try again.");
-      }
-
-      const workbook = XLSX.read(arrayBuffer, { type: "array" });
-      if (!workbook.SheetNames || workbook.SheetNames.length === 0) {
-        throw new Error("Spreadsheet has no sheets.");
-      }
-
-      const firstSheetName = workbook.SheetNames[0];
-      const firstSheet = workbook.Sheets[firstSheetName];
-      const rows = XLSX.utils.sheet_to_json(firstSheet, {
-        header: 1,
-        raw: false,
-        defval: "",
-      });
-
-      const sourceLabel = (filename || "spreadsheet").toUpperCase();
-      loadTeamsFromRows(rows, sourceLabel);
-    }
-
-    function exportExcel() {
-      if (!appState.store) {
-        showStatus("Allocate first, then export to Excel.", true);
-        return;
-      }
-
-      const tableData = buildGroupedScheduleRows(appState.store.getState());
-      const htmlTable = buildScheduleTableHtml(tableData);
-
-      const excelHtml = `
-        <html xmlns:o="urn:schemas-microsoft-com:office:office"
-              xmlns:x="urn:schemas-microsoft-com:office:excel"
-              xmlns="http://www.w3.org/TR/REC-html40">
-          <head>
-            <meta charset="UTF-8" />
-            <xml>
-              <x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>Schedule</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook>
-            </xml>
-          </head>
-          <body>${htmlTable}</body>
-        </html>
-      `;
-
-      downloadTextFile(
-        `VQ-schedule-${new Date().toISOString().slice(0, 10)}.xls`,
-        excelHtml,
-        "application/vnd.ms-excel"
-      );
-
-      showStatus("Excel export complete.", false);
-    }
-
-    async function allocateNow() {
-      try {
-        const config = getInputConfig();
-        showStatus("CP-SAT started...", false);
-
-        let state = null;
-        let usedFallback = false;
-        try {
-          state = await runCpSatInWorker(appState.teams, config);
-        } catch (workerError) {
-          usedFallback = true;
-          showStatus(
-            `Worker unavailable (${workerError.message}). Falling back to in-page CP-SAT...`,
-            false
-          );
-          state = await allocateOptimalCpSat(appState.teams, config);
-        }
-        state.teamIndex = indexTeams(state.venues);
-        appState.store = createStore(state);
-        renderSchedule();
-        populateMoveSelectors();
-        const mode = String(state.solverStatus || "").toLowerCase() === "optimal" ? "optimal" : "feasible";
-        showStatus(
-          `${usedFallback ? "Allocation complete (fallback " : "Allocation complete ("}${mode}, ${Number(state.solveWallTime || 0).toFixed(2)}s).`,
-          false
-        );
-      } catch (err) {
-        showStatus(err.message, true);
-      }
-    }
-
-    function moveTeam() {
-      if (!appState.store) {
-        showStatus("Allocate first before manual move.", true);
-        return;
-      }
-
-      try {
-        appState.store.dispatch({
-          type: ACTIONS.MOVE_TEAM,
-          payload: {
-            teamId: moveTeamSelect.value,
-            toVenueId: moveVenueSelect.value,
-            toDivision: moveDivisionSelect.value,
-            allowConstraintViolation: true,
-          },
-        });
-        renderSchedule();
-        showStatus("Manual move applied.", false);
-      } catch (err) {
-        showStatus(err.message, true);
-      }
-    }
-
-    function clearTeams() {
-      appState.teams = [];
-      appState.teamCounter = 1;
-      appState.store = null;
-      renderTeamsTable();
-      renderSchedule();
-      populateMoveSelectors();
-      showStatus("All teams cleared.", false);
-    }
-
-    function openTeamsFilePicker(event) {
-      if (event) {
-        event.preventDefault();
-      }
-      if (!openCsvInput) {
-        return;
-      }
-      try {
-        if (typeof openCsvInput.showPicker === "function") {
-          openCsvInput.showPicker();
-          return;
-        }
-      } catch (err) {
-        // Ignore and fall back to click for older browsers or blocked showPicker calls.
-      }
-      openCsvInput.click();
-    }
-
-    allocateBtn.addEventListener("click", allocateNow);
-    importCsvBtn.addEventListener("click", openTeamsFilePicker);
-    if (importCsvBtnTeams) {
-      importCsvBtnTeams.addEventListener("click", openTeamsFilePicker);
-    }
-    exportExcelBtn.addEventListener("click", exportExcel);
-    moveTeamBtn.addEventListener("click", moveTeam);
-    clearTeamsBtn.addEventListener("click", clearTeams);
-    scheduleTabBtn.addEventListener("click", () => setActiveTab("schedule"));
-    importedTeamsTabBtn.addEventListener("click", () => setActiveTab("teams"));
-
-    openCsvInput.addEventListener("change", function (event) {
-      const file = event.target.files && event.target.files[0];
+    async function handleImportFile(file) {
       if (!file) {
         return;
       }
 
-      const filename = String(file.name || "").toLowerCase();
-      const isCsv = filename.endsWith(".csv") || String(file.type || "").includes("csv");
-      const isSpreadsheet =
-        filename.endsWith(".xls") ||
-        filename.endsWith(".xlsx") ||
-        String(file.type || "").includes("excel") ||
-        String(file.type || "").includes("spreadsheet");
+      const name = (file.name || "").toLowerCase();
+      let rows = [];
 
-      const reader = new FileReader();
-      reader.onload = function () {
-        try {
-          if (isCsv) {
-            loadTeamsFromCsvText(String(reader.result || ""));
-          } else if (isSpreadsheet) {
-            loadTeamsFromSpreadsheetBuffer(reader.result, file.name);
-          } else {
-            throw new Error("Unsupported file type. Use .csv, .xls, or .xlsx.");
-          }
-        } catch (err) {
-          showStatus(`Could not import file: ${err.message}`, true);
-        }
-      };
-
-      if (isCsv) {
-        reader.readAsText(file);
+      if (name.endsWith(".csv")) {
+        const text = await file.text();
+        const workbook = XLSX.read(text, { type: "string" });
+        rows = readRowsFromWorkbook(file, workbook);
       } else {
-        reader.readAsArrayBuffer(file);
+        const buffer = await file.arrayBuffer();
+        const workbook = XLSX.read(buffer, { type: "array" });
+        rows = readRowsFromWorkbook(file, workbook);
       }
 
-      openCsvInput.value = "";
+      const teams = parseImportedRows(rows);
+      if (!teams.length) {
+        throw new Error("No valid teams found. Required columns: Name of School, Team's Division, Team's playing ability (Team Number* optional).");
+      }
+
+      const schoolCounts = new Map();
+      for (const team of teams) {
+        schoolCounts.set(team.school, (schoolCounts.get(team.school) || 0) + 1);
+      }
+      let singleTeamSchoolCount = 0;
+      for (const count of schoolCounts.values()) {
+        if (count === 1) {
+          singleTeamSchoolCount += 1;
+        }
+      }
+
+      store.dispatch({ type: ACTIONS.SET_TEAMS, payload: { teams } });
+      showStatus(
+        "Imported " + teams.length + " teams. Schools with exactly 1 team: " + singleTeamSchoolCount + ".",
+        false
+      );
+    }
+
+    async function allocateWithCpSat() {
+      const state = store.getState();
+      if (!state.teams.length) {
+        showStatus("Import teams first.", true);
+        return;
+      }
+
+      try {
+        showStatus("CP-SAT allocation started...", false);
+        const config = configFromInputs(state.teams);
+        const allocation = await allocateCpSat(state.teams, config);
+        store.dispatch({ type: ACTIONS.ALLOCATE, payload: { config, ...allocation } });
+        showStatus("CP-SAT allocation complete.", false);
+      } catch (error) {
+        showStatus(error.message || String(error), true);
+      }
+    }
+
+    function allocateWithSimple() {
+      const state = store.getState();
+      if (!state.teams.length) {
+        showStatus("Import teams first.", true);
+        return;
+      }
+
+      try {
+        const config = configFromInputs(state.teams);
+        const allocation = allocateSimple(state.teams, config);
+        store.dispatch({ type: ACTIONS.ALLOCATE, payload: { config, ...allocation } });
+        showStatus("Simple allocation complete.", false);
+      } catch (error) {
+        showStatus(error.message || String(error), true);
+      }
+    }
+
+    const initialState = {
+      teams: [],
+      venues: [],
+      unallocated: [],
+      swapReport: [],
+      activeTab: "schedule",
+      config: {
+        divisions: [],
+        levels: [],
+        venues: DEFAULT_VENUES.map((item) => item.name),
+        venueCapacities: Object.fromEntries(DEFAULT_VENUES.map((item) => [item.name, item.capacity])),
+        minSubdivisionSize: 7,
+        maxSubdivisionSize: 9,
+        maxOptimizationTimeSeconds: 5,
+      },
+    };
+
+    const store = createStore(initialState);
+    store.subscribe((state) => renderAll(state));
+
+    document.getElementById("addVenueBtn").addEventListener("click", () => {
+      addVenueRow("New Venue", 10);
     });
 
-    renderTeamsTable();
-    renderSchedule();
-    populateMoveSelectors();
-    ensureCpSatRuntime().catch(() => {
-      // Runtime will be retried when Allocate is clicked.
+    document.getElementById("fileInput").addEventListener("change", async (event) => {
+      try {
+        await handleImportFile(event.target.files && event.target.files[0]);
+      } catch (error) {
+        showStatus(error.message || String(error), true);
+      } finally {
+        event.target.value = "";
+      }
     });
-    showStatus("Ready.", false);
+
+    document.getElementById("allocateCpSatBtn").addEventListener("click", allocateWithCpSat);
+    document.getElementById("allocateSimpleBtn").addEventListener("click", allocateWithSimple);
+
+    document.getElementById("undoBtn").addEventListener("click", () => {
+      if (!app.history.length) {
+        return;
+      }
+      store.dispatch({ type: ACTIONS.UNDO });
+      showStatus("Undo applied.", false);
+    });
+
+    document.getElementById("exportBtn").addEventListener("click", () => {
+      const state = store.getState();
+      if (!state.venues.length) {
+        showStatus("Allocate first, then export.", true);
+        return;
+      }
+      exportXlsx(state);
+      showStatus("Export complete.", false);
+    });
+
+    document.getElementById("printBtn").addEventListener("click", () => window.print());
+
+    document.getElementById("clearTeamsBtn").addEventListener("click", () => {
+      app.history = [];
+      store.dispatch({ type: ACTIONS.CLEAR });
+      showStatus("Teams cleared.", false);
+    });
+
+    document.getElementById("scheduleTabBtn").addEventListener("click", () => {
+      store.dispatch({ type: ACTIONS.SET_TAB, payload: { tab: "schedule" } });
+    });
+
+    document.getElementById("teamsTabBtn").addEventListener("click", () => {
+      store.dispatch({ type: ACTIONS.SET_TAB, payload: { tab: "teams" } });
+    });
+
+    populateVenueTable(DEFAULT_VENUES);
+    renderAll(store.getState());
   </script>
 </body>
 </html>
