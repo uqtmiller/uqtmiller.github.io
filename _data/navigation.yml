@@ -9,6 +9,9 @@ main:
   - title: "Students"
     url: /students/
 
+  - title: "Recruitment"
+    url: /recruitment/
+
   - title: "Tips for work-life balance"
     url: /wl_balance/
 
