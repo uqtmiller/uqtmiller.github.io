@@ -12,6 +12,7 @@ redirect_from:
 ## Employment history
 
 **The University of Queensland**
+  * TIET-UQ Chair of Data Science, November 2024-
   * Professor, School of Electrical Engineering and Computer Science, July 2023–
 
 **The University of Melbourne**
