@@ -7,7 +7,7 @@ author_profile: true
 
 ## Mission
 
-In the [ASCI lab](https://uqasci.github.io/) Our mission is to improve the capabilities of expert decision makers by using artificial intelligence to do the hard things.
+In the [ASCI lab](https://uqasci.github.io/), our mission is to improve the capabilities of expert decision makers by using artificial intelligence to do the hard things.
 
 
 ## Values
