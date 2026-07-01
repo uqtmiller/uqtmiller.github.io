@@ -5,6 +5,9 @@ permalink: /recruitment/
 author_profile: true
 ---
 
+I currently have no positions open.
+
+<!-- 
 I'm recruiting two postdocs in area of human-centered decision support using AI.
 
 **Applications close**: Monday 8 December, 2025 at 11.00pm AEST
@@ -61,3 +64,4 @@ As part of your application, you will need to provide: (1) a resume/CV; and (2) 
 
 [Contact me](mailto:timothy.miller@uq.edu.au) if you have questions about the positions.
 
+-->
