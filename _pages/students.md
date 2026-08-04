@@ -21,6 +21,7 @@ Potential student interns: I do not usually have funding for internships. When I
 * [Saied Salem](https://www.linkedin.com/in/saied-salem/) ([<i class="fas fa-fw fa-graduation-cap"></i>](https://scholar.google.com/citations?user=kY3zwMoAAAAJ&hl=en)) - Concept-based explanation; with Alina Bialkowski.
 * [Bing Tuo](https://www.linkedin.com/in/bing-tuo-613814319) - Human-centered decision support; with Gianluca Demartini.
 * [Pradeepa Bandara](https://www.linkedin.com/in/pradeepa-bandara-22114722/) - ([<i class="fas fa-fw fa-graduation-cap"></i>](https://scholar.google.com.au/citations?user=8XK6ur0AAAAJ&hl=en&oi=ao)) - Older people's use of language models for managing their health and wellbeing; supervised with Dhaval Vyas.
+* [Chen Chen](https://www.linkedin.com/in/chenchen-cc/) - Concept-based explainable AI for volumetric 3D images; supervised with Alina Bialkowski.
 * [Lyndon Benke](https://scholar.google.com/citations?user=l5KtWPEAAAAJ&hl=en) - Deception in complex environments; with Michael Papasimeon (DST Group), Adrian Pearce (The University of Melbourne) and Nir Lipovetzky (The University of Melbourne) 
 
 ## Completed PhD and MPhil researchers
