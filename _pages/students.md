@@ -7,9 +7,7 @@ author_profile: true
 
 ## Research supervision/advising
 
-Currently I do not have any new funding for PhD scholarships. 
-
-If you have funding for a scholarship and would like to consider applying for a PhD scholarship in our lab, please first read our [Missions and values](/mission_and_values.md)  to ensure that our lab aligns with what you aim to do.
+Currently I do not have any new capacity to take on new PhD or MPhil students.
 
 ## Direct contact opportunities
 
