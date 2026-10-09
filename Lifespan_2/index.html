@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lifespan Psychopathology Study Companion</title>
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <!-- Firebase Compat SDK for optional Firestore cloud sync -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+
+  <!-- Top App Header -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand-wrapper">
+        <span class="brand-icon">📚</span>
+        <div>
+          <h1 class="brand-title">Lifespan Psychopathology Study Companion</h1>
+          <p class="brand-subtitle">Clinical Master Revision & Scenario Exam Practice App</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="openSettingsBtn" class="btn btn-secondary btn-sm">
+          ⚙️ Settings & Cloud Sync
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Module Selector Bar (All 10 Modules) -->
+  <nav class="module-nav-container">
+    <div id="moduleNavList" class="module-nav-list">
+      <!-- Populated dynamically by data_all_modules.js -->
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="main-content">
+
+    <!-- Active Module Workspace (Module 3) -->
+    <section id="activeModuleContainer">
+
+      <!-- Progress Ribbon -->
+      <div class="stats-ribbon">
+        <div class="stats-group">
+          <div class="stat-item">
+            <span class="stat-label">Module Mastery Accuracy</span>
+            <span id="statAccuracy" class="stat-value text-success">0%</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Scenarios Mastered</span>
+            <span id="statMastered" class="stat-value">0 / 6</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Total Practice Attempts</span>
+            <span id="statAttempts" class="stat-value">0</span>
+          </div>
+        </div>
+
+        <div class="progress-bar-container">
+          <div class="progress-bar-label">
+            <span>Overall Module Readiness</span>
+          </div>
+          <div class="progress-track">
+            <div id="moduleProgressBar" class="progress-fill" style="width: 0%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Module Hero Banner -->
+      <div class="module-banner">
+        <h1>Module 3: Attachment Across the Lifespan</h1>
+        <p class="banner-subtitle">Evolutionary Foundations, Diagnostic Criteria, Differential Markers, and Clinical Interventions</p>
+        <p class="banner-meta">Course Coordinator: <strong>Dr Matthew McKenzie</strong> | School of Applied Psychology</p>
+      </div>
+
+      <!-- Module Sub-Tabs Navigation -->
+      <div class="subtabs-bar">
+        <button class="subtab-btn active" data-tab="review" onclick="App.switchSubTab('review')">
+          📖 1. Content Review & Disorders Matrix
+        </button>
+        <button class="subtab-btn" data-tab="differential" onclick="App.switchSubTab('differential')">
+          🔬 2. Interactive Differential Tool
+        </button>
+        <button class="subtab-btn" data-tab="quiz" onclick="App.switchSubTab('quiz')">
+          🎯 3. Clinical Scenarios (Diagnose → Treat)
+        </button>
+        <button class="subtab-btn" data-tab="shortanswer" onclick="App.switchSubTab('shortanswer')">
+          📝 4. Short Answer & Essay Practice
+        </button>
+      </div>
+
+      <!-- =================================================================== -->
+      <!-- TAB 1: Content Review & Disorders Matrix -->
+      <!-- =================================================================== -->
+      <div id="tab-review" class="tab-pane active">
+        <!-- Theoretical Pillars -->
+        <h3 class="section-heading">🏛️ Theoretical Pillars & Lifespan Foundations</h3>
+        <div id="theoreticalPillarsContainer" class="pillars-grid">
+          <!-- Populated from MODULE_3_DATA.theoreticalPillars -->
+        </div>
+
+        <!-- Comprehensive Disorders Table -->
+        <h3 class="section-heading">📋 Comprehensive Disorders & Attachment Classifications Table</h3>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th style="width: 18%;">Disorder / Pattern</th>
+                <th style="width: 28%;">Diagnostic Criteria & Manifestation</th>
+                <th style="width: 27%;">Factors Looked For & Assessment</th>
+                <th style="width: 27%;">Potential Evidence-Based Treatments</th>
+              </tr>
+            </thead>
+            <tbody id="disordersTableBody">
+              <!-- Populated from MODULE_3_DATA.disorders -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- =================================================================== -->
+      <!-- TAB 2: Interactive Differential Tool -->
+      <!-- =================================================================== -->
+      <div id="tab-differential" class="tab-pane">
+        <div class="diff-intro-box">
+          <h3>Interactive Contrastive Differential Diagnosis Tool</h3>
+          <p>Select a <strong>single disorder</strong> below to view all of its possible symptoms, criteria, and factors. Select <strong>two or more</strong> to generate an immediate, contrastive differential diagnosis comparing them side-by-side. To reset, click <em>Clear (Empty Table)</em>.</p>
+        </div>
+
+        <!-- Preset Quick Buttons -->
+        <div class="diff-presets-bar">
+          <span class="preset-label">Quick Presets:</span>
+          <button class="btn-preset" onclick="App.setDifferentialPreset('RAD_DSED')">RAD vs. DSED</button>
+          <button class="btn-preset" onclick="App.setDifferentialPreset('AVOIDANT_AMBIVALENT')">Dismissing vs. Preoccupied</button>
+          <button class="btn-preset" onclick="App.setDifferentialPreset('RAD_DISORGANIZED')">RAD vs. Disorganized (Trauma)</button>
+          <button class="btn-preset" onclick="App.setDifferentialPreset('ALL_INSECURE')">All Insecure Styles (A vs C vs D)</button>
+          <button class="btn-preset" onclick="App.setDifferentialPreset('ALL_SIX')">Select All 6 Conditions</button>
+          <button class="btn-preset" style="color: #b91c1c; border-color: #fca5a5;" onclick="App.setDifferentialPreset('CLEAR_ALL')">Clear (Empty Table)</button>
+        </div>
+
+        <!-- Disoders Selection Chips -->
+        <div id="diffDisordersList" class="diff-chips-container">
+          <!-- Populated by app.js -->
+        </div>
+
+        <!-- Dynamic Output Container -->
+        <div id="differentialOutput">
+          <!-- Populated dynamically when conditions are selected -->
+        </div>
+      </div>
+
+      <!-- =================================================================== -->
+      <!-- TAB 3: Scenario Quizzes (Diagnose -> Treat) -->
+      <!-- =================================================================== -->
+      <div id="tab-quiz" class="tab-pane">
+        <div class="card diff-intro-box" style="margin-bottom: 24px;">
+          <h3>Clinical Case Vignette Practicum (Two-Step Decision Flow)</h3>
+          <p>Read each case scenario carefully. For each case, you will complete two sequential clinical decisions: 
+          <strong>Step 1: Diagnose the presentation</strong>, followed by <strong>Step 2: Select the optimal evidence-based intervention</strong>. 
+          Your attempts and mastery rates are automatically tracked in real-time.</p>
+        </div>
+
+        <div id="scenariosContainer">
+          <!-- Populated by app.js with 6 lifespan vignettes -->
+        </div>
+      </div>
+
+      <!-- =================================================================== -->
+      <!-- TAB 4: Short Answer & Essay Practice -->
+      <!-- =================================================================== -->
+      <div id="tab-shortanswer" class="tab-pane">
+        <!-- Short Answer Bank -->
+        <h3 class="section-heading">✍️ High-Yield Short Answer Practice Questions</h3>
+        <p class="text-muted" style="margin-bottom: 16px;">Practice answering these exam-style questions under timed conditions. You can save your practice response, toggle the official model answer and marking points, and rate your performance.</p>
+        
+        <div id="shortAnswerList">
+          <!-- Populated by app.js -->
+        </div>
+
+        <!-- Essay Section -->
+        <h3 class="section-heading" style="margin-top: 36px;">📜 Comprehensive Exam Essay Practice</h3>
+        <div id="essaySectionContainer">
+          <!-- Populated by app.js -->
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Preview Container for Modules 1, 2, 4-10 -->
+    <section id="previewModuleContainer" style="display: none;">
+      <!-- Populated when user clicks any of the other 9 modules -->
+    </section>
+
+  </main>
+
+  <!-- Settings & Firebase Sync Modal -->
+  <div id="settingsModal" class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>App Settings & Cloud Sync</h3>
+        <button id="closeSettingsModal" class="close-btn">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 16px;">
+          Your revision notes and quiz scores are automatically saved to your browser's local storage for instant offline access. You can also connect to Google Firebase Firestore to sync progress across multiple devices.
+        </p>
+
+        <!-- Firebase Config Form -->
+        <h4 class="modal-section-title">☁️ Google Firebase Firestore Setup (Optional)</h4>
+        <div class="form-group">
+          <label>Firebase API Key</label>
+          <input type="text" id="fbApiKey" placeholder="AIzaSy...">
+        </div>
+        <div class="form-group">
+          <label>Project ID</label>
+          <input type="text" id="fbProjectId" placeholder="my-lifespan-psych-app">
+        </div>
+        <div class="form-group">
+          <label>Auth Domain</label>
+          <input type="text" id="fbAuthDomain" placeholder="my-lifespan-psych-app.firebaseapp.com">
+        </div>
+        <div class="form-group">
+          <label>App ID</label>
+          <input type="text" id="fbAppId" placeholder="1:1234567890:web:abcdef">
+        </div>
+        <div class="form-group">
+          <label>Storage Bucket</label>
+          <input type="text" id="fbStorageBucket" placeholder="my-lifespan-psych-app.appspot.com">
+        </div>
+        <div class="form-group">
+          <label>Messaging Sender ID</label>
+          <input type="text" id="fbMessagingSenderId" placeholder="1234567890">
+        </div>
+
+        <div style="margin-top: 10px;">
+          <button id="saveFirebaseConfigBtn" class="btn btn-primary btn-sm">Connect & Sync Firebase</button>
+          <div id="firebaseStatusMsg" style="margin-top: 8px; font-size: 12.5px;"></div>
+        </div>
+
+        <!-- Local Backup & Reset -->
+        <h4 class="modal-section-title">💾 Local Data Management</h4>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
+          <button id="exportDataBtn" class="btn btn-secondary btn-sm">Download Backup (JSON)</button>
+          <label class="btn btn-outline-primary btn-sm" style="margin: 0; cursor: pointer;">
+            Restore Backup
+            <input type="file" id="importFileInput" accept=".json" style="display: none;">
+          </label>
+          <button id="resetDataBtn" class="btn btn-outline-primary btn-sm text-danger" style="border-color: #fca5a5;">Reset All Progress</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data_all_modules.js"></script>
+  <script src="js/data_module3.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
