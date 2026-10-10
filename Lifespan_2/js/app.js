@@ -1,19 +1,49 @@
 // Main application controller for Lifespan Psychology Study Companion
+// Supports Modules 3 through 10 with interactive clinical tables, differential diagnosis tools,
+// two-step scenario quizzes with "guess again" retry logic, and short answer/essay practice banks.
+// Modules 1 & 2 are non-disorder foundational modules presented with informational overview states.
 
 document.addEventListener("DOMContentLoaded", () => {
   App.init();
 });
 
+const MODULES_DATA = {
+  3: typeof MODULE_3_DATA !== 'undefined' ? MODULE_3_DATA : null,
+  4: typeof MODULE_4_DATA !== 'undefined' ? MODULE_4_DATA : null,
+  5: typeof MODULE_5_DATA !== 'undefined' ? MODULE_5_DATA : null,
+  6: typeof MODULE_6_DATA !== 'undefined' ? MODULE_6_DATA : null,
+  7: typeof MODULE_7_DATA !== 'undefined' ? MODULE_7_DATA : null,
+  8: typeof MODULE_8_DATA !== 'undefined' ? MODULE_8_DATA : null,
+  9: typeof MODULE_9_DATA !== 'undefined' ? MODULE_9_DATA : null,
+  10: typeof MODULE_10_DATA !== 'undefined' ? MODULE_10_DATA : null
+};
+
 const App = {
   currentModuleId: 3,
   currentSubTab: "review", // "review", "differential", "quiz", "shortanswer"
-  selectedDifferentialIds: ["RAD", "DSED"],
+  selectedDifferentialIds: [],
 
   init() {
+    this.initModuleState();
     this.renderTopNav();
     this.setupEventListeners();
     this.renderActiveModule();
     this.updateGlobalProgressUI();
+  },
+
+  getActiveModuleData() {
+    return MODULES_DATA[this.currentModuleId] || null;
+  },
+
+  initModuleState() {
+    const modData = this.getActiveModuleData();
+    if (modData && modData.disorders && modData.disorders.length >= 2) {
+      this.selectedDifferentialIds = [modData.disorders[0].id, modData.disorders[1].id];
+    } else if (modData && modData.disorders && modData.disorders.length === 1) {
+      this.selectedDifferentialIds = [modData.disorders[0].id];
+    } else {
+      this.selectedDifferentialIds = [];
+    }
   },
 
   // -------------------------------------------------------------
@@ -41,8 +71,11 @@ const App = {
 
   switchModule(moduleId) {
     this.currentModuleId = moduleId;
+    this.initModuleState();
     this.renderTopNav();
     this.renderActiveModule();
+    this.updateGlobalProgressUI();
+    window.scrollTo({ top: 0, behavior: "smooth" });
   },
 
   switchSubTab(tabName) {
@@ -59,18 +92,19 @@ const App = {
     const moduleContainer = document.getElementById("activeModuleContainer");
     const previewContainer = document.getElementById("previewModuleContainer");
 
-    if (this.currentModuleId === 3) {
+    const modData = this.getActiveModuleData();
+    if (modData) {
       if (moduleContainer) moduleContainer.style.display = "block";
       if (previewContainer) previewContainer.style.display = "none";
-      this.renderModule3();
+      this.renderModuleData(modData);
     } else {
       if (moduleContainer) moduleContainer.style.display = "none";
       if (previewContainer) previewContainer.style.display = "block";
-      this.renderPreviewModule(this.currentModuleId);
+      this.renderBlankModule(this.currentModuleId);
     }
   },
 
-  renderPreviewModule(moduleId) {
+  renderBlankModule(moduleId) {
     const mod = ALL_MODULES_METADATA.find((m) => m.id === moduleId);
     const previewContainer = document.getElementById("previewModuleContainer");
     if (!mod || !previewContainer) return;
@@ -84,10 +118,20 @@ const App = {
             <p class="text-muted">Coordinator/Lecturer: <strong>${mod.lecturer}</strong></p>
           </div>
         </div>
-        <div class="prototype-notice-box">
-          <span class="notice-badge">Prototype Note</span>
-          <p><strong>Module 3 (Attachment Across the Lifespan)</strong> is currently prioritized and fully interactive with interactive diagnostic tables, contrastive differential diagnosis, scenario quizzes, and essay rubrics. This module follows the exact same clinical architecture.</p>
-          <button class="btn btn-primary" onclick="App.switchModule(3)">Jump to Active Module 3 (Attachment)</button>
+        <div class="prototype-notice-box" style="border-left-color: #64748b; background: #f8fafc;">
+          <span class="notice-badge" style="background: #64748b;">Course Foundation / Cultural Context</span>
+          <p><strong>${mod.title}</strong> is a foundational, non-disorder module covering overarching diagnostic models, mental state examinations, and cultural formulations (Social & Emotional Wellbeing framework, Cultural Formulation Interview) rather than specific psychiatric disorder categories.</p>
+          <p style="margin-top: 8px;">In accordance with course curriculum design, this module does not contain clinical disorder tables or diagnostic scenario quizzes. Please select any clinical module (<strong>Modules 3 through 10</strong>) in the top navigation bar to access interactive disorders tables, contrastive differential diagnosis tools, scenario quizzes, and essay rubrics.</p>
+          <div style="margin-top: 14px; display: flex; gap: 8px; flex-wrap: wrap;">
+            <button class="btn btn-primary btn-sm" onclick="App.switchModule(3)">Module 3 (Attachment)</button>
+            <button class="btn btn-primary btn-sm" onclick="App.switchModule(4)">Module 4 (Older Adults)</button>
+            <button class="btn btn-primary btn-sm" onclick="App.switchModule(5)">Module 5 (Sleep Disorders)</button>
+            <button class="btn btn-primary btn-sm" onclick="App.switchModule(6)">Module 6 (Neurodevelopment)</button>
+            <button class="btn btn-primary btn-sm" onclick="App.switchModule(7)">Module 7 (Child Feeding & ARFID)</button>
+            <button class="btn btn-primary btn-sm" onclick="App.switchModule(8)">Module 8 (Adult Eating Disorders)</button>
+            <button class="btn btn-primary btn-sm" onclick="App.switchModule(9)">Module 9 (Personality Disorders)</button>
+            <button class="btn btn-primary btn-sm" onclick="App.switchModule(10)">Module 10 (Psychosis)</button>
+          </div>
         </div>
         <div class="preview-details-grid">
           <div class="preview-box">
@@ -95,7 +139,7 @@ const App = {
             <p>${mod.coreConcepts}</p>
           </div>
           <div class="preview-box">
-            <h3>Disorders Covered</h3>
+            <h3>Clinical Focus</h3>
             <p>${mod.disorders}</p>
           </div>
           <div class="preview-box preview-box-full">
@@ -108,20 +152,29 @@ const App = {
   },
 
   // -------------------------------------------------------------
-  // Module 3 Rendering
+  // Active Clinical Module Rendering
   // -------------------------------------------------------------
-  renderModule3() {
-    this.renderTheoreticalPillars();
-    this.renderDisorderTable();
-    this.renderDifferentialTool();
-    this.renderScenarioQuizzes();
-    this.renderShortAnswerAndEssay();
+  renderModuleData(modData) {
+    // Update banner
+    const bTitle = document.getElementById("moduleBannerTitle");
+    const bSub = document.getElementById("moduleBannerSubtitle");
+    const bMeta = document.getElementById("moduleBannerMeta");
+    if (bTitle) bTitle.textContent = modData.title;
+    if (bSub) bSub.textContent = modData.subtitle;
+    if (bMeta) bMeta.innerHTML = `Course Coordinator: <strong>${modData.coordinator}</strong> | School of Applied Psychology`;
+
+    this.renderTheoreticalPillars(modData);
+    this.renderDisorderTable(modData);
+    this.renderDifferentialPresets(modData);
+    this.renderDifferentialTool(modData);
+    this.renderScenarioQuizzes(modData);
+    this.renderShortAnswerAndEssay(modData);
   },
 
-  renderTheoreticalPillars() {
+  renderTheoreticalPillars(modData) {
     const container = document.getElementById("theoreticalPillarsContainer");
-    if (!container) return;
-    container.innerHTML = MODULE_3_DATA.theoreticalPillars
+    if (!container || !modData.theoreticalPillars) return;
+    container.innerHTML = modData.theoreticalPillars
       .map(
         (p) => `
       <div class="card pillar-card">
@@ -134,18 +187,18 @@ const App = {
       .join("");
   },
 
-  renderDisorderTable() {
+  renderDisorderTable(modData) {
     const tbody = document.getElementById("disordersTableBody");
-    if (!tbody) return;
+    if (!tbody || !modData.disorders) return;
 
-    tbody.innerHTML = MODULE_3_DATA.disorders
+    tbody.innerHTML = modData.disorders
       .map((d) => {
         return `
         <tr>
           <td>
             <div class="disorder-name-cell">
               <strong>${d.name}</strong>
-              <span class="badge ${d.type.includes('Formal') ? 'badge-primary' : 'badge-secondary'}">${d.type}</span>
+              <span class="badge ${d.type.includes('Formal') || d.type.includes('Neuro') || d.type.includes('Cluster') ? 'badge-primary' : 'badge-secondary'}">${d.type}</span>
               <small class="text-muted">${d.code}</small>
               <div class="age-tag">Age: ${d.ageRange}</div>
             </div>
@@ -184,11 +237,59 @@ const App = {
   // -------------------------------------------------------------
   // Interactive Differential Tool
   // -------------------------------------------------------------
-  renderDifferentialTool() {
+  renderDifferentialPresets(modData) {
+    const bar = document.getElementById("diffPresetsBar");
+    if (!bar) return;
+    bar.innerHTML = "";
+
+    const label = document.createElement("span");
+    label.className = "preset-label";
+    label.textContent = "Quick Presets:";
+    bar.appendChild(label);
+
+    // Module-specific presets
+    if (modData.differentialPresets && modData.differentialPresets.length > 0) {
+      modData.differentialPresets.forEach((p) => {
+        const btn = document.createElement("button");
+        btn.className = "btn-preset";
+        btn.textContent = p.label;
+        btn.addEventListener("click", () => {
+          this.selectedDifferentialIds = [...p.ids];
+          this.renderDifferentialTool(modData);
+        });
+        bar.appendChild(btn);
+      });
+    }
+
+    // Always offer "Select All"
+    const allBtn = document.createElement("button");
+    allBtn.className = "btn-preset";
+    allBtn.textContent = `Select All (${modData.disorders.length})`;
+    allBtn.addEventListener("click", () => {
+      this.selectedDifferentialIds = modData.disorders.map((d) => d.id);
+      this.renderDifferentialTool(modData);
+    });
+    bar.appendChild(allBtn);
+
+    // Always offer "Clear (Empty Table)"
+    const clearBtn = document.createElement("button");
+    clearBtn.className = "btn-preset";
+    clearBtn.style.color = "#b91c1c";
+    clearBtn.style.borderColor = "#fca5a5";
+    clearBtn.textContent = "Clear (Empty Table)";
+    clearBtn.addEventListener("click", () => {
+      this.selectedDifferentialIds = [];
+      this.renderDifferentialTool(modData);
+    });
+    bar.appendChild(clearBtn);
+  },
+
+  renderDifferentialTool(modData = this.getActiveModuleData()) {
+    if (!modData) return;
     const checkboxesContainer = document.getElementById("diffDisordersList");
     if (!checkboxesContainer) return;
 
-    checkboxesContainer.innerHTML = MODULE_3_DATA.disorders
+    checkboxesContainer.innerHTML = modData.disorders
       .map((d) => {
         const isChecked = this.selectedDifferentialIds.includes(d.id);
         return `
@@ -200,7 +301,7 @@ const App = {
       })
       .join("");
 
-    this.updateDifferentialOutput();
+    this.updateDifferentialOutput(modData);
   },
 
   onDifferentialToggle(disorderId) {
@@ -209,31 +310,15 @@ const App = {
     } else {
       this.selectedDifferentialIds.push(disorderId);
     }
-    this.renderDifferentialTool();
+    const modData = this.getActiveModuleData();
+    this.renderDifferentialTool(modData);
   },
 
-  setDifferentialPreset(presetName) {
-    if (presetName === "RAD_DSED") {
-      this.selectedDifferentialIds = ["RAD", "DSED"];
-    } else if (presetName === "AVOIDANT_AMBIVALENT") {
-      this.selectedDifferentialIds = ["AVOIDANT", "AMBIVALENT"];
-    } else if (presetName === "RAD_DISORGANIZED") {
-      this.selectedDifferentialIds = ["RAD", "DISORGANIZED"];
-    } else if (presetName === "ALL_INSECURE") {
-      this.selectedDifferentialIds = ["AVOIDANT", "AMBIVALENT", "DISORGANIZED"];
-    } else if (presetName === "ALL_SIX") {
-      this.selectedDifferentialIds = ["RAD", "DSED", "SECURE", "AVOIDANT", "AMBIVALENT", "DISORGANIZED"];
-    } else if (presetName === "CLEAR_ALL") {
-      this.selectedDifferentialIds = [];
-    }
-    this.renderDifferentialTool();
-  },
-
-  updateDifferentialOutput() {
+  updateDifferentialOutput(modData = this.getActiveModuleData()) {
     const outputContainer = document.getElementById("differentialOutput");
-    if (!outputContainer) return;
+    if (!outputContainer || !modData) return;
 
-    const selectedDisorders = MODULE_3_DATA.disorders.filter((d) =>
+    const selectedDisorders = modData.disorders.filter((d) =>
       this.selectedDifferentialIds.includes(d.id)
     );
 
@@ -256,7 +341,7 @@ const App = {
         <div class="card single-disorder-card">
           <div class="single-disorder-header">
             <div>
-              <span class="badge ${d.type.includes('Formal') ? 'badge-primary' : 'badge-secondary'}">${d.type}</span>
+              <span class="badge ${d.type.includes('Formal') || d.type.includes('Neuro') || d.type.includes('Cluster') ? 'badge-primary' : 'badge-secondary'}">${d.type}</span>
               <span class="badge badge-light">${d.code}</span>
               <h3 style="margin-top: 6px; font-size: 20px; color: #0f172a;">${d.name}</h3>
               <p class="text-muted" style="font-size: 13px;">Typical Presentation Window: <strong>${d.ageRange}</strong></p>
@@ -334,10 +419,20 @@ const App = {
     // Check if we have a special pre-computed pairwise comparison
     const keyPair1 = `${selectedDisorders[0].id}_${selectedDisorders[1].id}`;
     const keyPair2 = `${selectedDisorders[1].id}_${selectedDisorders[0].id}`;
-    const precomputed = selectedDisorders.length === 2 && (MODULE_3_DATA.differentialMatrix[keyPair1] || MODULE_3_DATA.differentialMatrix[keyPair2]);
+    const precomputed = selectedDisorders.length === 2 && modData.differentialMatrix && (modData.differentialMatrix[keyPair1] || modData.differentialMatrix[keyPair2]);
 
     if (precomputed) {
       const pm = precomputed;
+      const ruleEntries = Object.entries(pm.ruleInRuleOut || {}).filter(([k]) => k.startsWith('ruleIn'));
+      const ruleA = ruleEntries[0] ? ruleEntries[0][1] : `Rule in ${selectedDisorders[0].name}: Examine distinctive presentation criteria.`;
+      const ruleB = ruleEntries[1] ? ruleEntries[1][1] : `Rule in ${selectedDisorders[1].name}: Examine distinctive presentation criteria.`;
+      const pitfall = pm.ruleInRuleOut?.pitfallToAvoid || "Carefully evaluate clinical history and developmental context before confirming diagnosis.";
+
+      const txA_Name = pm.contrastingTreatments?.treatmentA_Name || `Intervention for ${selectedDisorders[0].name}`;
+      const txA_Steps = pm.contrastingTreatments?.treatmentA_Steps || selectedDisorders[0].potentialTreatments.join("; ");
+      const txB_Name = pm.contrastingTreatments?.treatmentB_Name || `Intervention for ${selectedDisorders[1].name}`;
+      const txB_Steps = pm.contrastingTreatments?.treatmentB_Steps || selectedDisorders[1].potentialTreatments.join("; ");
+
       outputContainer.innerHTML = `
         <div class="diff-result-card card">
           <div class="diff-header">
@@ -375,27 +470,27 @@ const App = {
           <div class="rule-box-grid">
             <div class="rule-box rule-box-a">
               <h4>Rule In: ${selectedDisorders[0].name}</h4>
-              <p>${pm.ruleInRuleOut.ruleInRAD || pm.ruleInRuleOut.ruleInAvoidant}</p>
+              <p>${ruleA}</p>
             </div>
             <div class="rule-box rule-box-b">
               <h4>Rule In: ${selectedDisorders[1].name}</h4>
-              <p>${pm.ruleInRuleOut.ruleInDSED || pm.ruleInRuleOut.ruleInAmbivalent || pm.ruleInRuleOut.ruleInDisorganized}</p>
+              <p>${ruleB}</p>
             </div>
             <div class="rule-box rule-box-pitfall">
               <h4>⚠️ Key Diagnostic Pitfall to Avoid</h4>
-              <p>${pm.ruleInRuleOut.pitfallToAvoid}</p>
+              <p>${pitfall}</p>
             </div>
           </div>
 
           <div class="diff-section-title">3. Divergent Treatment Pathways (How treatment differs)</div>
           <div class="tx-compare-grid">
             <div class="tx-box tx-box-a">
-              <h4>${pm.contrastingTreatments.treatmentA_Name}</h4>
-              <p>${pm.contrastingTreatments.treatmentA_Steps}</p>
+              <h4>${txA_Name}</h4>
+              <p>${txA_Steps}</p>
             </div>
             <div class="tx-box tx-box-b">
-              <h4>${pm.contrastingTreatments.treatmentB_Name}</h4>
-              <p>${pm.contrastingTreatments.treatmentB_Steps}</p>
+              <h4>${txB_Name}</h4>
+              <p>${txB_Steps}</p>
             </div>
           </div>
         </div>
@@ -417,7 +512,7 @@ const App = {
             <thead>
               <tr>
                 <th style="width: 20%;">Condition</th>
-                <th style="width: 25%;">Core Affect Regulation</th>
+                <th style="width: 25%;">Core Clinical Presentation</th>
                 <th style="width: 25%;">Key Distinguishing Markers</th>
                 <th style="width: 30%;">Divergent Treatment Strategy</th>
               </tr>
@@ -431,7 +526,7 @@ const App = {
                     <strong>${d.name}</strong>
                     <br><span class="badge badge-secondary">${d.type}</span>
                   </td>
-                  <td>${d.factorsLookedFor[0] || 'N/A'}</td>
+                  <td>${d.factorsLookedFor[0] || d.coreDefinition}</td>
                   <td>
                     <ul class="compact-list">
                       <li>${d.factorsLookedFor[1] || ''}</li>
@@ -459,7 +554,7 @@ const App = {
               (d) => `
             <div class="card pearl-card-item">
               <h4>${d.name}</h4>
-              <p>💡 <em>${d.clinicalPearl}</em></p>
+              <p><em>${d.clinicalPearl}</em></p>
             </div>
           `
             )
@@ -472,24 +567,27 @@ const App = {
   // -------------------------------------------------------------
   // Two-Step Scenario Quizzes (Diagnose -> Treat)
   // -------------------------------------------------------------
-  renderScenarioQuizzes() {
+  renderScenarioQuizzes(modData = this.getActiveModuleData()) {
     const container = document.getElementById("scenariosContainer");
-    if (!container) return;
+    if (!container || !modData.scenarios) return;
 
-    container.innerHTML = MODULE_3_DATA.scenarios
-      .map((sc, idx) => {
-        const record = storageService.getScenarioRecord(3, sc.id);
+    container.innerHTML = modData.scenarios
+      .map((sc, scIdx) => {
+        const record = storageService.getScenarioRecord(this.currentModuleId, sc.id);
         const passBadge = record.lastResult === "PASS"
-          ? `<span class="badge badge-success">Passed (${record.lastScorePercent}%)</span>`
+          ? `<span class="badge badge-success">Passed (${record.lastScorePercent || 100}%)</span>`
           : record.totalAttempts > 0
-          ? `<span class="badge badge-warning">Retry Needed</span>`
+          ? `<span class="badge badge-warning">Attempts: ${record.totalAttempts}</span>`
           : `<span class="badge badge-light">Not Attempted</span>`;
+
+        const vignetteText = sc.vignette || sc.presentation || "";
+        const ageTag = sc.ageGroup || (sc.title.includes('yo') ? sc.title.split('(')[1]?.split(')')[0] : 'Clinical Case');
 
         return `
         <div class="card scenario-card" id="card-${sc.id}">
           <div class="scenario-header">
             <div>
-              <span class="age-badge">${sc.ageGroup}</span>
+              <span class="age-badge">${ageTag}</span>
               <h3>${sc.title}</h3>
             </div>
             <div class="attempt-tracker-box">
@@ -503,7 +601,7 @@ const App = {
           </div>
 
           <div class="vignette-text">
-            <p><strong>Clinical Vignette:</strong> ${sc.vignette}</p>
+            <p><strong>Clinical Vignette:</strong> ${vignetteText}</p>
           </div>
 
           <!-- Step 1: Diagnose -->
@@ -512,14 +610,15 @@ const App = {
             <div class="step-prompt">${sc.step1.prompt}</div>
             <div class="options-list">
               ${sc.step1.options
-                .map(
-                  (opt) => `
-                <label class="option-label" id="lbl-${sc.id}-s1-${opt.id}">
-                  <input type="radio" name="${sc.id}-s1" value="${opt.id}" onchange="App.onSelectStep1('${sc.id}')">
-                  <span>${opt.text}</span>
-                </label>
-              `
-                )
+                .map((opt, optIdx) => {
+                  const optId = opt.id || `opt1_${optIdx}`;
+                  return `
+                  <label class="option-label" id="lbl-${sc.id}-s1-${optId}">
+                    <input type="radio" name="${sc.id}-s1" value="${optId}" onchange="App.onSelectStep1('${sc.id}')">
+                    <span>${opt.text}</span>
+                  </label>
+                `;
+                })
                 .join("")}
             </div>
             <div class="step-actions">
@@ -534,14 +633,15 @@ const App = {
             <div class="step-prompt">${sc.step2.prompt}</div>
             <div class="options-list">
               ${sc.step2.options
-                .map(
-                  (opt) => `
-                <label class="option-label" id="lbl-${sc.id}-s2-${opt.id}">
-                  <input type="radio" name="${sc.id}-s2" value="${opt.id}" onchange="App.onSelectStep2('${sc.id}')">
-                  <span>${opt.text}</span>
-                </label>
-              `
-                )
+                .map((opt, optIdx) => {
+                  const optId = opt.id || `opt2_${optIdx}`;
+                  return `
+                  <label class="option-label" id="lbl-${sc.id}-s2-${optId}">
+                    <input type="radio" name="${sc.id}-s2" value="${optId}" onchange="App.onSelectStep2('${sc.id}')">
+                    <span>${opt.text}</span>
+                  </label>
+                `;
+                })
                 .join("")}
             </div>
             <div class="step-actions">
@@ -567,34 +667,40 @@ const App = {
   },
 
   submitStep1(scenarioId) {
-    const scenario = MODULE_3_DATA.scenarios.find((s) => s.id === scenarioId);
+    const modData = this.getActiveModuleData();
+    if (!modData || !modData.scenarios) return;
+
+    const scenario = modData.scenarios.find((s) => s.id === scenarioId);
     if (!scenario) return;
 
     const selectedInput = document.querySelector(`input[name="${scenarioId}-s1"]:checked`);
     if (!selectedInput) return;
 
-    const selectedOption = scenario.step1.options.find((o) => o.id === selectedInput.value);
+    const selectedVal = selectedInput.value;
+    const selectedOption = scenario.step1.options.find((o, idx) => (o.id || `opt1_${idx}`) === selectedVal);
+    if (!selectedOption) return;
+
     const feedbackBox = document.getElementById(`feedback-${scenarioId}-s1`);
     const submitBtn = document.getElementById(`btn-submit-${scenarioId}-s1`);
+    const isCorrect = (selectedOption.correct === true || selectedOption.isCorrect === true);
 
-    if (selectedOption.correct) {
+    if (isCorrect) {
       // Correct diagnosis!
-      // Disable all inputs in Step 1
       document.querySelectorAll(`input[name="${scenarioId}-s1"]`).forEach((inp) => {
         inp.disabled = true;
       });
       if (submitBtn) submitBtn.disabled = true;
 
-      // Highlight the correct option in green
-      const lbl = document.getElementById(`lbl-${scenarioId}-s1-${selectedOption.id}`);
+      const lbl = document.getElementById(`lbl-${scenarioId}-s1-${selectedVal}`);
       if (lbl) lbl.classList.add("correct-highlight");
 
+      const rationaleText = selectedOption.rationale || scenario.step1.explanation || "Correct diagnosis identified.";
       if (feedbackBox) {
         feedbackBox.style.display = "block";
         feedbackBox.className = "feedback-box feedback-success";
         feedbackBox.innerHTML = `
           <h4>✅ Correct Diagnosis!</h4>
-          <p>${selectedOption.rationale}</p>
+          <p>${rationaleText}</p>
         `;
       }
 
@@ -608,9 +714,8 @@ const App = {
         step2El.scrollIntoView({ behavior: "smooth", block: "nearest" });
       }
     } else {
-      // Wrong guess: DO NOT reveal what the correct answer is!
-      // Highlight and disable only the wrong option chosen
-      const wrongLbl = document.getElementById(`lbl-${scenarioId}-s1-${selectedOption.id}`);
+      // Wrong guess: DO NOT reveal correct answer!
+      const wrongLbl = document.getElementById(`lbl-${scenarioId}-s1-${selectedVal}`);
       if (wrongLbl) {
         wrongLbl.classList.add("incorrect-highlight");
         const radio = wrongLbl.querySelector("input[type='radio']");
@@ -623,7 +728,7 @@ const App = {
       if (submitBtn) submitBtn.disabled = true;
 
       // Track wrong guess in storage
-      storageService.recordWrongGuess(3, scenarioId, 1);
+      storageService.recordWrongGuess(this.currentModuleId, scenarioId, 1);
       this.updateGlobalProgressUI();
       this.updateCardTracker(scenarioId);
 
@@ -632,7 +737,7 @@ const App = {
         feedbackBox.className = "feedback-box feedback-warning-guess";
         feedbackBox.innerHTML = `
           <h4>❌ Not quite — guess again!</h4>
-          <p>That option doesn't fit the clinical presentation. Review the scenario details and choose another option.</p>
+          <p>That option does not fit the clinical presentation. Review the scenario details and choose another option.</p>
           ${scenario.step1.hint ? `<div class="hint-pill">💡 <strong>Helpful Hint:</strong> ${scenario.step1.hint}</div>` : ""}
         `;
       }
@@ -640,47 +745,52 @@ const App = {
   },
 
   submitStep2(scenarioId) {
-    const scenario = MODULE_3_DATA.scenarios.find((s) => s.id === scenarioId);
+    const modData = this.getActiveModuleData();
+    if (!modData || !modData.scenarios) return;
+
+    const scenario = modData.scenarios.find((s) => s.id === scenarioId);
     if (!scenario) return;
 
     const selectedInput = document.querySelector(`input[name="${scenarioId}-s2"]:checked`);
     if (!selectedInput) return;
 
-    const selectedOption = scenario.step2.options.find((o) => o.id === selectedInput.value);
+    const selectedVal = selectedInput.value;
+    const selectedOption = scenario.step2.options.find((o, idx) => (o.id || `opt2_${idx}`) === selectedVal);
+    if (!selectedOption) return;
+
     const feedbackBox = document.getElementById(`feedback-${scenarioId}-s2`);
     const submitBtn = document.getElementById(`btn-submit-${scenarioId}-s2`);
+    const isCorrect = (selectedOption.correct === true || selectedOption.isCorrect === true);
 
-    if (selectedOption.correct) {
+    if (isCorrect) {
       // Correct treatment selection!
-      // Disable all inputs in Step 2
       document.querySelectorAll(`input[name="${scenarioId}-s2"]`).forEach((inp) => {
         inp.disabled = true;
       });
       if (submitBtn) submitBtn.disabled = true;
 
-      // Highlight the correct option in green
-      const lbl = document.getElementById(`lbl-${scenarioId}-s2-${selectedOption.id}`);
+      const lbl = document.getElementById(`lbl-${scenarioId}-s2-${selectedVal}`);
       if (lbl) lbl.classList.add("correct-highlight");
 
+      const rationaleText = selectedOption.rationale || scenario.step2.explanation || "Optimal evidence-based treatment approach confirmed.";
       if (feedbackBox) {
         feedbackBox.style.display = "block";
         feedbackBox.className = "feedback-box feedback-success";
         feedbackBox.innerHTML = `
           <h4>✅ Correct Treatment Selection!</h4>
-          <p>${selectedOption.rationale}</p>
+          <p>${rationaleText}</p>
         `;
       }
 
-      // Record scenario completion in storage
-      const rec = storageService.getScenarioRecord(3, scenarioId);
+      const rec = storageService.getScenarioRecord(this.currentModuleId, scenarioId);
       const hadRetries = (rec.incorrectAttempts > 0);
-      storageService.recordScenarioSuccess(3, scenarioId, hadRetries);
+      storageService.recordScenarioSuccess(this.currentModuleId, scenarioId, hadRetries);
       this.updateGlobalProgressUI();
       this.updateCardTracker(scenarioId);
 
     } else {
-      // Wrong treatment guess: DO NOT reveal what the correct answer is!
-      const wrongLbl = document.getElementById(`lbl-${scenarioId}-s2-${selectedOption.id}`);
+      // Wrong treatment guess: DO NOT reveal correct answer!
+      const wrongLbl = document.getElementById(`lbl-${scenarioId}-s2-${selectedVal}`);
       if (wrongLbl) {
         wrongLbl.classList.add("incorrect-highlight");
         const radio = wrongLbl.querySelector("input[type='radio']");
@@ -693,7 +803,7 @@ const App = {
       if (submitBtn) submitBtn.disabled = true;
 
       // Track wrong guess in storage
-      storageService.recordWrongGuess(3, scenarioId, 2);
+      storageService.recordWrongGuess(this.currentModuleId, scenarioId, 2);
       this.updateGlobalProgressUI();
       this.updateCardTracker(scenarioId);
 
@@ -702,7 +812,7 @@ const App = {
         feedbackBox.className = "feedback-box feedback-warning-guess";
         feedbackBox.innerHTML = `
           <h4>❌ Not quite — guess again!</h4>
-          <p>That intervention is not the optimal evidence-based approach for this diagnosis. Consider what will specifically address the core attachment difficulty.</p>
+          <p>That intervention is not the optimal evidence-based approach for this diagnosis. Consider what will specifically address the underlying core mechanisms.</p>
           ${scenario.step2.hint ? `<div class="hint-pill">💡 <strong>Helpful Hint:</strong> ${scenario.step2.hint}</div>` : ""}
         `;
       }
@@ -715,7 +825,7 @@ const App = {
     const trackerBox = cardEl.querySelector(".attempt-tracker-box");
     if (!trackerBox) return;
 
-    const updatedRecord = storageService.getScenarioRecord(3, scenarioId);
+    const updatedRecord = storageService.getScenarioRecord(this.currentModuleId, scenarioId);
     const passBadge = updatedRecord.lastResult === "PASS"
       ? `<span class="badge badge-success">Passed (${updatedRecord.lastScorePercent || 100}%)</span>`
       : updatedRecord.totalAttempts > 0
@@ -736,66 +846,67 @@ const App = {
     const cardEl = document.getElementById(`card-${scenarioId}`);
     if (!cardEl) return;
 
-    // Reset radio buttons
     cardEl.querySelectorAll('input[type="radio"]').forEach((r) => {
       r.checked = false;
       r.disabled = false;
     });
 
-    // Reset highlights
     cardEl.querySelectorAll(".option-label").forEach((lbl) => {
       lbl.classList.remove("correct-highlight", "incorrect-highlight");
     });
 
-    // Hide feedback
     const fb1 = document.getElementById(`feedback-${scenarioId}-s1`);
+    if (fb1) fb1.style.display = "none";
     const fb2 = document.getElementById(`feedback-${scenarioId}-s2`);
-    if (fb1) { fb1.style.display = "none"; fb1.innerHTML = ""; }
-    if (fb2) { fb2.style.display = "none"; fb2.innerHTML = ""; }
+    if (fb2) fb2.style.display = "none";
 
-    // Reset buttons
+    const s2El = document.getElementById(`${scenarioId}-step2`);
+    if (s2El) {
+      s2El.style.display = "none";
+      s2El.classList.add("locked");
+    }
+
     const btn1 = document.getElementById(`btn-submit-${scenarioId}-s1`);
-    const btn2 = document.getElementById(`btn-submit-${scenarioId}-s2`);
     if (btn1) btn1.disabled = true;
+    const btn2 = document.getElementById(`btn-submit-${scenarioId}-s2`);
     if (btn2) btn2.disabled = true;
 
-    // Hide Step 2
-    const step2El = document.getElementById(`${scenarioId}-step2`);
-    if (step2El) {
-      step2El.style.display = "none";
-      step2El.classList.add("locked");
-    }
+    cardEl.scrollIntoView({ behavior: "smooth", block: "start" });
   },
 
   // -------------------------------------------------------------
   // Short Answer & Essay Practice
   // -------------------------------------------------------------
-  renderShortAnswerAndEssay() {
-    this.renderShortAnswerQuestions();
-    this.renderEssaySection();
+  renderShortAnswerAndEssay(modData = this.getActiveModuleData()) {
+    this.renderShortAnswerQuestions(modData);
+    this.renderEssaySection(modData);
   },
 
-  renderShortAnswerQuestions() {
+  renderShortAnswerQuestions(modData = this.getActiveModuleData()) {
     const container = document.getElementById("shortAnswerList");
-    if (!container) return;
+    if (!container || !modData.shortAnswerAndEssay) return;
 
-    container.innerHTML = MODULE_3_DATA.shortAnswerAndEssay.shortAnswerQuestions
+    const questions = modData.shortAnswerAndEssay.shortAnswerQuestions || [];
+    container.innerHTML = questions
       .map((sa, idx) => {
-        const saved = storageService.getShortAnswer(3, sa.id);
+        const saved = storageService.getShortAnswer(this.currentModuleId, sa.id);
+        const criteriaList = sa.keyCriteria || sa.criteria || [];
+
         return `
-        <div class="card sa-card" id="sa-${sa.id}">
+        <div class="card short-answer-card" id="sa-card-${sa.id}">
           <div class="sa-header">
             <h4>${sa.title}</h4>
-            <span class="time-badge">⏱️ Suggested Time: ${sa.suggestedTime}</span>
+            ${saved.selfScore ? `<span class="badge badge-success">Rated: ${saved.selfScore} / 5</span>` : ""}
           </div>
-          <div class="sa-prompt">${sa.question}</div>
+          <div class="sa-prompt">
+            <p>${sa.prompt.replace(/\n/g, '<br>')}</p>
+          </div>
 
-          <div class="sa-editor-box">
-            <label><strong>Your Practice Response:</strong></label>
-            <textarea id="ta-${sa.id}" class="form-control" rows="5" placeholder="Type your revision response here...">${saved.draft || ""}</textarea>
-            <div class="sa-save-bar">
-              <button class="btn btn-secondary btn-sm" onclick="App.saveShortAnswerDraft('${sa.id}')">💾 Save Response</button>
-              <button class="btn btn-outline-primary btn-sm" onclick="App.toggleModelAnswer('${sa.id}')">👁️ Show / Hide Model Answer & Rubric</button>
+          <div class="sa-response-box">
+            <textarea id="ta-${sa.id}" class="form-control" rows="6" placeholder="Type your practice short-answer response here...">${saved.draft || ""}</textarea>
+            <div class="sa-actions">
+              <button class="btn btn-primary btn-sm" onclick="App.saveShortAnswerDraft('${sa.id}')">💾 Save Response</button>
+              <button class="btn btn-outline-primary btn-sm" onclick="App.toggleModelAnswer('${sa.id}')">👁️ Show Model Answer & Marking Criteria</button>
               <span id="save-status-${sa.id}" class="save-status text-muted"></span>
             </div>
           </div>
@@ -804,7 +915,7 @@ const App = {
             <div class="criteria-section">
               <h5>Key Marking Points (Criteria Checklist):</h5>
               <ul>
-                ${sa.keyCriteria.map((kc) => `<li>✔️ ${kc}</li>`).join("")}
+                ${criteriaList.map((kc) => `<li>✔️ ${kc}</li>`).join("")}
               </ul>
             </div>
             <div class="model-text-section">
@@ -833,7 +944,7 @@ const App = {
   saveShortAnswerDraft(saId) {
     const ta = document.getElementById(`ta-${saId}`);
     if (!ta) return;
-    storageService.saveShortAnswer(3, saId, ta.value);
+    storageService.saveShortAnswer(this.currentModuleId, saId, ta.value);
     const statusEl = document.getElementById(`save-status-${saId}`);
     if (statusEl) {
       statusEl.textContent = "Saved to local storage at " + new Date().toLocaleTimeString();
@@ -851,16 +962,20 @@ const App = {
   rateShortAnswer(saId, score) {
     const ta = document.getElementById(`ta-${saId}`);
     const draftText = ta ? ta.value : "";
-    storageService.saveShortAnswer(3, saId, draftText, score);
+    storageService.saveShortAnswer(this.currentModuleId, saId, draftText, score);
     this.renderShortAnswerQuestions();
   },
 
-  renderEssaySection() {
+  renderEssaySection(modData = this.getActiveModuleData()) {
     const container = document.getElementById("essaySectionContainer");
-    if (!container) return;
+    if (!container || !modData.shortAnswerAndEssay) return;
 
-    const essayData = MODULE_3_DATA.shortAnswerAndEssay.essayPrompt;
-    const saved = storageService.getEssay(3);
+    const essayData = modData.shortAnswerAndEssay.essayPrompt;
+    if (!essayData) return;
+
+    const saved = storageService.getEssay(this.currentModuleId);
+    const rubricList = essayData.scoringRubric || essayData.rubricPillars || [];
+    const outlineText = essayData.modelEssayOutline || (Array.isArray(essayData.modelOutline) ? essayData.modelOutline.join('\n\n') : essayData.modelOutline) || '';
 
     container.innerHTML = `
       <div class="card essay-card">
@@ -868,6 +983,7 @@ const App = {
           <h3>📝 ${essayData.title}</h3>
           <div class="essay-badges">
             <span class="badge badge-primary">Target: ${essayData.suggestedWordCount}</span>
+            ${essayData.timeAllowedMinutes ? `<span class="badge badge-secondary">Timed: ${essayData.timeAllowedMinutes} mins</span>` : ''}
           </div>
         </div>
 
@@ -891,29 +1007,32 @@ const App = {
         <!-- Collapsible Model Essay & Rubric -->
         <div id="essayModelBox" class="essay-model-container" style="display: none;">
           <div class="rubric-section">
-            <h4>Evaluation Rubric (4 Core Marking Criteria):</h4>
+            <h4>Evaluation Rubric (Core Marking Criteria):</h4>
             <div class="rubric-grid">
-              ${essayData.scoringRubric
-                .map(
-                  (r, idx) => `
-                <div class="card rubric-item-card">
-                  <div class="rubric-title">
-                    <label>
-                      <input type="checkbox" id="rubric-chk-${idx}" ${saved.checkedRubric && saved.checkedRubric[idx] ? 'checked' : ''} onchange="App.onRubricCheck(${idx})">
-                      <strong>${r.criterion}</strong>
-                    </label>
+              ${rubricList
+                .map((r, idx) => {
+                  const criterionName = r.criterion || r.name;
+                  const indicatorText = r.indicators || r.description;
+                  const weightBadge = r.weight ? `<span class="badge badge-light">${r.weight}</span> ` : '';
+                  return `
+                  <div class="card rubric-item-card">
+                    <div class="rubric-title">
+                      <label>
+                        <input type="checkbox" id="rubric-chk-${idx}" ${saved.checkedRubric && saved.checkedRubric[idx] ? 'checked' : ''} onchange="App.onRubricCheck(${idx})">
+                        <strong>${weightBadge}${criterionName}</strong>
+                      </label>
+                    </div>
+                    <p class="rubric-indicators">${indicatorText}</p>
                   </div>
-                  <p class="rubric-indicators">${r.indicators}</p>
-                </div>
-              `
-                )
+                `;
+                })
                 .join("")}
             </div>
           </div>
 
           <div class="model-essay-text-section">
             <h4>Model Essay Architecture & Key Content:</h4>
-            <div class="model-outline-content">${essayData.modelEssayOutline.replace(/# /g, '<h3>').replace(/## /g, '<h4>').replace(/\n\n/g, '<br><br>')}</div>
+            <div class="model-outline-content">${outlineText.replace(/# /g, '<h3>').replace(/## /g, '<h4>').replace(/\n\n/g, '<br><br>')}</div>
           </div>
         </div>
       </div>
@@ -939,8 +1058,8 @@ const App = {
   saveEssayDraft() {
     const ta = document.getElementById("essayTextArea");
     if (!ta) return;
-    const saved = storageService.getEssay(3);
-    storageService.saveEssay(3, ta.value, saved.checkedRubric || {});
+    const saved = storageService.getEssay(this.currentModuleId);
+    storageService.saveEssay(this.currentModuleId, ta.value, saved.checkedRubric || {});
     const statusEl = document.getElementById("essaySaveStatus");
     if (statusEl) {
       statusEl.textContent = "Saved draft at " + new Date().toLocaleTimeString();
@@ -958,19 +1077,21 @@ const App = {
   onRubricCheck(index) {
     const ta = document.getElementById("essayTextArea");
     const draftText = ta ? ta.value : "";
-    const saved = storageService.getEssay(3);
+    const saved = storageService.getEssay(this.currentModuleId);
     const checked = saved.checkedRubric || {};
     const chk = document.getElementById(`rubric-chk-${index}`);
     checked[index] = chk ? chk.checked : false;
-    storageService.saveEssay(3, draftText, checked);
+    storageService.saveEssay(this.currentModuleId, draftText, checked);
   },
 
   // -------------------------------------------------------------
   // Progress Bar & Global UI
   // -------------------------------------------------------------
   updateGlobalProgressUI() {
-    const stats = storageService.getModuleStats(3);
-    const totalScenarios = MODULE_3_DATA.scenarios.length;
+    const modData = this.getActiveModuleData();
+    const stats = storageService.getModuleStats(this.currentModuleId);
+    const totalScenarios = (modData && modData.scenarios) ? modData.scenarios.length : 0;
+
     const accuracyEl = document.getElementById("statAccuracy");
     const masteredEl = document.getElementById("statMastered");
     const totalAttemptsEl = document.getElementById("statAttempts");
@@ -981,7 +1102,7 @@ const App = {
     if (totalAttemptsEl) totalAttemptsEl.textContent = `${stats.totalAttempts}`;
 
     if (progressBar) {
-      const pct = Math.round((stats.masteredCount / totalScenarios) * 100);
+      const pct = totalScenarios > 0 ? Math.round((stats.masteredCount / totalScenarios) * 100) : 0;
       progressBar.style.width = `${pct}%`;
       progressBar.setAttribute("aria-valuenow", pct);
     }
@@ -991,7 +1112,6 @@ const App = {
   // Settings & Firebase Modal
   // -------------------------------------------------------------
   setupEventListeners() {
-    // Settings modal button
     const settingsBtn = document.getElementById("openSettingsBtn");
     if (settingsBtn) {
       settingsBtn.addEventListener("click", () => this.openSettingsModal());
@@ -1002,7 +1122,6 @@ const App = {
       closeSettingsBtn.addEventListener("click", () => this.closeSettingsModal());
     }
 
-    // Export/Import/Reset buttons
     const exportBtn = document.getElementById("exportDataBtn");
     if (exportBtn) {
       exportBtn.addEventListener("click", () => this.exportData());
@@ -1029,7 +1148,6 @@ const App = {
     if (!modal) return;
     modal.style.display = "flex";
 
-    // Load existing Firebase config
     const conf = storageService.data.settings.firebaseConfig;
     if (conf) {
       document.getElementById("fbApiKey").value = conf.apiKey || "";

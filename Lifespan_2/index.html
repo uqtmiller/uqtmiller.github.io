@@ -72,9 +72,9 @@
 
       <!-- Module Hero Banner -->
       <div class="module-banner">
-        <h1>Module 3: Attachment Across the Lifespan</h1>
-        <p class="banner-subtitle">Evolutionary Foundations, Diagnostic Criteria, Differential Markers, and Clinical Interventions</p>
-        <p class="banner-meta">Course Coordinator: <strong>Dr Matthew McKenzie</strong> | School of Applied Psychology</p>
+        <h1 id="moduleBannerTitle">Module 3: Attachment Across the Lifespan</h1>
+        <p id="moduleBannerSubtitle" class="banner-subtitle">Evolutionary Foundations, Diagnostic Criteria, Differential Markers, and Clinical Interventions</p>
+        <p id="moduleBannerMeta" class="banner-meta">Course Coordinator: <strong>Dr Matthew McKenzie</strong> | School of Applied Psychology</p>
       </div>
 
       <!-- Module Sub-Tabs Navigation -->
@@ -132,14 +132,8 @@
         </div>
 
         <!-- Preset Quick Buttons -->
-        <div class="diff-presets-bar">
-          <span class="preset-label">Quick Presets:</span>
-          <button class="btn-preset" onclick="App.setDifferentialPreset('RAD_DSED')">RAD vs. DSED</button>
-          <button class="btn-preset" onclick="App.setDifferentialPreset('AVOIDANT_AMBIVALENT')">Dismissing vs. Preoccupied</button>
-          <button class="btn-preset" onclick="App.setDifferentialPreset('RAD_DISORGANIZED')">RAD vs. Disorganized (Trauma)</button>
-          <button class="btn-preset" onclick="App.setDifferentialPreset('ALL_INSECURE')">All Insecure Styles (A vs C vs D)</button>
-          <button class="btn-preset" onclick="App.setDifferentialPreset('ALL_SIX')">Select All 6 Conditions</button>
-          <button class="btn-preset" style="color: #b91c1c; border-color: #fca5a5;" onclick="App.setDifferentialPreset('CLEAR_ALL')">Clear (Empty Table)</button>
+        <div id="diffPresetsBar" class="diff-presets-bar">
+          <!-- Populated dynamically by app.js based on active module -->
         </div>
 
         <!-- Disoders Selection Chips -->
@@ -259,6 +253,13 @@
   <!-- Scripts -->
   <script src="js/data_all_modules.js"></script>
   <script src="js/data_module3.js"></script>
+  <script src="js/data_module4.js"></script>
+  <script src="js/data_module5.js"></script>
+  <script src="js/data_module6.js"></script>
+  <script src="js/data_module7.js"></script>
+  <script src="js/data_module8.js"></script>
+  <script src="js/data_module9.js"></script>
+  <script src="js/data_module10.js"></script>
   <script src="js/storage.js"></script>
   <script src="js/app.js"></script>
 </body>
