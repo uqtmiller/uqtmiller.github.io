@@ -15,6 +15,8 @@ class StorageService {
       settings: {
         userId: "student_wife_" + Math.random().toString(36).substring(2, 8),
         firebaseConfig: null,
+        geminiApiKey: "",
+        geminiModel: "gemini-3.8-flash",
         theme: "light"
       },
       modules: {
@@ -24,6 +26,7 @@ class StorageService {
           essay: {
             draft: "",
             checkedRubric: {},
+            aiFeedback: null,
             lastSavedAt: null
           }
         }
@@ -146,12 +149,37 @@ class StorageService {
     };
   }
 
+  // --- Gemini AI Settings ---
+  getGeminiApiKey() {
+    if (!this.data.settings) this.data.settings = {};
+    return this.data.settings.geminiApiKey || "";
+  }
+
+  saveGeminiApiKey(key) {
+    if (!this.data.settings) this.data.settings = {};
+    this.data.settings.geminiApiKey = (key || "").trim();
+    this.saveToLocalStorage();
+  }
+
+  getGeminiModel() {
+    if (!this.data.settings) this.data.settings = {};
+    return this.data.settings.geminiModel || "gemini-3.8-flash";
+  }
+
+  saveGeminiModel(model) {
+    if (!this.data.settings) this.data.settings = {};
+    this.data.settings.geminiModel = model || "gemini-3.8-flash";
+    this.saveToLocalStorage();
+  }
+
   // --- Short Answer and Essay Methods ---
-  saveShortAnswer(moduleId, saId, draftText, selfScore = null) {
+  saveShortAnswer(moduleId, saId, draftText, selfScore = null, aiFeedback = null) {
     this.ensureModule(moduleId);
+    const existing = this.getShortAnswer(moduleId, saId);
     this.data.modules[moduleId].shortAnswers[saId] = {
-      draft: draftText,
-      selfScore: selfScore,
+      draft: draftText !== null && draftText !== undefined ? draftText : existing.draft,
+      selfScore: selfScore !== null ? selfScore : existing.selfScore,
+      aiFeedback: aiFeedback !== null ? aiFeedback : existing.aiFeedback,
       updatedAt: new Date().toISOString()
     };
     this.saveToLocalStorage();
@@ -159,14 +187,16 @@ class StorageService {
 
   getShortAnswer(moduleId, saId) {
     this.ensureModule(moduleId);
-    return this.data.modules[moduleId].shortAnswers[saId] || { draft: "", selfScore: null, updatedAt: null };
+    return this.data.modules[moduleId].shortAnswers[saId] || { draft: "", selfScore: null, aiFeedback: null, updatedAt: null };
   }
 
-  saveEssay(moduleId, draftText, checkedRubric = {}) {
+  saveEssay(moduleId, draftText, checkedRubric = {}, aiFeedback = null) {
     this.ensureModule(moduleId);
+    const existing = this.getEssay(moduleId);
     this.data.modules[moduleId].essay = {
-      draft: draftText,
-      checkedRubric: checkedRubric,
+      draft: draftText !== null && draftText !== undefined ? draftText : existing.draft,
+      checkedRubric: checkedRubric && Object.keys(checkedRubric).length > 0 ? checkedRubric : existing.checkedRubric,
+      aiFeedback: aiFeedback !== null ? aiFeedback : existing.aiFeedback,
       lastSavedAt: new Date().toISOString()
     };
     this.saveToLocalStorage();
@@ -174,7 +204,7 @@ class StorageService {
 
   getEssay(moduleId) {
     this.ensureModule(moduleId);
-    return this.data.modules[moduleId].essay || { draft: "", checkedRubric: {}, lastSavedAt: null };
+    return this.data.modules[moduleId].essay || { draft: "", checkedRubric: {}, aiFeedback: null, lastSavedAt: null };
   }
 
   ensureModule(moduleId) {
@@ -183,7 +213,7 @@ class StorageService {
       this.data.modules[moduleId] = {
         scenarios: {},
         shortAnswers: {},
-        essay: { draft: "", checkedRubric: {}, lastSavedAt: null }
+        essay: { draft: "", checkedRubric: {}, aiFeedback: null, lastSavedAt: null }
       };
     }
   }

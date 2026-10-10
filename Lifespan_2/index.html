@@ -204,6 +204,35 @@
           Your revision notes and quiz scores are automatically saved to your browser's local storage for instant offline access. You can also connect to Google Firebase Firestore to sync progress across multiple devices.
         </p>
 
+        <!-- Google Gemini AI Setup -->
+        <h4 class="modal-section-title">✨ Google Gemini AI Setup (Written Answer Grading)</h4>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">
+          Enter your Google Gemini API Key to enable automated AI grading, criteria checklist evaluation, and exam feedback for Short Answer questions and Essay practice.
+          <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener" style="color: var(--primary); font-weight: 600; text-decoration: underline; margin-left: 4px;">Get a free API key at Google AI Studio &rarr;</a>
+        </p>
+        <div class="form-group">
+          <label>Gemini API Key</label>
+          <div style="display: flex; gap: 8px;">
+            <input type="password" id="geminiApiKeyInput" placeholder="AIzaSy..." style="flex: 1;">
+            <button type="button" id="toggleGeminiKeyVisBtn" class="btn btn-outline-primary btn-sm" style="white-space: nowrap;">👁️ Show</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Preferred Gemini Model</label>
+          <select id="geminiModelSelect" class="form-control">
+            <option value="gemini-3.8-flash">gemini-3.8-flash (Recommended — Fast, Smart, Balanced)</option>
+            <option value="gemini-2.5-flash">gemini-2.5-flash</option>
+            <option value="gemini-2.0-flash">gemini-2.0-flash</option>
+            <option value="gemini-3.1-pro-preview">gemini-3.1-pro-preview (Deep Clinical Reasoning)</option>
+          </select>
+        </div>
+        <div style="margin-top: 10px; display: flex; align-items: center; gap: 10px;">
+          <button id="saveGeminiConfigBtn" class="btn btn-primary btn-sm">Save Gemini Key & Settings</button>
+          <span id="geminiStatusMsg" style="font-size: 12.5px;"></span>
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 20px 0;">
+
         <!-- Firebase Config Form -->
         <h4 class="modal-section-title">☁️ Google Firebase Firestore Setup (Optional)</h4>
         <div class="form-group">
@@ -250,6 +279,32 @@
     </div>
   </div>
 
+  <!-- Quick Gemini Key Prompt Modal -->
+  <div id="quickGeminiModal" class="modal-overlay" style="display: none;">
+    <div class="modal-card" style="max-width: 480px;">
+      <div class="modal-header">
+        <h3 style="display: flex; align-items: center; gap: 8px;">✨ Set Google Gemini API Key</h3>
+        <button id="closeQuickGeminiModal" class="close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 13.5px; color: var(--text-muted); line-height: 1.5; margin-bottom: 14px;">
+          To evaluate and grade your written short answers and essay against the exam rubrics, please paste your Google Gemini API Key. Your key is stored securely in your browser's private local storage.
+        </p>
+        <div class="form-group">
+          <label>Google Gemini API Key</label>
+          <input type="password" id="quickGeminiApiKeyInput" placeholder="AIzaSy..." class="form-control" style="width: 100%;">
+        </div>
+        <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 16px;">
+          Don't have a key? <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener" style="color: var(--primary); font-weight: 600; text-decoration: underline;">Get a free API key at Google AI Studio &rarr;</a>
+        </p>
+        <div style="display: flex; justify-content: flex-end; gap: 10px;">
+          <button id="cancelQuickGeminiBtn" class="btn btn-secondary btn-sm">Cancel</button>
+          <button id="saveQuickGeminiBtn" class="btn btn-primary btn-sm">Save & Continue Grading</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Scripts -->
   <script src="js/data_all_modules.js"></script>
   <script src="js/data_module3.js"></script>
@@ -261,6 +316,7 @@
   <script src="js/data_module9.js"></script>
   <script src="js/data_module10.js"></script>
   <script src="js/storage.js"></script>
+  <script src="js/gemini_service.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

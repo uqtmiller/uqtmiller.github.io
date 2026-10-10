@@ -24,11 +24,41 @@ const App = {
   selectedDifferentialIds: [],
 
   init() {
+    this.checkUrlForApiKey();
     this.initModuleState();
     this.renderTopNav();
     this.setupEventListeners();
     this.renderActiveModule();
     this.updateGlobalProgressUI();
+  },
+
+  checkUrlForApiKey() {
+    // Check URL fragment (#key=... or #api_key=...) or query string (?key=...)
+    let keyToSave = null;
+    const hash = window.location.hash || "";
+    if (hash) {
+      const match = hash.match(/(?:gemini_key|api_key|key)=([A-Za-z0-9_\-]+)/i);
+      if (match && match[1]) {
+        keyToSave = match[1];
+      }
+    }
+
+    if (!keyToSave && window.location.search) {
+      const params = new URLSearchParams(window.location.search);
+      keyToSave = params.get("gemini_key") || params.get("api_key") || params.get("key");
+    }
+
+    if (keyToSave) {
+      geminiService.setApiKey(keyToSave);
+      // Immediately sanitize URL address bar so key is not visible or stored in history
+      if (window.history && window.history.replaceState) {
+        const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+        window.history.replaceState({}, document.title, cleanUrl);
+      }
+      setTimeout(() => {
+        alert("✨ Google Gemini API Key successfully saved to your browser on this device! You are ready to study.");
+      }, 300);
+    }
   },
 
   getActiveModuleData() {
@@ -891,26 +921,37 @@ const App = {
       .map((sa, idx) => {
         const saved = storageService.getShortAnswer(this.currentModuleId, sa.id);
         const criteriaList = sa.keyCriteria || sa.criteria || [];
+        const promptText = (sa.prompt || sa.question || "").replace(/\n/g, '<br>');
 
         return `
         <div class="card short-answer-card" id="sa-card-${sa.id}">
           <div class="sa-header">
             <h4>${sa.title}</h4>
-            ${saved.selfScore ? `<span class="badge badge-success">Rated: ${saved.selfScore} / 5</span>` : ""}
+            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+              ${saved.selfScore ? `<span class="badge badge-success">Rated: ${saved.selfScore} / 5</span>` : ""}
+              ${saved.aiFeedback?.gradeBand ? `<span class="ai-grade-badge ${this.getGradeBadgeClass(saved.aiFeedback.gradeBand)}" style="font-size: 12px; padding: 3px 10px;">AI Grade: ${saved.aiFeedback.score || (saved.aiFeedback.scoreOutOf5 + ' / 5')}</span>` : ""}
+            </div>
           </div>
           <div class="sa-prompt">
-            <p>${sa.prompt.replace(/\n/g, '<br>')}</p>
+            <p>${promptText}</p>
           </div>
 
           <div class="sa-response-box">
             <textarea id="ta-${sa.id}" class="form-control" rows="6" placeholder="Type your practice short-answer response here...">${saved.draft || ""}</textarea>
-            <div class="sa-actions">
+            <div class="sa-actions" style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
               <button class="btn btn-primary btn-sm" onclick="App.saveShortAnswerDraft('${sa.id}')">💾 Save Response</button>
+              <button class="btn btn-ai-grade btn-sm" id="btn-ai-sa-${sa.id}" onclick="App.submitShortAnswerToGemini('${sa.id}')">✨ Grade with Gemini</button>
               <button class="btn btn-outline-primary btn-sm" onclick="App.toggleModelAnswer('${sa.id}')">👁️ Show Model Answer & Marking Criteria</button>
               <span id="save-status-${sa.id}" class="save-status text-muted"></span>
             </div>
           </div>
 
+          <!-- AI Feedback Card (Dynamically shown) -->
+          <div id="ai-feedback-sa-${sa.id}" class="ai-feedback-container" style="${saved.aiFeedback ? '' : 'display: none;'}">
+            ${saved.aiFeedback ? this.renderSaqAiFeedbackContent(sa.id, saved.aiFeedback) : ''}
+          </div>
+
+          <!-- Collapsible Official Model Answer -->
           <div class="model-answer-box" id="model-${sa.id}" style="display: none;">
             <div class="criteria-section">
               <h5>Key Marking Points (Criteria Checklist):</h5>
@@ -981,9 +1022,10 @@ const App = {
       <div class="card essay-card">
         <div class="essay-header">
           <h3>📝 ${essayData.title}</h3>
-          <div class="essay-badges">
+          <div class="essay-badges" style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
             <span class="badge badge-primary">Target: ${essayData.suggestedWordCount}</span>
             ${essayData.timeAllowedMinutes ? `<span class="badge badge-secondary">Timed: ${essayData.timeAllowedMinutes} mins</span>` : ''}
+            ${saved.aiFeedback?.gradeBand ? `<span class="ai-grade-badge ${this.getGradeBadgeClass(saved.aiFeedback.gradeBand)}" style="font-size: 12px; padding: 4px 12px;">AI Grade: ${saved.aiFeedback.estimatedScorePercent}% (${saved.aiFeedback.gradeBand})</span>` : ''}
           </div>
         </div>
 
@@ -997,11 +1039,17 @@ const App = {
             <span id="essayWordCount" class="badge badge-light">Word count: 0 words</span>
           </div>
           <textarea id="essayTextArea" class="form-control" rows="12" placeholder="Write your essay practice response here...">${saved.draft || ""}</textarea>
-          <div class="essay-action-bar">
+          <div class="essay-action-bar" style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
             <button class="btn btn-primary" onclick="App.saveEssayDraft()">💾 Save Essay Draft</button>
+            <button class="btn btn-ai-grade" id="btn-ai-essay" onclick="App.submitEssayToGemini()">✨ Grade Essay with Gemini</button>
             <button class="btn btn-outline-primary" onclick="App.toggleEssayModel()">👁️ Toggle Model Essay Outline & Rubric</button>
             <span id="essaySaveStatus" class="save-status text-muted"></span>
           </div>
+        </div>
+
+        <!-- AI Feedback Card for Essay -->
+        <div id="ai-feedback-essay" class="ai-feedback-container essay-ai-container" style="${saved.aiFeedback ? '' : 'display: none;'}">
+          ${saved.aiFeedback ? this.renderEssayAiFeedbackContent(saved.aiFeedback) : ''}
         </div>
 
         <!-- Collapsible Model Essay & Rubric -->
@@ -1049,20 +1097,22 @@ const App = {
   },
 
   updateWordCount(text) {
-    const countEl = document.getElementById("essayWordCount");
-    if (!countEl) return;
-    const words = text.trim().split(/\s+/).filter((w) => w.length > 0).length;
-    countEl.textContent = `Word count: ${words} words`;
+    const words = text.trim().split(/\s+/).filter(Boolean);
+    const count = text.trim().length === 0 ? 0 : words.length;
+    const badge = document.getElementById("essayWordCount");
+    if (badge) {
+      badge.textContent = `Word count: ${count} words`;
+    }
   },
 
   saveEssayDraft() {
     const ta = document.getElementById("essayTextArea");
     if (!ta) return;
-    const saved = storageService.getEssay(this.currentModuleId);
-    storageService.saveEssay(this.currentModuleId, ta.value, saved.checkedRubric || {});
+    const currentEssay = storageService.getEssay(this.currentModuleId);
+    storageService.saveEssay(this.currentModuleId, ta.value, currentEssay.checkedRubric || {});
     const statusEl = document.getElementById("essaySaveStatus");
     if (statusEl) {
-      statusEl.textContent = "Saved draft at " + new Date().toLocaleTimeString();
+      statusEl.textContent = "Saved to local storage at " + new Date().toLocaleTimeString();
       setTimeout(() => { statusEl.textContent = ""; }, 3000);
     }
   },
@@ -1074,14 +1124,460 @@ const App = {
     }
   },
 
-  onRubricCheck(index) {
+  onRubricCheck(idx) {
+    const chk = document.getElementById(`rubric-chk-${idx}`);
+    if (!chk) return;
+    const currentEssay = storageService.getEssay(this.currentModuleId);
+    const checked = currentEssay.checkedRubric || {};
+    checked[idx] = chk.checked;
     const ta = document.getElementById("essayTextArea");
+    storageService.saveEssay(this.currentModuleId, ta ? ta.value : "", checked);
+  },
+
+  // -------------------------------------------------------------
+  // Gemini AI Written Grading Integration
+  // -------------------------------------------------------------
+  _pendingAiCallback: null,
+
+  openQuickGeminiModal(onSuccessCallback) {
+    this._pendingAiCallback = onSuccessCallback;
+    const modal = document.getElementById("quickGeminiModal");
+    if (modal) {
+      modal.style.display = "flex";
+      const input = document.getElementById("quickGeminiApiKeyInput");
+      if (input) {
+        input.value = geminiService.getApiKey();
+        setTimeout(() => input.focus(), 100);
+      }
+    }
+  },
+
+  closeQuickGeminiModal() {
+    const modal = document.getElementById("quickGeminiModal");
+    if (modal) modal.style.display = "none";
+    this._pendingAiCallback = null;
+  },
+
+  saveQuickGeminiKey() {
+    const input = document.getElementById("quickGeminiApiKeyInput");
+    const key = input ? input.value.trim() : "";
+    if (!key) {
+      alert("Please enter a valid Google Gemini API Key.");
+      return;
+    }
+    geminiService.setApiKey(key);
+    const cb = this._pendingAiCallback;
+    this.closeQuickGeminiModal();
+    if (cb && typeof cb === "function") {
+      cb();
+    }
+  },
+
+  toggleGeminiKeyVisibility() {
+    const input = document.getElementById("geminiApiKeyInput");
+    const btn = document.getElementById("toggleGeminiKeyVisBtn");
+    if (!input || !btn) return;
+    if (input.type === "password") {
+      input.type = "text";
+      btn.textContent = "🔒 Hide";
+    } else {
+      input.type = "password";
+      btn.textContent = "👁️ Show";
+    }
+  },
+
+  saveGeminiConfig() {
+    const keyInput = document.getElementById("geminiApiKeyInput");
+    const modelSelect = document.getElementById("geminiModelSelect");
+    const statusMsg = document.getElementById("geminiStatusMsg");
+
+    const key = keyInput ? keyInput.value.trim() : "";
+    const model = modelSelect ? modelSelect.value : "gemini-3.8-flash";
+
+    geminiService.setApiKey(key);
+    geminiService.setModel(model);
+
+    if (statusMsg) {
+      statusMsg.className = "text-success";
+      statusMsg.textContent = key ? "Gemini Key & Model saved! ✅" : "Settings saved (API key empty).";
+      setTimeout(() => { statusMsg.textContent = ""; }, 3000);
+    }
+  },
+
+  getGradeBadgeClass(band) {
+    const b = (band || "").toLowerCase();
+    if (b.includes("high distinction") || b.includes("hd") || b.includes("excellent")) return "badge-hd";
+    if (b.includes("distinction") || b.includes("proficient")) return "badge-d";
+    if (b.includes("credit") || b.includes("competent")) return "badge-c";
+    if (b.includes("pass") || b.includes("developing")) return "badge-p";
+    if (b.includes("fail") || b.includes("unsatisfactory")) return "badge-f";
+    return "badge-primary";
+  },
+
+  getCriteriaPillClass(status) {
+    const s = (status || "").toLowerCase();
+    if (s.includes("partially") || s.includes("partial") || s.includes("developing") || s.includes("competent")) return "partially-met";
+    if (s.includes("miss") || s.includes("not") || s.includes("unsatisfactory")) return "missed";
+    return "met";
+  },
+
+  async submitShortAnswerToGemini(saId) {
+    const modData = this.getActiveModuleData();
+    if (!modData || !modData.shortAnswerAndEssay) return;
+
+    const sa = modData.shortAnswerAndEssay.shortAnswerQuestions.find((q) => q.id === saId);
+    if (!sa) return;
+
+    const ta = document.getElementById(`ta-${saId}`);
+    const answerText = ta ? ta.value.trim() : "";
+
+    if (!answerText) {
+      alert("Please write your answer into the practice box before submitting for AI grading.");
+      if (ta) ta.focus();
+      return;
+    }
+
+    if (!geminiService.hasApiKey()) {
+      this.openQuickGeminiModal(() => this.submitShortAnswerToGemini(saId));
+      return;
+    }
+
+    // Save draft first
+    this.saveShortAnswerDraft(saId);
+
+    const submitBtn = document.getElementById(`btn-ai-sa-${saId}`);
+    const feedbackBox = document.getElementById(`ai-feedback-sa-${saId}`);
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = "✨ Grading... ⏳";
+    }
+
+    if (feedbackBox) {
+      feedbackBox.style.display = "block";
+      feedbackBox.innerHTML = `
+        <div class="ai-loading-box">
+          <div class="ai-spinner"></div>
+          <div class="ai-loading-text">✨ Gemini is evaluating your clinical response against the official criteria...</div>
+          <div class="ai-loading-subtext">Assessing diagnostic accuracy, criteria coverage, and evidence-based rationale</div>
+        </div>
+      `;
+      feedbackBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    try {
+      const criteriaList = sa.keyCriteria || sa.criteria || [];
+      const questionPrompt = sa.prompt || sa.question || "";
+
+      const result = await geminiService.evaluateShortAnswer({
+        moduleTitle: modData.title,
+        academicLead: modData.lecturer,
+        questionTitle: sa.title,
+        questionPrompt: questionPrompt,
+        criteriaList: criteriaList,
+        modelAnswer: sa.modelAnswer,
+        studentAnswer: answerText
+      });
+
+      // Save to storage
+      storageService.saveShortAnswer(this.currentModuleId, saId, answerText, null, result);
+
+      // Render feedback card
+      if (feedbackBox) {
+        feedbackBox.innerHTML = this.renderSaqAiFeedbackContent(saId, result);
+      }
+
+      // Update SAQ header badge if present
+      const card = document.getElementById(`sa-card-${saId}`);
+      if (card) {
+        const headerBadgeWrap = card.querySelector(".sa-header div");
+        if (headerBadgeWrap && result.gradeBand) {
+          headerBadgeWrap.innerHTML = `
+            ${storageService.getShortAnswer(this.currentModuleId, saId).selfScore ? `<span class="badge badge-success">Rated: ${storageService.getShortAnswer(this.currentModuleId, saId).selfScore} / 5</span>` : ""}
+            <span class="ai-grade-badge ${this.getGradeBadgeClass(result.gradeBand)}" style="font-size: 12px; padding: 3px 10px;">AI Grade: ${result.score || (result.scoreOutOf5 + ' / 5')}</span>
+          `;
+        }
+      }
+    } catch (err) {
+      console.error("Gemini evaluation error:", err);
+      if (feedbackBox) {
+        feedbackBox.innerHTML = `
+          <div class="feedback-box feedback-warning-guess" style="margin: 0;">
+            <h4>⚠️ AI Grading Notice</h4>
+            <p>${err.message}</p>
+            <div style="margin-top: 10px; display: flex; gap: 8px;">
+              <button class="btn btn-secondary btn-sm" onclick="App.openSettingsModal()">⚙️ Check Gemini Settings</button>
+              <button class="btn btn-primary btn-sm" onclick="App.submitShortAnswerToGemini('${saId}')">Try Again</button>
+            </div>
+          </div>
+        `;
+      }
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = "✨ Grade with Gemini";
+      }
+    }
+  },
+
+  renderSaqAiFeedbackContent(saId, fb) {
+    if (!fb) return "";
+    const scoreText = fb.score || (fb.scoreOutOf5 !== undefined ? `${fb.scoreOutOf5} / 5` : "Evaluated");
+    const gradeBand = fb.gradeBand || "Assessed";
+    const badgeClass = this.getGradeBadgeClass(gradeBand);
+
+    return `
+      <div class="ai-feedback-header">
+        <div class="ai-title-wrap">
+          <span class="ai-sparkle-icon">✨</span>
+          <div>
+            <h4>Gemini Clinical Assessment</h4>
+            <span class="text-muted" style="font-size: 12px;">Evaluated against official marking rubric checklist</span>
+          </div>
+        </div>
+        <div class="ai-grade-badge ${badgeClass}">
+          Score: <strong>${scoreText}</strong> &bull; ${gradeBand}
+        </div>
+      </div>
+
+      <div class="ai-summary-box">
+        <strong>Executive Assessment:</strong> ${fb.summary || "Response evaluated against clinical criteria."}
+      </div>
+
+      ${fb.criteriaAssessment && fb.criteriaAssessment.length > 0 ? `
+        <div class="ai-section-heading">📋 Official Marking Points Evaluation</div>
+        <div class="ai-criteria-list">
+          ${fb.criteriaAssessment.map((c) => `
+            <div class="ai-criteria-item">
+              <div class="ai-crit-top">
+                <span class="ai-crit-name">${c.criterion}</span>
+                <span class="ai-status-pill ${this.getCriteriaPillClass(c.status)}">${c.status}</span>
+              </div>
+              <div class="ai-crit-comment">${c.feedback}</div>
+            </div>
+          `).join("")}
+        </div>
+      ` : ""}
+
+      <div class="ai-feedback-columns">
+        <div class="ai-column-card strengths">
+          <h5 class="text-success">✅ Clinical Strengths</h5>
+          <ul>
+            ${(fb.strengths && fb.strengths.length > 0 ? fb.strengths : ["Clear articulation of clinical details."]).map((s) => `<li>${s}</li>`).join("")}
+          </ul>
+        </div>
+        <div class="ai-column-card improvements">
+          <h5 style="color: #d97706;">🎯 Actionable Exam Improvements</h5>
+          <ul>
+            ${(fb.areasForImprovement && fb.areasForImprovement.length > 0 ? fb.areasForImprovement : ["Review the model answer for subtle differential distinctions."]).map((i) => `<li>${i}</li>`).join("")}
+          </ul>
+        </div>
+      </div>
+
+      ${fb.examinerTip ? `
+        <div class="ai-tip-box">
+          <span style="font-size: 18px;">💡</span>
+          <div><strong>Examiner's Tip for Timed Exam:</strong> ${fb.examinerTip}</div>
+        </div>
+      ` : ""}
+
+      <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px;">
+        <button class="btn btn-outline-primary btn-sm" onclick="App.clearSaqAiFeedback('${saId}')">Clear AI Feedback</button>
+        <button class="btn btn-ai-grade btn-sm" onclick="App.submitShortAnswerToGemini('${saId}')">🔄 Regrade Response</button>
+      </div>
+    `;
+  },
+
+  clearSaqAiFeedback(saId) {
+    const ta = document.getElementById(`ta-${saId}`);
     const draftText = ta ? ta.value : "";
-    const saved = storageService.getEssay(this.currentModuleId);
-    const checked = saved.checkedRubric || {};
-    const chk = document.getElementById(`rubric-chk-${index}`);
-    checked[index] = chk ? chk.checked : false;
-    storageService.saveEssay(this.currentModuleId, draftText, checked);
+    const saved = storageService.getShortAnswer(this.currentModuleId, saId);
+    storageService.saveShortAnswer(this.currentModuleId, saId, draftText, saved.selfScore, null);
+    const box = document.getElementById(`ai-feedback-sa-${saId}`);
+    if (box) {
+      box.style.display = "none";
+      box.innerHTML = "";
+    }
+    this.renderShortAnswerQuestions();
+  },
+
+  async submitEssayToGemini() {
+    const modData = this.getActiveModuleData();
+    if (!modData || !modData.shortAnswerAndEssay) return;
+
+    const essayData = modData.shortAnswerAndEssay.essayPrompt;
+    if (!essayData) return;
+
+    const ta = document.getElementById("essayTextArea");
+    const essayText = ta ? ta.value.trim() : "";
+
+    if (!essayText) {
+      alert("Please write your essay into the practice canvas before submitting for AI grading.");
+      if (ta) ta.focus();
+      return;
+    }
+
+    if (!geminiService.hasApiKey()) {
+      this.openQuickGeminiModal(() => this.submitEssayToGemini());
+      return;
+    }
+
+    // Save draft first
+    this.saveEssayDraft();
+
+    const submitBtn = document.getElementById("btn-ai-essay");
+    const feedbackBox = document.getElementById("ai-feedback-essay");
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = "✨ Grading Full Essay... ⏳";
+    }
+
+    if (feedbackBox) {
+      feedbackBox.style.display = "block";
+      feedbackBox.innerHTML = `
+        <div class="ai-loading-box">
+          <div class="ai-spinner"></div>
+          <div class="ai-loading-text">✨ Gemini is evaluating your essay across all 4 rubric pillars...</div>
+          <div class="ai-loading-subtext">Reviewing theoretical synthesis, diagnostic formulation, clinical interventions, and critical reflection</div>
+        </div>
+      `;
+      feedbackBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    try {
+      const rubricPillars = essayData.scoringRubric || essayData.rubricPillars || [];
+      const outlineText = essayData.modelEssayOutline || (Array.isArray(essayData.modelOutline) ? essayData.modelOutline.join('\n\n') : essayData.modelOutline) || '';
+
+      const result = await geminiService.evaluateEssay({
+        moduleTitle: modData.title,
+        academicLead: modData.lecturer,
+        essayTitle: essayData.title,
+        essayPrompt: essayData.prompt,
+        suggestedWordCount: essayData.suggestedWordCount,
+        rubricPillars: rubricPillars,
+        modelOutline: outlineText,
+        studentAnswer: essayText
+      });
+
+      // Save to storage
+      const currentEssay = storageService.getEssay(this.currentModuleId);
+      storageService.saveEssay(this.currentModuleId, essayText, currentEssay.checkedRubric, result);
+
+      // Render feedback card
+      if (feedbackBox) {
+        feedbackBox.innerHTML = this.renderEssayAiFeedbackContent(result);
+      }
+
+      // Update essay header badge
+      const headerBadges = document.querySelector(".essay-badges");
+      if (headerBadges && result.gradeBand) {
+        headerBadges.innerHTML = `
+          <span class="badge badge-primary">Target: ${essayData.suggestedWordCount}</span>
+          ${essayData.timeAllowedMinutes ? `<span class="badge badge-secondary">Timed: ${essayData.timeAllowedMinutes} mins</span>` : ''}
+          <span class="ai-grade-badge ${this.getGradeBadgeClass(result.gradeBand)}" style="font-size: 12px; padding: 4px 12px;">AI Grade: ${result.estimatedScorePercent}% (${result.gradeBand})</span>
+        `;
+      }
+    } catch (err) {
+      console.error("Gemini essay evaluation error:", err);
+      if (feedbackBox) {
+        feedbackBox.innerHTML = `
+          <div class="feedback-box feedback-warning-guess" style="margin: 0;">
+            <h4>⚠️ Essay AI Grading Notice</h4>
+            <p>${err.message}</p>
+            <div style="margin-top: 10px; display: flex; gap: 8px;">
+              <button class="btn btn-secondary btn-sm" onclick="App.openSettingsModal()">⚙️ Check Gemini Settings</button>
+              <button class="btn btn-primary btn-sm" onclick="App.submitEssayToGemini()">Try Again</button>
+            </div>
+          </div>
+        `;
+      }
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = "✨ Grade Essay with Gemini";
+      }
+    }
+  },
+
+  renderEssayAiFeedbackContent(fb) {
+    if (!fb) return "";
+    const scorePct = fb.estimatedScorePercent !== undefined ? `${fb.estimatedScorePercent}%` : "Evaluated";
+    const gradeBand = fb.gradeBand || "Assessed";
+    const badgeClass = this.getGradeBadgeClass(gradeBand);
+
+    return `
+      <div class="ai-feedback-header">
+        <div class="ai-title-wrap">
+          <span class="ai-sparkle-icon">✨</span>
+          <div>
+            <h4>Gemini Comprehensive Essay Assessment</h4>
+            <span class="text-muted" style="font-size: 12px;">Assessed across 4 core marking rubric pillars &bull; ${fb.wordCountAssessed || 'Standard'} words</span>
+          </div>
+        </div>
+        <div class="ai-grade-badge ${badgeClass}">
+          Grade: <strong>${scorePct}</strong> &bull; ${gradeBand}
+        </div>
+      </div>
+
+      <div class="ai-summary-box">
+        <strong>Lead Examiner Verdict:</strong> ${fb.overallVerdict || "Comprehensive review completed."}
+      </div>
+
+      ${fb.rubricAssessment && fb.rubricAssessment.length > 0 ? `
+        <div class="ai-section-heading">🏛️ 4-Pillar Marking Rubric Assessment</div>
+        <div class="essay-rubric-eval-grid">
+          ${fb.rubricAssessment.map((r) => `
+            <div class="essay-rubric-eval-card">
+              <div class="essay-rubric-eval-header">
+                <span class="essay-pillar-name">${r.pillar} ${r.weight ? '(' + r.weight + ')' : ''}</span>
+                <span class="ai-status-pill ${this.getCriteriaPillClass(r.rating)}">${r.rating}</span>
+              </div>
+              <p class="ai-crit-comment">${r.feedback}</p>
+            </div>
+          `).join("")}
+        </div>
+      ` : ""}
+
+      <div class="ai-feedback-columns">
+        <div class="ai-column-card strengths">
+          <h5 class="text-success">✅ Essay Strengths & Academic Rigor</h5>
+          <ul>
+            ${(fb.keyStrengths && fb.keyStrengths.length > 0 ? fb.keyStrengths : ["Well-structured clinical discussion."]).map((s) => `<li>${s}</li>`).join("")}
+          </ul>
+        </div>
+        <div class="ai-column-card improvements">
+          <h5 style="color: #d97706;">🎯 High-Yield Exam Improvements</h5>
+          <ul>
+            ${(fb.highYieldImprovements && fb.highYieldImprovements.length > 0 ? fb.highYieldImprovements : ["Integrate more explicit theoretical mechanisms."]).map((i) => `<li>${i}</li>`).join("")}
+          </ul>
+        </div>
+      </div>
+
+      ${fb.examSynthesisAdvice ? `
+        <div class="ai-tip-box">
+          <span style="font-size: 18px;">💡</span>
+          <div><strong>Exam Synthesis Advice:</strong> ${fb.examSynthesisAdvice}</div>
+        </div>
+      ` : ""}
+
+      <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px;">
+        <button class="btn btn-outline-primary btn-sm" onclick="App.clearEssayAiFeedback()">Clear AI Feedback</button>
+        <button class="btn btn-ai-grade btn-sm" onclick="App.submitEssayToGemini()">🔄 Regrade Essay</button>
+      </div>
+    `;
+  },
+
+  clearEssayAiFeedback() {
+    const ta = document.getElementById("essayTextArea");
+    const currentEssay = storageService.getEssay(this.currentModuleId);
+    storageService.saveEssay(this.currentModuleId, ta ? ta.value : "", currentEssay.checkedRubric, null);
+    const box = document.getElementById("ai-feedback-essay");
+    if (box) {
+      box.style.display = "none";
+      box.innerHTML = "";
+    }
+    this.renderEssaySection();
   },
 
   // -------------------------------------------------------------
@@ -1122,6 +1618,33 @@ const App = {
       closeSettingsBtn.addEventListener("click", () => this.closeSettingsModal());
     }
 
+    // Gemini Settings Listeners
+    const saveGeminiBtn = document.getElementById("saveGeminiConfigBtn");
+    if (saveGeminiBtn) {
+      saveGeminiBtn.addEventListener("click", () => this.saveGeminiConfig());
+    }
+
+    const toggleGeminiVisBtn = document.getElementById("toggleGeminiKeyVisBtn");
+    if (toggleGeminiVisBtn) {
+      toggleGeminiVisBtn.addEventListener("click", () => this.toggleGeminiKeyVisibility());
+    }
+
+    // Quick Gemini Modal Listeners
+    const closeQuickModalBtn = document.getElementById("closeQuickGeminiModal");
+    if (closeQuickModalBtn) {
+      closeQuickModalBtn.addEventListener("click", () => this.closeQuickGeminiModal());
+    }
+
+    const cancelQuickModalBtn = document.getElementById("cancelQuickGeminiBtn");
+    if (cancelQuickModalBtn) {
+      cancelQuickModalBtn.addEventListener("click", () => this.closeQuickGeminiModal());
+    }
+
+    const saveQuickModalBtn = document.getElementById("saveQuickGeminiBtn");
+    if (saveQuickModalBtn) {
+      saveQuickModalBtn.addEventListener("click", () => this.saveQuickGeminiKey());
+    }
+
     const exportBtn = document.getElementById("exportDataBtn");
     if (exportBtn) {
       exportBtn.addEventListener("click", () => this.exportData());
@@ -1148,6 +1671,17 @@ const App = {
     if (!modal) return;
     modal.style.display = "flex";
 
+    // Populate Gemini Settings
+    const geminiKeyInput = document.getElementById("geminiApiKeyInput");
+    if (geminiKeyInput) {
+      geminiKeyInput.value = geminiService.getApiKey() || "";
+    }
+    const geminiModelSelect = document.getElementById("geminiModelSelect");
+    if (geminiModelSelect) {
+      geminiModelSelect.value = geminiService.getModel() || "gemini-3.8-flash";
+    }
+
+    // Populate Firebase Settings
     const conf = storageService.data.settings.firebaseConfig;
     if (conf) {
       document.getElementById("fbApiKey").value = conf.apiKey || "";

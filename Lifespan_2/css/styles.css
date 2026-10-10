@@ -1321,8 +1321,330 @@ body {
 .text-danger { color: var(--danger); }
 .text-info { color: var(--primary); }
 
+/* ==========================================================================
+   Gemini AI Grading & Feedback Styles
+   ========================================================================== */
+.btn-ai-grade {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  color: #ffffff;
+  border: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  box-shadow: 0 2px 6px rgba(99, 102, 241, 0.25);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.btn-ai-grade:hover:not(:disabled) {
+  background: linear-gradient(135deg, #4338ca 0%, #6d28d9 100%);
+  transform: translateY(-1.5px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+  color: #ffffff;
+}
+
+.btn-ai-grade:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-ai-grade:disabled {
+  background: #cbd5e1;
+  color: #64748b;
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.ai-feedback-container {
+  margin-top: 18px;
+  background: #fcfbff;
+  border: 1.5px solid #c7d2fe;
+  border-radius: var(--radius-md);
+  padding: 22px;
+  box-shadow: 0 4px 16px rgba(79, 70, 229, 0.06);
+  animation: fadeIn 0.3s ease;
+}
+
+.ai-feedback-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1.5px solid #e0e7ff;
+  margin-bottom: 16px;
+}
+
+.ai-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ai-sparkle-icon {
+  font-size: 22px;
+}
+
+.ai-feedback-header h4 {
+  font-size: 17px;
+  color: #312e81;
+  margin: 0;
+  font-weight: 700;
+}
+
+.ai-grade-badge {
+  background: #e0e7ff;
+  color: #3730a3;
+  font-size: 14px;
+  font-weight: 800;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid #c7d2fe;
+  letter-spacing: 0.3px;
+}
+
+.ai-grade-badge.badge-hd {
+  background: #ecfdf5;
+  color: #065f46;
+  border-color: #a7f3d0;
+}
+
+.ai-grade-badge.badge-d {
+  background: #eff6ff;
+  color: #1e40af;
+  border-color: #bfdbfe;
+}
+
+.ai-grade-badge.badge-c {
+  background: #fefce8;
+  color: #854d0e;
+  border-color: #fde047;
+}
+
+.ai-grade-badge.badge-p {
+  background: #f8fafc;
+  color: #475569;
+  border-color: #cbd5e1;
+}
+
+.ai-grade-badge.badge-f {
+  background: #fef2f2;
+  color: #991b1b;
+  border-color: #fecaca;
+}
+
+.ai-summary-box {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid #6366f1;
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #1e293b;
+  margin-bottom: 18px;
+}
+
+.ai-section-heading {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #4338ca;
+  margin: 16px 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ai-criteria-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.ai-criteria-item {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 12px 14px;
+  font-size: 13.5px;
+}
+
+.ai-crit-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.ai-crit-name {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.ai-status-pill {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.ai-status-pill.met {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.ai-status-pill.partially-met {
+  background: #fef9c3;
+  color: #a16207;
+}
+
+.ai-status-pill.missed {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.ai-crit-comment {
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.5;
+}
+
+.ai-feedback-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.ai-column-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 14px;
+}
+
+.ai-column-card.strengths {
+  border-top: 3px solid #10b981;
+}
+
+.ai-column-card.improvements {
+  border-top: 3px solid #f59e0b;
+}
+
+.ai-column-card h5 {
+  font-size: 13.5px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ai-column-card ul {
+  padding-left: 18px;
+  margin: 0;
+  font-size: 13px;
+  color: #334155;
+  line-height: 1.55;
+}
+
+.ai-column-card li {
+  margin-bottom: 6px;
+}
+
+.ai-tip-box {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-size: 13.5px;
+  color: #14532d;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.ai-loading-box {
+  background: #f5f3ff;
+  border: 1.5px dashed #a5b4fc;
+  border-radius: var(--radius-md);
+  padding: 24px;
+  text-align: center;
+  margin-top: 16px;
+  animation: pulseBg 2s infinite ease-in-out;
+}
+
+.ai-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3.5px solid #e0e7ff;
+  border-top: 3.5px solid #6366f1;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 12px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulseBg {
+  0%, 100% { background: #f5f3ff; }
+  50% { background: #ede9fe; }
+}
+
+.ai-loading-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #4338ca;
+}
+
+.ai-loading-subtext {
+  font-size: 12.5px;
+  color: #6366f1;
+  margin-top: 4px;
+}
+
+/* Essay Rubric Assessment Grid */
+.essay-rubric-eval-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.essay-rubric-eval-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 12px 14px;
+}
+
+.essay-rubric-eval-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.essay-pillar-name {
+  font-weight: 700;
+  font-size: 13.5px;
+  color: #1e293b;
+}
+
 @media (max-width: 768px) {
   .header-inner { flex-direction: column; align-items: flex-start; }
   .stats-ribbon { flex-direction: column; align-items: flex-start; }
   .progress-bar-container { width: 100%; max-width: none; }
+  .ai-feedback-header { flex-direction: column; align-items: flex-start; }
 }
