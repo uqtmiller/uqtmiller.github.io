@@ -23,6 +23,10 @@
         </div>
       </div>
       <div class="header-actions">
+        <button id="geminiStatusPill" class="gemini-status-pill inactive" onclick="App.openSettingsModal()" title="Click to view Gemini API status and settings">
+          <span class="status-dot"></span>
+          <span id="geminiStatusPillText">Checking Gemini AI...</span>
+        </button>
         <button id="openSettingsBtn" class="btn btn-secondary btn-sm">
           ⚙️ Settings & Cloud Sync
         </button>
@@ -220,16 +224,17 @@
         <div class="form-group">
           <label>Preferred Gemini Model</label>
           <select id="geminiModelSelect" class="form-control">
-            <option value="gemini-3.8-flash">gemini-3.8-flash (Recommended — Fast, Smart, Balanced)</option>
-            <option value="gemini-2.5-flash">gemini-2.5-flash</option>
-            <option value="gemini-2.0-flash">gemini-2.0-flash</option>
-            <option value="gemini-3.1-pro-preview">gemini-3.1-pro-preview (Deep Clinical Reasoning)</option>
+            <option value="gemini-3.5-flash-lite">gemini-3.5-flash-lite (Recommended — Ultra-Fast, 1M Context & Generous Free Quota)</option>
+            <option value="gemini-3.7-flash">gemini-3.7-flash (Flagship — Advanced Multi-Step Clinical Reasoning)</option>
+            <option value="gemini-3.5-flash">gemini-3.5-flash (High-Throughput Diagnostic Synthesis)</option>
+            <option value="gemini-3.1-pro-preview">gemini-3.1-pro-preview (Deep Complex Formulations & Pro Reasoning)</option>
           </select>
         </div>
-        <div style="margin-top: 10px; display: flex; align-items: center; gap: 10px;">
+        <div style="margin-top: 10px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
           <button id="saveGeminiConfigBtn" class="btn btn-primary btn-sm">Save Gemini Key & Settings</button>
           <span id="geminiStatusMsg" style="font-size: 12.5px;"></span>
         </div>
+        <div id="geminiSaveNotice" style="display: none; margin-top: 12px; padding: 10px 14px; border-radius: 6px; font-size: 13px;"></div>
 
         <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 20px 0;">
 
@@ -297,6 +302,7 @@
         <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 16px;">
           Don't have a key? <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener" style="color: var(--primary); font-weight: 600; text-decoration: underline;">Get a free API key at Google AI Studio &rarr;</a>
         </p>
+        <div id="quickGeminiSaveNotice" style="display: none; margin-bottom: 14px; padding: 10px 14px; border-radius: 6px; font-size: 13px;"></div>
         <div style="display: flex; justify-content: flex-end; gap: 10px;">
           <button id="cancelQuickGeminiBtn" class="btn btn-secondary btn-sm">Cancel</button>
           <button id="saveQuickGeminiBtn" class="btn btn-primary btn-sm">Save & Continue Grading</button>

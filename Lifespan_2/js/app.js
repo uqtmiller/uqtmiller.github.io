@@ -30,6 +30,7 @@ const App = {
     this.setupEventListeners();
     this.renderActiveModule();
     this.updateGlobalProgressUI();
+    this.updateGeminiStatusUI();
   },
 
   checkUrlForApiKey() {
@@ -1137,7 +1138,35 @@ const App = {
   // -------------------------------------------------------------
   // Gemini AI Written Grading Integration
   // -------------------------------------------------------------
+  // Gemini AI Written Grading Integration
+  // -------------------------------------------------------------
   _pendingAiCallback: null,
+
+  updateGeminiStatusUI() {
+    const hasKey = geminiService.hasApiKey();
+    const pill = document.getElementById("geminiStatusPill");
+    const pillText = document.getElementById("geminiStatusPillText");
+
+    if (pill && pillText) {
+      if (hasKey) {
+        pill.className = "gemini-status-pill active";
+        pillText.textContent = "✨ Gemini AI Ready";
+        pill.title = "Google Gemini API Key is configured in cookies & local storage. Click to modify.";
+      } else {
+        pill.className = "gemini-status-pill inactive";
+        pillText.textContent = "⚠️ Set Gemini Key";
+        pill.title = "Click to enter your Google Gemini API Key to enable AI grading.";
+      }
+    }
+
+    const currentKey = geminiService.getApiKey();
+    const kInput = document.getElementById("geminiApiKeyInput");
+    if (kInput && !kInput.value) kInput.value = currentKey;
+    const qInput = document.getElementById("quickGeminiApiKeyInput");
+    if (qInput && !qInput.value) qInput.value = currentKey;
+    const mSelect = document.getElementById("geminiModelSelect");
+    if (mSelect) mSelect.value = geminiService.getModel();
+  },
 
   openQuickGeminiModal(onSuccessCallback) {
     this._pendingAiCallback = onSuccessCallback;
@@ -1146,9 +1175,11 @@ const App = {
       modal.style.display = "flex";
       const input = document.getElementById("quickGeminiApiKeyInput");
       if (input) {
-        input.value = geminiService.getApiKey();
+        input.value = geminiService.getApiKey() || "";
         setTimeout(() => input.focus(), 100);
       }
+      const notice = document.getElementById("quickGeminiSaveNotice");
+      if (notice) notice.style.display = "none";
     }
   },
 
@@ -1163,14 +1194,29 @@ const App = {
     const key = input ? input.value.trim() : "";
     if (!key) {
       alert("Please enter a valid Google Gemini API Key.");
+      if (input) input.focus();
       return;
     }
+
     geminiService.setApiKey(key);
-    const cb = this._pendingAiCallback;
-    this.closeQuickGeminiModal();
-    if (cb && typeof cb === "function") {
-      cb();
+    this.updateGeminiStatusUI();
+
+    const notice = document.getElementById("quickGeminiSaveNotice");
+    if (notice) {
+      notice.style.display = "block";
+      notice.style.background = "#ecfdf5";
+      notice.style.color = "#065f46";
+      notice.style.border = "1px solid #a7f3d0";
+      notice.innerHTML = "✅ <strong>API Key Saved!</strong> Initializing AI grading...";
     }
+
+    const cb = this._pendingAiCallback;
+    setTimeout(() => {
+      this.closeQuickGeminiModal();
+      if (cb && typeof cb === "function") {
+        cb();
+      }
+    }, 450);
   },
 
   toggleGeminiKeyVisibility() {
@@ -1190,17 +1236,41 @@ const App = {
     const keyInput = document.getElementById("geminiApiKeyInput");
     const modelSelect = document.getElementById("geminiModelSelect");
     const statusMsg = document.getElementById("geminiStatusMsg");
+    const noticeEl = document.getElementById("geminiSaveNotice");
 
     const key = keyInput ? keyInput.value.trim() : "";
-    const model = modelSelect ? modelSelect.value : "gemini-3.8-flash";
+    const model = modelSelect ? modelSelect.value : "gemini-3.5-flash-lite";
 
     geminiService.setApiKey(key);
     geminiService.setModel(model);
 
-    if (statusMsg) {
-      statusMsg.className = "text-success";
-      statusMsg.textContent = key ? "Gemini Key & Model saved! ✅" : "Settings saved (API key empty).";
-      setTimeout(() => { statusMsg.textContent = ""; }, 3000);
+    this.updateGeminiStatusUI();
+
+    if (key) {
+      if (statusMsg) {
+        statusMsg.className = "text-success font-weight-bold";
+        statusMsg.textContent = "Saved to Cookies & Local Storage! ✅";
+      }
+      if (noticeEl) {
+        noticeEl.style.display = "block";
+        noticeEl.style.background = "#ecfdf5";
+        noticeEl.style.color = "#065f46";
+        noticeEl.style.border = "1px solid #a7f3d0";
+        noticeEl.innerHTML = "✅ <strong>API Key Saved Successfully!</strong> Stored in persistent browser cookies and local storage. Your key will stay active even after refreshing the page.";
+      }
+      alert("✅ Google Gemini API Key saved successfully!\n\nYour key is securely stored in browser cookies and local storage on this device. It will remain active across page refreshes.");
+    } else {
+      if (statusMsg) {
+        statusMsg.className = "text-muted";
+        statusMsg.textContent = "API key cleared.";
+      }
+      if (noticeEl) {
+        noticeEl.style.display = "block";
+        noticeEl.style.background = "#fffbeb";
+        noticeEl.style.color = "#92400e";
+        noticeEl.style.border = "1px solid #fde68a";
+        noticeEl.innerHTML = "⚠️ API Key cleared. AI grading will be paused until a key is entered.";
+      }
     }
   },
 
@@ -1223,17 +1293,27 @@ const App = {
 
   async submitShortAnswerToGemini(saId) {
     const modData = this.getActiveModuleData();
-    if (!modData || !modData.shortAnswerAndEssay) return;
+    if (!modData || !modData.shortAnswerAndEssay) {
+      alert("This module does not have written practice questions configured.");
+      return;
+    }
 
     const sa = modData.shortAnswerAndEssay.shortAnswerQuestions.find((q) => q.id === saId);
-    if (!sa) return;
+    if (!sa) {
+      alert("Question not found: " + saId);
+      return;
+    }
 
     const ta = document.getElementById(`ta-${saId}`);
     const answerText = ta ? ta.value.trim() : "";
 
     if (!answerText) {
       alert("Please write your answer into the practice box before submitting for AI grading.");
-      if (ta) ta.focus();
+      if (ta) {
+        ta.focus();
+        ta.classList.add("input-attention");
+        setTimeout(() => ta.classList.remove("input-attention"), 1500);
+      }
       return;
     }
 
@@ -1271,7 +1351,7 @@ const App = {
 
       const result = await geminiService.evaluateShortAnswer({
         moduleTitle: modData.title,
-        academicLead: modData.lecturer,
+        academicLead: modData.coordinator || modData.lecturer || "Course Coordinator",
         questionTitle: sa.title,
         questionPrompt: questionPrompt,
         criteriaList: criteriaList,
@@ -1451,7 +1531,7 @@ const App = {
 
       const result = await geminiService.evaluateEssay({
         moduleTitle: modData.title,
-        academicLead: modData.lecturer,
+        academicLead: modData.coordinator || modData.lecturer || "Course Coordinator",
         essayTitle: essayData.title,
         essayPrompt: essayData.prompt,
         suggestedWordCount: essayData.suggestedWordCount,
@@ -1671,15 +1751,12 @@ const App = {
     if (!modal) return;
     modal.style.display = "flex";
 
-    // Populate Gemini Settings
-    const geminiKeyInput = document.getElementById("geminiApiKeyInput");
-    if (geminiKeyInput) {
-      geminiKeyInput.value = geminiService.getApiKey() || "";
-    }
-    const geminiModelSelect = document.getElementById("geminiModelSelect");
-    if (geminiModelSelect) {
-      geminiModelSelect.value = geminiService.getModel() || "gemini-3.8-flash";
-    }
+    this.updateGeminiStatusUI();
+
+    const noticeEl = document.getElementById("geminiSaveNotice");
+    if (noticeEl) noticeEl.style.display = "none";
+    const statusMsg = document.getElementById("geminiStatusMsg");
+    if (statusMsg) statusMsg.textContent = "";
 
     // Populate Firebase Settings
     const conf = storageService.data.settings.firebaseConfig;
@@ -1782,3 +1859,5 @@ const App = {
     }
   }
 };
+
+window.App = App;

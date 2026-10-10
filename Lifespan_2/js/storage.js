@@ -16,7 +16,7 @@ class StorageService {
         userId: "student_wife_" + Math.random().toString(36).substring(2, 8),
         firebaseConfig: null,
         geminiApiKey: "",
-        geminiModel: "gemini-3.8-flash",
+        geminiModel: "gemini-3.5-flash-lite",
         theme: "light"
       },
       modules: {
@@ -152,23 +152,63 @@ class StorageService {
   // --- Gemini AI Settings ---
   getGeminiApiKey() {
     if (!this.data.settings) this.data.settings = {};
-    return this.data.settings.geminiApiKey || "";
+    if (this.data.settings.geminiApiKey) return this.data.settings.geminiApiKey;
+
+    // Fallback: check dedicated localStorage or cookie
+    try {
+      const lsKey = localStorage.getItem("gemini_api_key");
+      if (lsKey) {
+        this.data.settings.geminiApiKey = lsKey;
+        return lsKey;
+      }
+    } catch (e) {}
+
+    try {
+      const match = document.cookie.match(/(?:^|; )gemini_api_key=([^;]*)/);
+      if (match) {
+        const cKey = decodeURIComponent(match[1]);
+        if (cKey) {
+          this.data.settings.geminiApiKey = cKey;
+          return cKey;
+        }
+      }
+    } catch (e) {}
+
+    return "";
   }
 
   saveGeminiApiKey(key) {
     if (!this.data.settings) this.data.settings = {};
     this.data.settings.geminiApiKey = (key || "").trim();
     this.saveToLocalStorage();
+    try {
+      if (key) localStorage.setItem("gemini_api_key", (key || "").trim());
+    } catch (e) {}
+  }
+
+  isDeprecatedModel(model) {
+    if (!model || typeof model !== "string") return true;
+    const lower = model.trim().toLowerCase();
+    return (
+      lower.includes("gemini-2.0") ||
+      lower.includes("gemini-1.5") ||
+      lower.includes("gemini-2.5") ||
+      lower.includes("gemini-3.8") ||
+      lower.includes("flash-lite-2") ||
+      lower === "gemini-pro"
+    );
   }
 
   getGeminiModel() {
     if (!this.data.settings) this.data.settings = {};
-    return this.data.settings.geminiModel || "gemini-3.8-flash";
+    const m = this.data.settings.geminiModel;
+    if (m && !this.isDeprecatedModel(m)) return m;
+    return "gemini-3.5-flash-lite";
   }
 
   saveGeminiModel(model) {
     if (!this.data.settings) this.data.settings = {};
-    this.data.settings.geminiModel = model || "gemini-3.8-flash";
+    this.data.settings.geminiModel = (model && !this.isDeprecatedModel(model)) ? model : "gemini-3.5-flash-lite";
     this.saveToLocalStorage();
   }
 
@@ -319,3 +359,4 @@ class StorageService {
 }
 
 const storageService = new StorageService();
+window.storageService = storageService;
