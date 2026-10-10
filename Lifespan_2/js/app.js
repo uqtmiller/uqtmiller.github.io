@@ -1,10 +1,48 @@
-// Main application controller for Lifespan Psychology Study Companion
-// Supports Modules 1 through 10 with interactive clinical tables, differential diagnosis tools,
-// two-step scenario quizzes with "guess again" retry logic, and short answer/essay practice banks.
-// All modules feature rich, comprehensive lecture review sections extracted directly from course notes.
+// Defensive check: ensure window.geminiService always exists even if script order varies
+if (typeof window.geminiService === "undefined") {
+  window.geminiService = {
+    getApiKey() {
+      try {
+        const match = document.cookie.match(/(?:^|; )gemini_api_key=([^;]*)/);
+        if (match) return decodeURIComponent(match[1]);
+        return localStorage.getItem("gemini_api_key") || "";
+      } catch (e) { return ""; }
+    },
+    setApiKey(k) {
+      const trimmed = (k || "").trim();
+      try {
+        localStorage.setItem("gemini_api_key", trimmed);
+        const isHttps = typeof location !== "undefined" && location.protocol === "https:";
+        const sec = isHttps ? "; Secure" : "";
+        document.cookie = `gemini_api_key=${encodeURIComponent(trimmed)}; path=/; max-age=31536000; SameSite=Lax${sec}`;
+        document.cookie = `gemini_api_key=${encodeURIComponent(trimmed)}; path=/Lifespan_2/; max-age=31536000; SameSite=Lax${sec}`;
+      } catch (e) {}
+      return trimmed;
+    },
+    hasApiKey() { return Boolean(this.getApiKey()); },
+    getModel() { return "gemini-3.5-flash-lite"; },
+    setModel() {},
+    async testApiKey(k) {
+      return { success: false, error: "Gemini service script is still loading. Please check back in a few seconds." };
+    },
+    async evaluateShortAnswer() {
+      throw new Error("Gemini AI service is loading. Please refresh the page if this persists.");
+    },
+    async evaluateEssay() {
+      throw new Error("Gemini AI service is loading. Please refresh the page if this persists.");
+    }
+  };
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   App.init();
+});
+
+// Detect in-page anchor navigation (e.g. user pasting #key=... into address bar)
+window.addEventListener("hashchange", () => {
+  if (typeof App !== "undefined" && App.checkUrlForApiKey) {
+    App.checkUrlForApiKey();
+  }
 });
 
 const MODULES_DATA = {
@@ -35,6 +73,41 @@ const App = {
     this.updateGeminiStatusUI();
   },
 
+  showToast(message, type = "success") {
+    let container = document.getElementById("globalToastContainer");
+    if (!container) {
+      container = document.createElement("div");
+      container.id = "globalToastContainer";
+      container.style.cssText = "position: fixed; top: 20px; right: 20px; z-index: 99999; display: flex; flex-direction: column; gap: 10px; pointer-events: none;";
+      document.body.appendChild(container);
+    }
+    const toast = document.createElement("div");
+    toast.className = `toast-pill ${type}`;
+    const bg = type === "success" ? "#065f46" : type === "error" ? "#991b1b" : "#1e40af";
+    toast.style.cssText = `
+      pointer-events: auto;
+      background: ${bg};
+      color: #ffffff;
+      padding: 12px 18px;
+      border-radius: 8px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      font-size: 13.5px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      max-width: 420px;
+      transition: all 0.3s ease;
+    `;
+    toast.innerHTML = message;
+    container.appendChild(toast);
+    setTimeout(() => {
+      toast.style.opacity = "0";
+      toast.style.transform = "translateY(-10px)";
+      setTimeout(() => toast.remove(), 400);
+    }, 4500);
+  },
+
   checkUrlForApiKey() {
     // Check URL fragment (#key=... or #api_key=...) or query string (?key=...)
     let keyToSave = null;
@@ -52,15 +125,20 @@ const App = {
     }
 
     if (keyToSave) {
-      geminiService.setApiKey(keyToSave);
+      if (typeof geminiService !== "undefined") {
+        geminiService.setApiKey(keyToSave);
+      }
+      if (typeof storageService !== "undefined" && storageService.saveGeminiApiKey) {
+        storageService.saveGeminiApiKey(keyToSave);
+      }
+      this.updateGeminiStatusUI();
+
       // Immediately sanitize URL address bar so key is not visible or stored in history
       if (window.history && window.history.replaceState) {
         const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
         window.history.replaceState({}, document.title, cleanUrl);
       }
-      setTimeout(() => {
-        alert("✨ Google Gemini API Key successfully saved to your browser on this device! You are ready to study.");
-      }, 300);
+      this.showToast("✨ <strong>Google Gemini API Key Saved!</strong> Stored in persistent browser storage on this device.", "success");
     }
   },
 
@@ -1246,6 +1324,62 @@ const App = {
     this._pendingAiCallback = null;
   },
 
+  async testQuickApiKey() {
+    const input = document.getElementById("quickGeminiApiKeyInput");
+    const key = input ? input.value.trim() : "";
+    const notice = document.getElementById("quickGeminiSaveNotice");
+    const btn = document.getElementById("testQuickGeminiBtn");
+
+    if (!key) {
+      if (notice) {
+        notice.style.display = "block";
+        notice.style.background = "#fffbeb";
+        notice.style.color = "#92400e";
+        notice.style.border = "1px solid #fde68a";
+        notice.innerHTML = "⚠️ Please paste or enter your Google Gemini API Key first.";
+      }
+      if (input) input.focus();
+      return;
+    }
+
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = "Testing... ⏳";
+    }
+    if (notice) {
+      notice.style.display = "block";
+      notice.style.background = "#eff6ff";
+      notice.style.color = "#1e40af";
+      notice.style.border = "1px solid #bfdbfe";
+      notice.innerHTML = "⏳ Verifying API key with Google Gemini...";
+    }
+
+    const res = await geminiService.testApiKey(key);
+
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = "🧪 Test Key";
+    }
+
+    if (res.success) {
+      if (notice) {
+        notice.style.display = "block";
+        notice.style.background = "#ecfdf5";
+        notice.style.color = "#065f46";
+        notice.style.border = "1px solid #a7f3d0";
+        notice.innerHTML = `✅ <strong>Key Verified!</strong> Model <code>${res.model}</code> responded successfully. Click "Save & Continue Grading" to proceed.`;
+      }
+    } else {
+      if (notice) {
+        notice.style.display = "block";
+        notice.style.background = "#fef2f2";
+        notice.style.color = "#991b1b";
+        notice.style.border = "1px solid #fecaca";
+        notice.innerHTML = `❌ <strong>Verification Failed:</strong> ${res.error}`;
+      }
+    }
+  },
+
   saveQuickGeminiKey() {
     const input = document.getElementById("quickGeminiApiKeyInput");
     const key = input ? input.value.trim() : "";
@@ -1256,6 +1390,9 @@ const App = {
     }
 
     geminiService.setApiKey(key);
+    if (typeof storageService !== "undefined" && storageService.saveGeminiApiKey) {
+      storageService.saveGeminiApiKey(key);
+    }
     this.updateGeminiStatusUI();
 
     const notice = document.getElementById("quickGeminiSaveNotice");
@@ -1266,6 +1403,7 @@ const App = {
       notice.style.border = "1px solid #a7f3d0";
       notice.innerHTML = "✅ <strong>API Key Saved!</strong> Initializing AI grading...";
     }
+    this.showToast("✅ <strong>Gemini API Key Saved!</strong> Starting grading...", "success");
 
     const cb = this._pendingAiCallback;
     setTimeout(() => {
@@ -1289,6 +1427,75 @@ const App = {
     }
   },
 
+  toggleQuickGeminiKeyVisibility() {
+    const input = document.getElementById("quickGeminiApiKeyInput");
+    const btn = document.getElementById("toggleQuickGeminiKeyVisBtn");
+    if (!input || !btn) return;
+    if (input.type === "password") {
+      input.type = "text";
+      btn.textContent = "🔒 Hide";
+    } else {
+      input.type = "password";
+      btn.textContent = "👁️ Show";
+    }
+  },
+
+  async testSettingsApiKey() {
+    const keyInput = document.getElementById("geminiApiKeyInput");
+    const key = keyInput ? keyInput.value.trim() : "";
+    const noticeEl = document.getElementById("geminiSaveNotice");
+    const btn = document.getElementById("testGeminiConfigBtn");
+
+    if (!key) {
+      if (noticeEl) {
+        noticeEl.style.display = "block";
+        noticeEl.style.background = "#fffbeb";
+        noticeEl.style.color = "#92400e";
+        noticeEl.style.border = "1px solid #fde68a";
+        noticeEl.innerHTML = "⚠️ Please paste or enter your Google Gemini API Key first.";
+      }
+      if (keyInput) keyInput.focus();
+      return;
+    }
+
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = "Testing... ⏳";
+    }
+    if (noticeEl) {
+      noticeEl.style.display = "block";
+      noticeEl.style.background = "#eff6ff";
+      noticeEl.style.color = "#1e40af";
+      noticeEl.style.border = "1px solid #bfdbfe";
+      noticeEl.innerHTML = "⏳ Connecting to Google Gemini API to verify key...";
+    }
+
+    const res = await geminiService.testApiKey(key);
+
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = "🧪 Test Connection";
+    }
+
+    if (res.success) {
+      if (noticeEl) {
+        noticeEl.style.display = "block";
+        noticeEl.style.background = "#ecfdf5";
+        noticeEl.style.color = "#065f46";
+        noticeEl.style.border = "1px solid #a7f3d0";
+        noticeEl.innerHTML = `✅ <strong>Key Verified & Working!</strong> Successfully connected to <code>${res.model}</code>. Click "Save Gemini Key & Settings" to store it.`;
+      }
+    } else {
+      if (noticeEl) {
+        noticeEl.style.display = "block";
+        noticeEl.style.background = "#fef2f2";
+        noticeEl.style.color = "#991b1b";
+        noticeEl.style.border = "1px solid #fecaca";
+        noticeEl.innerHTML = `❌ <strong>Verification Failed:</strong> ${res.error}`;
+      }
+    }
+  },
+
   saveGeminiConfig() {
     const keyInput = document.getElementById("geminiApiKeyInput");
     const modelSelect = document.getElementById("geminiModelSelect");
@@ -1300,6 +1507,10 @@ const App = {
 
     geminiService.setApiKey(key);
     geminiService.setModel(model);
+    if (typeof storageService !== "undefined") {
+      if (storageService.saveGeminiApiKey) storageService.saveGeminiApiKey(key);
+      if (storageService.saveGeminiModel) storageService.saveGeminiModel(model);
+    }
 
     this.updateGeminiStatusUI();
 
@@ -1315,7 +1526,10 @@ const App = {
         noticeEl.style.border = "1px solid #a7f3d0";
         noticeEl.innerHTML = "✅ <strong>API Key Saved Successfully!</strong> Stored in persistent browser cookies and local storage. Your key will stay active even after refreshing the page.";
       }
-      alert("✅ Google Gemini API Key saved successfully!\n\nYour key is securely stored in browser cookies and local storage on this device. It will remain active across page refreshes.");
+      this.showToast("✅ <strong>Google Gemini API Key Saved!</strong> Stored in private browser storage.", "success");
+      setTimeout(() => {
+        this.closeSettingsModal();
+      }, 900);
     } else {
       if (statusMsg) {
         statusMsg.className = "text-muted";
@@ -1328,6 +1542,7 @@ const App = {
         noticeEl.style.border = "1px solid #fde68a";
         noticeEl.innerHTML = "⚠️ API Key cleared. AI grading will be paused until a key is entered.";
       }
+      this.showToast("⚠️ API Key cleared.", "info");
     }
   },
 
@@ -1761,9 +1976,35 @@ const App = {
       saveGeminiBtn.addEventListener("click", () => this.saveGeminiConfig());
     }
 
+    const testGeminiBtn = document.getElementById("testGeminiConfigBtn");
+    if (testGeminiBtn) {
+      testGeminiBtn.addEventListener("click", () => this.testSettingsApiKey());
+    }
+
     const toggleGeminiVisBtn = document.getElementById("toggleGeminiKeyVisBtn");
     if (toggleGeminiVisBtn) {
       toggleGeminiVisBtn.addEventListener("click", () => this.toggleGeminiKeyVisibility());
+    }
+
+    const geminiKeyInput = document.getElementById("geminiApiKeyInput");
+    if (geminiKeyInput) {
+      geminiKeyInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          this.saveGeminiConfig();
+        }
+      });
+      geminiKeyInput.addEventListener("input", (e) => {
+        const val = (e.target.value || "").trim();
+        const noticeEl = document.getElementById("geminiSaveNotice");
+        if (val.length >= 20 && noticeEl) {
+          noticeEl.style.display = "block";
+          noticeEl.style.background = "#eff6ff";
+          noticeEl.style.color = "#1e40af";
+          noticeEl.style.border = "1px solid #bfdbfe";
+          noticeEl.innerHTML = "🔑 <strong>API Key entered:</strong> Press <em>Enter</em>, click <em>🧪 Test Connection</em> to verify, or click <em>Save Gemini Key</em> to store.";
+        }
+      });
     }
 
     // Quick Gemini Modal Listeners
@@ -1777,9 +2018,40 @@ const App = {
       cancelQuickModalBtn.addEventListener("click", () => this.closeQuickGeminiModal());
     }
 
+    const testQuickModalBtn = document.getElementById("testQuickGeminiBtn");
+    if (testQuickModalBtn) {
+      testQuickModalBtn.addEventListener("click", () => this.testQuickApiKey());
+    }
+
+    const toggleQuickVisBtn = document.getElementById("toggleQuickGeminiKeyVisBtn");
+    if (toggleQuickVisBtn) {
+      toggleQuickVisBtn.addEventListener("click", () => this.toggleQuickGeminiKeyVisibility());
+    }
+
     const saveQuickModalBtn = document.getElementById("saveQuickGeminiBtn");
     if (saveQuickModalBtn) {
       saveQuickModalBtn.addEventListener("click", () => this.saveQuickGeminiKey());
+    }
+
+    const quickKeyInput = document.getElementById("quickGeminiApiKeyInput");
+    if (quickKeyInput) {
+      quickKeyInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          this.saveQuickGeminiKey();
+        }
+      });
+      quickKeyInput.addEventListener("input", (e) => {
+        const val = (e.target.value || "").trim();
+        const notice = document.getElementById("quickGeminiSaveNotice");
+        if (val.length >= 20 && notice) {
+          notice.style.display = "block";
+          notice.style.background = "#eff6ff";
+          notice.style.color = "#1e40af";
+          notice.style.border = "1px solid #bfdbfe";
+          notice.innerHTML = "🔑 <strong>API Key entered:</strong> Press <em>Enter</em>, click <em>🧪 Test Key</em>, or click <em>Save & Continue Grading</em>.";
+        }
+      });
     }
 
     const exportBtn = document.getElementById("exportDataBtn");

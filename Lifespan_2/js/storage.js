@@ -247,6 +247,29 @@ class StorageService {
     return this.data.modules[moduleId].essay || { draft: "", checkedRubric: {}, aiFeedback: null, lastSavedAt: null };
   }
 
+  // --- Gemini AI Settings Persistence ---
+  getGeminiApiKey() {
+    return (this.data && this.data.settings && this.data.settings.geminiApiKey) ? this.data.settings.geminiApiKey : "";
+  }
+
+  saveGeminiApiKey(key) {
+    if (!this.data) this.data = this.getDefaultStructure();
+    if (!this.data.settings) this.data.settings = {};
+    this.data.settings.geminiApiKey = (key || "").trim();
+    this.saveToLocalStorage();
+  }
+
+  getGeminiModel() {
+    return (this.data && this.data.settings && this.data.settings.geminiModel) ? this.data.settings.geminiModel : "gemini-3.5-flash-lite";
+  }
+
+  saveGeminiModel(model) {
+    if (!this.data) this.data = this.getDefaultStructure();
+    if (!this.data.settings) this.data.settings = {};
+    this.data.settings.geminiModel = (model || "").trim() || "gemini-3.5-flash-lite";
+    this.saveToLocalStorage();
+  }
+
   ensureModule(moduleId) {
     if (!this.data.modules) this.data.modules = {};
     if (!this.data.modules[moduleId]) {
