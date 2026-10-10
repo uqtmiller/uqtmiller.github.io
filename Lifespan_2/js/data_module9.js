@@ -26,6 +26,72 @@ const MODULE_9_DATA = {
       title: "Young's Schema Therapy Mode Model & Limited Reparenting",
       author: "Jeffrey Young / Arnoud Arntz",
       summary: "For complex characterological problems, Schema Therapy maps active emotional states ('modes'): Vulnerable Child (abandonment, defectiveness), Angry Child, Punitive/Demanding Parent (internalized criticism), and Detached Protector (numbing, substance use, avoidance). The therapist deploys 'Limited Reparenting' within professional boundaries, experiential imagery rescripting, and chair work to strengthen the Healthy Adult mode."
+    },
+    {
+      title: "Millon's Evolutionary Biosocial Model of Personality",
+      author: "Theodore Millon (MCMI-IV Framework)",
+      summary: "Personality styles are conceptualized as evolutionary ecological adaptations along three polarities: Pleasure-Pain (survival/enhancement), Active-Passive (adaptation mode), and Self-Other (reproductive strategies). The MCMI-IV operationalizes this model with 15 clinical personality pattern scales, 7 clinical syndrome scales, and Grossman Facet subscales reflecting behavioral, interpersonal, and cognitive levels of personality expression."
+    }
+  ],
+
+  // Deep-Dive Content Review Sections (Extracted directly from Ned Chandler-Mather's Lecture Handouts)
+  contentReviewSections: [
+    {
+      id: "mod9_biosocial_dbt_hierarchy",
+      title: "Linehan's Biosocial Theory & DBT Behavioral Target Hierarchy",
+      icon: "⚡",
+      badge: "DBT Foundations (Slides 54–55)",
+      contentHtml: `
+        <p style="margin-bottom: 12px;">Borderline Personality Disorder is formulated through Marsha Linehan's <strong>Biosocial Theory</strong>:</p>
+        <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 14px; margin-bottom: 14px;">
+          <strong style="color: #0f172a; font-size: 14.5px;">The Transactional Biosocial Loop:</strong>
+          <p style="font-size: 13.5px; color: #475569; margin-top: 6px;">BPD emerges from a continuous, reciprocal transaction between: (1) <strong>Biological Emotional Vulnerability</strong> (innate high sensitivity to emotional stimuli, extreme emotional intensity, and slow return to baseline); and (2) A <strong>Pervasively Invalidating Environment</strong> (caregivers dismiss, punish, or trivialize emotional expressions, or respond erratically only to extreme escalations). The individual never learns to modulate arousal, self-validate, or tolerate distress, leading to pervasive emotion dysregulation.</p>
+        </div>
+        <div style="background: #fff; border-left: 4px solid var(--primary); padding: 14px 18px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+          <strong style="color: #0f172a; font-size: 14.5px;">Linehan's Stage 1 DBT Treatment Target Hierarchy (Slide 55):</strong>
+          <ol style="font-size: 13.5px; color: #475569; margin-left: 20px; margin-top: 6px; line-height: 1.6;">
+            <li><strong>Life-Threatening Behaviors:</strong> Imminent suicidal ideation, intent, planning, self-harm, and cutting must be targeted first before any other session agenda.</li>
+            <li><strong>Therapy-Interfering Behaviors:</strong> Behaviors by client or therapist that compromise therapy (missing sessions, coming late, non-compliance with diary cards, emotional burnout).</li>
+            <li><strong>Quality-of-Life Interfering Behaviors:</strong> Severe issues maintaining housing, severe substance abuse, extreme relationship crises, financial insolvency.</li>
+            <li><strong>Skills Acquisition:</strong> Generalizing core DBT skills into daily life (Mindfulness, Distress Tolerance, Emotion Regulation, Interpersonal Effectiveness).</li>
+          </ol>
+        </div>
+      `
+    },
+    {
+      id: "mod9_psychometric_profiling",
+      title: "Comparative Psychometric Profiling: PAI, MMPI-3 & MCMI-IV",
+      icon: "📊",
+      badge: "Assessment Instruments (Slides 31–34)",
+      contentHtml: `
+        <p style="margin-bottom: 12px;">Psychologists utilize multi-scale standardized inventories to profile personality dysfunction. Each instrument offers unique strengths:</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px;">
+          <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 14px;">
+            <strong style="color: var(--primary); font-size: 14px;">Personality Assessment Inventory (PAI)</strong>
+            <p style="font-size: 13px; color: #475569; margin-top: 4px;">
+              &bull; <strong>Length:</strong> 344 items (50–60 mins).<br>
+              &bull; <strong>Scales:</strong> 22 non-overlapping scales (4 validity, 11 clinical, 5 treatment, 2 interpersonal).<br>
+              &bull; <strong>Clinical Utility:</strong> Outstanding validity indicators (Negative Impression Management). The <em>Borderline Features (BOR)</em> scale specifically evaluates affective instability, identity problems, negative relationships, and self-harm.
+            </p>
+          </div>
+          <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 14px;">
+            <strong style="color: var(--primary); font-size: 14px;">MMPI-3 (Ben-Porath)</strong>
+            <p style="font-size: 13px; color: #475569; margin-top: 4px;">
+              &bull; <strong>Length:</strong> 344 items (1–2 hours).<br>
+              &bull; <strong>Scales:</strong> 10 clinical scales, 9 validity scales (faking good/bad), and content scales.<br>
+              &bull; <strong>Clinical Utility:</strong> Deep assessment of demoralization, dysfunctional negative emotions, internalizing vs externalizing behavior, and somatic complaints.
+            </p>
+          </div>
+          <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 14px;">
+            <strong style="color: var(--primary); font-size: 14px;">MCMI-IV (Millon)</strong>
+            <p style="font-size: 13px; color: #475569; margin-top: 4px;">
+              &bull; <strong>Length:</strong> 195 items (25–30 mins).<br>
+              &bull; <strong>Scales:</strong> 25 scales (15 clinical personality patterns, 7 clinical syndromes, 3 modifying indices).<br>
+              &bull; <strong>Clinical Utility:</strong> Direct alignment with Millon's evolutionary personality theory and DSM clusters, utilizing Base Rate (BR) scores and Grossman Facet scales.
+            </p>
+          </div>
+        </div>
+      `
     }
   ],
 
@@ -557,7 +623,7 @@ const MODULE_9_DATA = {
     shortAnswerQuestions: [
       {
         id: "M9_SAQ_1",
-        title: "SAQ 1: Differentiating Borderline Personality Disorder from Bipolar II Disorder",
+        title: "SAQ 1: Affective Instability & Mood Shifts Differential Markers",
         prompt: "Contrast the diagnostic profiles of Borderline Personality Disorder (BPD) and Bipolar II Disorder regarding: (1) nature and duration of affective shifts, (2) sleep architecture, and (3) identity/self-concept. (4-6 marks)",
         criteria: [
           "Nature & Duration of Affective Shifts: BPD mood shifts are reactive to immediate interpersonal cues (rejection/abandonment fears), shifting rapidly within hours or minutes; Bipolar II mood episodes (hypomania >=4 days, depression >=2 weeks) emerge autonomously and endure for sustained weeks.",
@@ -583,7 +649,7 @@ const MODULE_9_DATA = {
       },
       {
         id: "M9_SAQ_3",
-        title: "SAQ 3: OCPD vs. OCD — The Critical Ego-Syntonic Distinction",
+        title: "SAQ 3: Obsessional Patterns & The Ego-Syntonic / Ego-Dystonic Distinction",
         prompt: "Explain why Obsessive-Compulsive Personality Disorder (OCPD) is considered 'ego-syntonic' whereas Obsessive-Compulsive Disorder (OCD) is 'ego-dystonic'. Detail how this distinction alters patient insight, motivation for change, and interpersonal impact. (4 marks)",
         criteria: [
           "Ego-Syntonic Definition (OCPD): The individual experiences their perfectionism, rigidity, and strict rules as desirable, sensible, morally correct, and integral to who they are ('My standards are correct; others are lazy/sloppy').",
@@ -606,7 +672,7 @@ const MODULE_9_DATA = {
       },
       {
         id: "M9_SAQ_5",
-        title: "Exam Practice SAQ 1 (5 Marks): Emotion Dysregulation & Impulsivity (Borderline vs Antisocial Personality Disorder)",
+        title: "Exam Practice SAQ 1 (5 Marks): Emotion Dysregulation & Impulsivity",
         prompt: "“You are assessing a client for possible presence of a personality disorder. Impulsivity and difficulties with emotion regulation are key features of the client’s presentation. What personality disorders would be most likely (2 marks) and what key features would you use to assess them in your assessment (3 marks)?”",
         suggestedTime: "8-10 minutes",
         keyCriteria: [
@@ -620,7 +686,7 @@ const MODULE_9_DATA = {
       },
       {
         id: "M9_SAQ_6",
-        title: "Exam Practice SAQ 2 (5 Marks): Chronic Social Withdrawal & Isolation (Avoidant vs Schizoid Personality Disorder)",
+        title: "Exam Practice SAQ 2 (5 Marks): Chronic Social Withdrawal & Isolation",
         prompt: "“You are assessing a 29-year-old client who has lived in almost complete social isolation for several years, has no close friends or romantic partners, and spends all non-working hours alone. Marked social withdrawal and interpersonal detachment are key features of the client’s presentation. What personality disorders would be most likely (2 marks) and what key features would you use to assess and differentiate them in your clinical assessment (3 marks)?”",
         suggestedTime: "8-10 minutes",
         keyCriteria: [
@@ -633,7 +699,7 @@ const MODULE_9_DATA = {
       },
       {
         id: "M9_SAQ_7",
-        title: "Exam Practice SAQ 3 (5 Marks): Rigid Perfectionism & Control (Obsessive-Compulsive Personality Disorder vs OCD)",
+        title: "Exam Practice SAQ 3 (5 Marks): Rigid Perfectionism & Control",
         prompt: "“You are assessing a 42-year-old manager whose daily life is dominated by meticulous lists, rigid routines, extreme perfectionism that delays projects, and an inability to delegate tasks to colleagues. Excessive preoccupation with orderliness, perfectionism, and control are key features of the presentation. What conditions would be most likely (2 marks) and what key features would you use to assess and differentiate them in your clinical assessment (3 marks)?”",
         suggestedTime: "8-10 minutes",
         keyCriteria: [

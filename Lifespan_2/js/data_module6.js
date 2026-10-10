@@ -8,14 +8,19 @@ const MODULE_6_DATA = {
   // High-yield Theoretical Core
   theoreticalPillars: [
     {
-      title: "Neurodevelopmental Continuity & Late Recognition in Adulthood",
-      author: "Dr Erinn Hawkins (DSM-5-TR Framework)",
-      summary: "Neurodevelopmental differences begin in early development, but clinical recognition frequently occurs in adulthood. Adult presentations often emerge when environmental scaffolds fall away (university, employment, parenting) or when long-standing compensation/masking leads to autistic/ADHD burnout and secondary mental health crises."
+      title: "Safren et al. Cognitive Behavioral Model of Adult ADHD Maintenance",
+      author: "Safren, Sprich, Chulvick, & Otto (2004) / Dr Erinn Hawkins",
+      summary: "Adult ADHD difficulties are maintained in a self-reinforcing cognitive-behavioral cycle (Slide 16): Core neurodevelopmental deficits (attention, behavioral inhibition, self-regulation) create functional impairment across work, home, and relationships. Coping strategies (planning, organizing, task initiation, managing distraction) become harder to deploy consistently, generating emotional distress (anxiety, depression, frustration). This solidifies negative core beliefs ('I always fail', low self-efficacy), driving repeated underachievement and avoidance."
+    },
+    {
+      title: "Adapted Schema Therapy Formulation for Neurodivergence",
+      author: "Jeffrey Young / Adapted by Dr Erinn Hawkins",
+      summary: "Schema therapy provides a formulation lens for recurring characterological distress in adult ADHD and autism (Slides 18–21). Research highlights 4 prominent Early Maladaptive Schemas: Defectiveness/Shame ('Something is fundamentally wrong with me'), Failure ('I'll inevitably fail'), Social Isolation ('I don't fit in'), and Insufficient Self-Control. Utilizes 4 core techniques (Mode work, Imagery rescripting, Chair work, Limited reparenting) adapted with concrete visual mode maps while strictly distinguishing neurodivergent differences from dysfunction (never pathologizing stimming or routines)."
     },
     {
       title: "The Camouflaging & Masking Phenomenon",
       author: "Hull et al. / Dr Erinn Hawkins",
-      summary: "High-masking individuals (particularly females and those with high verbal intelligence) deploy conscious and unconscious strategies (social scripts, forced eye contact, suppression of stimming) to blend into neurotypical environments. Masking obscures diagnostic behavioral signs, delays diagnosis, and carries severe costs including chronic exhaustion, identity erosion, and suicidality."
+      summary: "High-masking neurodivergent individuals (particularly females and those with high verbal intelligence) deploy conscious and unconscious strategies (social scripts, forced eye contact, suppression of stimming) to blend into neurotypical environments. Masking obscures diagnostic behavioral signs, delays diagnosis, and carries severe costs including chronic exhaustion, identity erosion, and suicidality."
     },
     {
       title: "Australian Clinical Practice Guidelines for FASD (2024/2025)",
@@ -23,9 +28,65 @@ const MODULE_6_DATA = {
       summary: "Australia's national consensus guideline defines FASD across two clinical pathways: (1) FASD with 3 sentinel facial features (smooth philtrum, thin upper lip, short palpebral fissures) + severe impairment in >=3 neurodevelopmental domains; and (2) FASD with less than 3 sentinel facial features requiring confirmed prenatal alcohol exposure + severe impairment in >=3 domains. Emphasizes multidisciplinary assessment and strengths-based, culturally responsive practice."
     },
     {
-      title: "Functional Formulation, Chain Analysis & Adaptive Support",
-      author: "Linehan / Young / Dr Erinn Hawkins",
-      summary: "Intervention begins with person-led goals rather than 'treating' neurodivergence itself. Behavioral Chain Analysis identifies vulnerability factors, triggers, and maintaining loops for distressing behaviors. Schema Therapy can be adapted (concrete mode maps, predictable structure, limited reparenting) to address secondary shame ('defectiveness', 'failure') without pathologizing neurodivergent traits."
+      title: "Developmental History Timeline & Diagnostic Scaffolding",
+      author: "Dr Erinn Hawkins (DSM-5-TR Framework)",
+      summary: "Adult assessment requires mapping a 4-epoch developmental timeline: (1) Early development (milestones, temperament); (2) Learning & school experience (accommodations, behavior); (3) Adolescence (changing social demands, peers, identity, emerging masking); and (4) Adult functioning (employment, independent daily living). Collateral records are sought, but their absence does not exclude diagnosis."
+    }
+  ],
+
+  // Deep-Dive Content Review Sections (Extracted directly from Dr Erinn Hawkins' Lecture Handouts)
+  contentReviewSections: [
+    {
+      id: "mod6_safren_cbt_model",
+      title: "Safren et al. (2004) CBT Maintenance Cycle & Delivery Adaptations",
+      icon: "🔄",
+      badge: "ADHD Cognitive Model (Slide 16)",
+      contentHtml: `
+        <p style="margin-bottom: 12px;">Dr Erinn Hawkins highlights the <strong>Safren et al. (2004) Cognitive Behavioral Model of Adult ADHD</strong> to explain how executive impairments spiral into emotional disorders:</p>
+        <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 14px; margin-bottom: 14px;">
+          <strong style="color: #0f172a; font-size: 14.5px;">The 6 Stages of the ADHD Maintenance Cycle:</strong>
+          <ol style="font-size: 13.5px; color: #475569; margin-left: 20px; margin-top: 6px; line-height: 1.6;">
+            <li><strong>Core ADHD Difficulties:</strong> Innate neurobiological impairments in attention, response inhibition, working memory, and self-regulation.</li>
+            <li><strong>Functional Impacts:</strong> Manifests across vocational, academic, domestic, and interpersonal environments.</li>
+            <li><strong>Strategies Harder to Use Consistently:</strong> Executive planning, organization, prioritizing, initiating tasks, persisting, and managing distractibility break down.</li>
+            <li><strong>Emotional Distress:</strong> Secondary low mood, anxiety, guilt, shame, and frustration.</li>
+            <li><strong>Unhelpful Beliefs & Self-Talk:</strong> Internalized negative automatic thoughts: <em>'I always fail'</em>, <em>'I am lazy'</em>, self-criticism, and collapse of self-efficacy.</li>
+            <li><strong>Repeated Difficult Experiences:</strong> Missed deadlines, underachievement, and relationship conflict, which loop back to reinforce executive avoidance.</li>
+          </ol>
+        </div>
+        <div style="background: #fff; border-left: 4px solid var(--primary); padding: 14px 18px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+          <strong style="color: #0f172a; font-size: 14.5px;">CBT Delivery Adaptations for Adult Neurodivergence (Slide 17):</strong>
+          <p style="font-size: 13.5px; color: #475569; margin-top: 4px;">Clinicians must keep the treatment target concrete and adapt delivery: (1) Use concrete, unambiguous language; (2) Provide written or visual summaries of session content; (3) Maintain a predictable session structure and pacing; (4) Provide executive rehearsal supports (talking aloud, step-by-step checklists); and (5) Implement sensory room adjustments (lighting, fidget tools, quiet space).</p>
+        </div>
+      `
+    },
+    {
+      id: "mod6_schema_therapy_lens",
+      title: "Adapted Schema Therapy Lens for ADHD & Autism",
+      icon: "🧩",
+      badge: "Clinical Adaptation (Slides 18–21)",
+      contentHtml: `
+        <p style="margin-bottom: 12px;">Schema therapy offers a powerful formulation lens when enduring maladaptive beliefs maintain emotional distress in adult neurodivergent clients (Dr Erinn Hawkins):</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px;">
+          <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 14px;">
+            <strong style="color: var(--primary); font-size: 14.5px;">4 Prominent Schemas in Adult ADHD</strong>
+            <ul style="font-size: 13px; color: #475569; margin-left: 18px; margin-top: 6px; line-height: 1.55;">
+              <li><strong>Defectiveness / Shame:</strong> <em>'Something is fundamentally wrong with or broken about me.'</em></li>
+              <li><strong>Failure:</strong> <em>'I will inevitably fail at important tasks no matter how hard I try.'</em></li>
+              <li><strong>Social Isolation:</strong> <em>'I don't fit in with others; I am an alien.'</em></li>
+              <li><strong>Insufficient Self-Control:</strong> <em>'I can't rely on myself to do what is needed.'</em></li>
+            </ul>
+          </div>
+          <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 14px;">
+            <strong style="color: var(--primary); font-size: 14.5px;">Crucial Adaptations for Neurodivergence</strong>
+            <ul style="font-size: 13px; color: #475569; margin-left: 18px; margin-top: 6px; line-height: 1.55;">
+              <li><strong>Make it concrete:</strong> Visible mode maps, plain language, written dialogue, drawings, cards, and objects.</li>
+              <li><strong>Target distress, NOT neurodivergence:</strong> <em>Distinguish difference from dysfunction</em>. Do NOT pathologize stimming, special interests, routines, direct communication, or need for solitude.</li>
+              <li><strong>Reparent through reliability:</strong> Explicit informed consent, unwavering consistency, predictable boundaries, direct relational repair, and practical accommodation.</li>
+            </ul>
+          </div>
+        </div>
+      `
     }
   ],
 
@@ -463,7 +524,7 @@ const MODULE_6_DATA = {
     shortAnswerQuestions: [
       {
         id: "M6_SAQ_1",
-        title: "SAQ 1: Adult ADHD vs. BPD Differential Markers",
+        title: "SAQ 1: Impulsivity and Emotion Dysregulation Across Adulthood",
         prompt: "Contrast the diagnostic profiles of Adult ADHD and Borderline Personality Disorder (BPD) regarding: (1) triggers and timeframes of emotional dysregulation, (2) self-image/identity stability, and (3) clinical features of impulsivity. (4-6 marks)",
         criteria: [
           "Emotional Dysregulation: ADHD emotional lability is rapid, episodic, and triggered by immediate cognitive/environmental frustration (e.g., Rejection Sensitive Dysphoria, lasts minutes to hours); BPD affective instability is pervasive, tied to fears of abandonment/interpersonal rejection, and lasts days.",
@@ -488,7 +549,7 @@ const MODULE_6_DATA = {
       },
       {
         id: "M6_SAQ_3",
-        title: "SAQ 3: Camouflaging in Adult Autism & Diagnostic Implications",
+        title: "SAQ 3: Camouflaging & Social Masking in Adulthood",
         prompt: "Define autistic camouflaging (masking). Explain two specific mechanisms used by high-masking individuals, and describe three clinical risks associated with prolonged masking. (5 marks)",
         criteria: [
           "Definition: Camouflaging/masking refers to conscious or unconscious strategies deployed by autistic individuals to hide or compensate for autistic traits to navigate neurotypical social environments.",
@@ -510,7 +571,7 @@ const MODULE_6_DATA = {
       },
       {
         id: "M6_SAQ_5",
-        title: "Exam Practice SAQ 1 (5 Marks): Restlessness, Inattention, and Impulsivity in Adulthood (Adult ADHD vs BPD vs Bipolar)",
+        title: "Exam Practice SAQ 1 (5 Marks): Restlessness, Inattention, and Impulsivity in Adulthood",
         prompt: "“You are assessing a 28-year-old adult presenting with lifelong disorganization, difficulties completing work tasks, impulsive decision-making, and emotional lability. Chronic inattention and impulsivity are key features of the client’s presentation. What neurodevelopmental or psychiatric disorders would be most likely (2 marks) and what key features would you use to assess and differentiate them in your assessment (3 marks)?”",
         suggestedTime: "8-10 minutes",
         keyCriteria: [
@@ -523,7 +584,7 @@ const MODULE_6_DATA = {
       },
       {
         id: "M6_SAQ_6",
-        title: "Exam Practice SAQ 2 (5 Marks): Social Communication Deficits vs Social Anxiety (ASD Level 1 vs Social Anxiety Disorder)",
+        title: "Exam Practice SAQ 2 (5 Marks): Social Interaction and Communication Impairments",
         prompt: "“You are assessing a 22-year-old university student who experiences extreme distress in social settings, avoids eye contact, has few friends, and feels like an outsider. Social isolation and social communication difficulties are key features of the presentation. What neurodevelopmental and anxiety disorders would be most likely (2 marks) and what key features would you use to assess and differentiate them in your clinical assessment (3 marks)?”",
         suggestedTime: "8-10 minutes",
         keyCriteria: [
@@ -536,7 +597,7 @@ const MODULE_6_DATA = {
       },
       {
         id: "M6_SAQ_7",
-        title: "Exam Practice SAQ 3 (5 Marks): Multidomain Cognitive & Behavioral Impairment (FASD vs ADHD)",
+        title: "Exam Practice SAQ 3 (5 Marks): Multidomain Cognitive & Behavioral Impairment",
         prompt: "“You are assessing a 12-year-old adolescent exhibiting severe learning difficulties, memory deficits, emotional outbursts, and motor coordination problems. Severe attentional, cognitive, and adaptive regulation deficits are key features of the presentation. What neurodevelopmental disorders would be most likely (2 marks) and what key features would you use to assess them in line with the 2024/2025 Australian National Guidelines (3 marks)?”",
         suggestedTime: "8-10 minutes",
         keyCriteria: [

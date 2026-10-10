@@ -29,6 +29,60 @@ const MODULE_7_DATA = {
     }
   ],
 
+  // Deep-Dive Content Review Sections (Extracted directly from Dr Erinn Hawkins' Lecture Handouts)
+  contentReviewSections: [
+    {
+      id: "mod7_goday_pfd_model",
+      title: "Goday et al. (2019) 4-Domain Consensus Framework of Paediatric Feeding Disorder (PFD)",
+      icon: "🍽️",
+      badge: "Diagnostic Framework (Slide 4)",
+      contentHtml: `
+        <p style="margin-bottom: 12px;"><strong>Paediatric Feeding Disorder (PFD)</strong> is defined as impaired oral intake that is not age-appropriate and is associated with dysfunction in at least one of four overlapping functional domains (Goday et al., 2019):</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;">
+          <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px;">
+            <strong style="color: #0f172a;">1. Medical Domain:</strong>
+            <p style="font-size: 13px; color: #475569; margin-top: 4px;">Cardiorespiratory compromise during feeding, aspiration, gastrointestinal reflux, anatomical anomalies, or chronic pain.</p>
+          </div>
+          <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px;">
+            <strong style="color: #0f172a;">2. Nutritional Domain:</strong>
+            <p style="font-size: 13px; color: #475569; margin-top: 4px;">Faltering growth, acute malnutrition, micronutrient deficiency, or reliance on oral nutritional supplements / tube feeding.</p>
+          </div>
+          <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px;">
+            <strong style="color: #0f172a;">3. Feeding Skill Domain:</strong>
+            <p style="font-size: 13px; color: #475569; margin-top: 4px;">Oral-motor mechanics: inability to chew or safely swallow, requirement for modified food textures, specialized positioning, or adaptive equipment.</p>
+          </div>
+          <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px;">
+            <strong style="color: #0f172a;">4. Psychosocial Domain:</strong>
+            <p style="font-size: 13px; color: #475569; margin-top: 4px;">Active food avoidance, distress during meals, caregiver-child relational conflict, and disruption of social eating participation.</p>
+          </div>
+        </div>
+        <p style="font-size: 12.8px; color: #64748b; margin-top: 8px;">
+          <em>Timeframe criteria:</em> Present daily for &gt;=2 weeks. Classified as <strong>Acute</strong> (&lt;3 months) or <strong>Chronic</strong> (&gt;=3 months).
+        </p>
+      `
+    },
+    {
+      id: "mod7_berlin_maintenance_loops",
+      title: "Bio-Behavioral Maintenance Cycles & Practical Differential Flow",
+      icon: "🔄",
+      badge: "Berlin et al. (2009) & Hawkins",
+      contentHtml: `
+        <p style="margin-bottom: 12px;">Feeding problems become self-maintaining through operant behavioral feedback loops (Berlin et al., 2009; Slide 11):</p>
+        <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 14px; margin-bottom: 12px;">
+          <strong style="color: #0f172a; font-size: 14px;">The Operant Maintenance Loop:</strong>
+          <p style="font-size: 13.5px; color: #475569; margin-top: 6px;">1. <strong>Vulnerability + Trigger:</strong> Child with sensory sensitivity or reflux experiences an acute trigger (e.g. choking on chicken, painful swallowing).<br>
+          2. <strong>Mealtime Refusal & Distress:</strong> Child cries, gags, or scans food anxiously, refusing solid foods.<br>
+          3. <strong>Caregiver Accommodation:</strong> Anxious parents remove the feared food and offer preferred liquids or treats to ensure caloric intake.<br>
+          4. <strong>Negative Reinforcement:</strong> Immediate short-term relief (child calms, calories consumed) unintentionally reinforces child avoidance and caregiver accommodation, cementing long-term restriction.</p>
+        </div>
+        <div style="background: #fff; border-left: 4px solid var(--primary); padding: 12px 16px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+          <strong style="color: #0f172a; font-size: 14px;">Differential Diagnostic Hierarchy (Slide 5):</strong>
+          <p style="font-size: 13px; color: #475569; margin-top: 4px;">Developmentally expected picky eating &rarr; Medical/swallowing condition &rarr; PFD (functional umbrella across 4 domains) &rarr; ARFID (restrictive intake without body image disturbance) &rarr; Other eating disorders (AN/BN) &rarr; Pica (non-food ingestion) &rarr; Rumination disorder (regurgitation). These may coexist with PFD; they are not interchangeable.</p>
+        </div>
+      `
+    }
+  ],
+
   // Clinical Table of Disorders
   disorders: [
     {
@@ -499,7 +553,7 @@ const MODULE_7_DATA = {
     shortAnswerQuestions: [
       {
         id: "M7_SAQ_1",
-        title: "SAQ 1: Pediatric Feeding Disorder (PFD) vs. ARFID",
+        title: "SAQ 1: Four-Domain Multi-Disciplinary Feeding Impairments",
         prompt: "Compare and contrast Pediatric Feeding Disorder (PFD; Goday et al., 2019) and Avoidant/Restrictive Food Intake Disorder (ARFID; DSM-5). Detail the four domains of PFD and explain how ARFID differs conceptually. (5 marks)",
         criteria: [
           "Identification of the four PFD domains: Medical (cardiorespiratory compromise, GI pain, aspiration); Nutritional (faltering growth, micronutrient deficits); Feeding Skill (oral-motor incompetence, texture modification); Psychosocial (mealtime distress, avoidance).",
@@ -511,7 +565,7 @@ const MODULE_7_DATA = {
       },
       {
         id: "M7_SAQ_2",
-        title: "SAQ 2: The Three ARFID Phenotypes & NIAS Screening",
+        title: "SAQ 2: Restrictive Eating Phenotypes & NIAS Screening",
         prompt: "Describe the three core clinical phenotypes of ARFID and identify the standardized screening tool used to assess them. Outline the key behavioral markers of each phenotype. (5 marks)",
         criteria: [
           "Identification of the Nine-Item ARFID Screen (NIAS) as the standardized tool measuring the three phenotypic subscales.",
@@ -548,7 +602,7 @@ const MODULE_7_DATA = {
       },
       {
         id: "M7_SAQ_5",
-        title: "Exam Practice SAQ 1 (5 Marks): Extreme Food Restriction & Weight Loss (ARFID vs Anorexia Nervosa)",
+        title: "Exam Practice SAQ 1 (5 Marks): Extreme Food Restriction & Weight Loss",
         prompt: "“You are assessing a 13-year-old who has lost significant weight, avoids almost all food groups, and now requires nutritional supplements. Severe restrictive eating and medical/nutritional compromise are key features of the presentation. What feeding and eating disorders would be most likely (2 marks) and what key features would you use to assess and differentiate them in your clinical assessment (3 marks)?”",
         suggestedTime: "8-10 minutes",
         keyCriteria: [
@@ -561,7 +615,7 @@ const MODULE_7_DATA = {
       },
       {
         id: "M7_SAQ_6",
-        title: "Exam Practice SAQ 2 (5 Marks): Acute Solid Food Refusal Post-Choking (ARFID Aversive vs Pediatric Feeding Disorder)",
+        title: "Exam Practice SAQ 2 (5 Marks): Acute Solid Food Refusal Post-Choking",
         prompt: "“You are assessing a 6-year-old child who abruptly refused all solid foods following a traumatic choking episode on a hard candy two months ago, drinking only thin liquids. Acute food refusal, fear of swallowing, and growth faltering are key features of the presentation. What feeding disorders would be most likely (2 marks) and what key features would you use to assess them using Goday et al.’s consensus framework (3 marks)?”",
         suggestedTime: "8-10 minutes",
         keyCriteria: [
@@ -574,7 +628,7 @@ const MODULE_7_DATA = {
       },
       {
         id: "M7_SAQ_7",
-        title: "Exam Practice SAQ 3 (5 Marks): Persistent Atypical Oral Behaviors in Children (Pica vs Rumination Disorder)",
+        title: "Exam Practice SAQ 3 (5 Marks): Persistent Atypical Oral Behaviors in Children",
         prompt: "“You are assessing a 7-year-old child with developmental delays who exhibits recurrent, abnormal oral and digestive behaviors at school and home. Persistent atypical gastrointestinal/eating behaviors causing medical concern are key features of the presentation. What childhood feeding disorders would be most likely (2 marks) and what key features would you use to assess and differentiate them in your assessment (3 marks)?”",
         suggestedTime: "8-10 minutes",
         keyCriteria: [

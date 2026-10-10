@@ -29,6 +29,90 @@ const MODULE_8_DATA = {
     }
   ],
 
+  // Deep-Dive Content Review Sections (Extracted directly from Dr Bonnie Clough's Lecture Handouts)
+  contentReviewSections: [
+    {
+      id: "mod8_cbte_transdiagnostic_model",
+      title: "Fairburn's Transdiagnostic Cognitive Model & CBT-E Protocol",
+      icon: "⚖️",
+      badge: "CBT-E Framework (Slides 19–26)",
+      contentHtml: `
+        <p style="margin-bottom: 12px;">Dr Bonnie Clough outlines Fairburn's (2008) transdiagnostic cognitive behavioral theory of eating disorders (restricting AN, BN, and BED):</p>
+        <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 14px; margin-bottom: 14px;">
+          <strong style="color: #0f172a; font-size: 14.5px;">Core Psychopathology & Maintenance Mechanics:</strong>
+          <p style="font-size: 13.5px; color: #475569; margin-top: 6px;">The central maintaining engine across AN, BN, and BED is the <strong>over-evaluation of shape and weight and their control</strong>. This drives strict, rigid dietary restraint and low weight/starvation symptoms. In BN and BED, biological hunger and all-or-nothing thinking trigger objective binge eating, which provokes compensatory purging, cementing the need for further restraint.</p>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
+          <div style="background: #fff; border-left: 4px solid var(--primary); padding: 12px 16px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <strong style="color: #0f172a;">CBT-E Delivery Parameters (Slide 23):</strong>
+            <p style="font-size: 13px; color: #475569; margin-top: 4px;">
+              &bull; <strong>Dosing:</strong> Standard version is 20 sessions over 20 weeks. If BMI &lt;17.5, intensive 40-session protocol is recommended.<br>
+              &bull; <strong>Focused vs. Broad:</strong> Focused targets core ED + mood intolerance. Broad adds modules on clinical perfectionism, core low self-esteem, and interpersonal difficulties.<br>
+              &bull; <strong>Principle of Parsimony:</strong> Better to do a few things well than many things badly. Heavy early behavioral focus (self-monitoring, regular eating, weekly in-session weighing) with limited early cognitive challenging.
+            </p>
+          </div>
+          <div style="background: #fff; border-left: 4px solid #ef4444; padding: 12px 16px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <strong style="color: #991b1b;">Contraindications to Outpatient CBT-E (Slide 25):</strong>
+            <ul style="font-size: 13px; color: #475569; margin-left: 18px; margin-top: 4px;">
+              <li>Severely compromised physical health requiring medical admission.</li>
+              <li>Active acute suicide risk.</li>
+              <li>Severe clinical depression (preventing active engagement).</li>
+              <li>Persistent severe substance misuse.</li>
+              <li>Major destabilizing life crises or planned absence of therapist.</li>
+            </ul>
+          </div>
+        </div>
+      `
+    },
+    {
+      id: "mod8_nice_stepped_care",
+      title: "NICE Clinical Guidelines: Stepped Care Hierarchy Across Disorders",
+      icon: "📋",
+      badge: "First-Line Treatments (Slides 13–18)",
+      contentHtml: `
+        <p style="margin-bottom: 12px;">The lecture notes detail the evidence-based first-line psychological treatments approved by the UK NICE Guidelines:</p>
+        <div class="table-responsive">
+          <table class="table" style="font-size: 13.5px;">
+            <thead>
+              <tr style="background: #f1f5f9;">
+                <th>Disorder & Age Group</th>
+                <th>First-Line Evidence-Based Treatment</th>
+                <th>Alternative / Stepped Options</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Adults with Anorexia Nervosa (AN)</strong></td>
+                <td><strong>CBT-ED / CBT-E</strong> (individual), <strong>MANTRA</strong> (Maudsley Model for Adults), or <strong>SSCM</strong> (Specialist Supportive Clinical Management).</td>
+                <td>If unacceptable or ineffective: try one of the other two or eating disorder-focused psychodynamic therapy.</td>
+              </tr>
+              <tr>
+                <td><strong>Children & Adolescents with AN</strong></td>
+                <td><strong>FT-AN</strong> (Anorexia Nervosa Focused Family Therapy), offering separated and conjoint family sessions.</td>
+                <td>If FT-AN is ineffective or contraindicated: individual <strong>CBT-ED</strong> or Adolescent Focused Psychotherapy (AFP-AN).</td>
+              </tr>
+              <tr>
+                <td><strong>Adults with Bulimia Nervosa (BN)</strong></td>
+                <td><strong>Guided Self-Help</strong> (evidence-based materials with supportive check-in sessions).</td>
+                <td>If guided self-help is ineffective after 4–6 weeks: individual <strong>CBT-ED</strong>.</td>
+              </tr>
+              <tr>
+                <td><strong>Children & Adolescents with BN</strong></td>
+                <td><strong>FT-BN</strong> (Bulimia Nervosa Focused Family Therapy).</td>
+                <td>If FT-BN is ineffective or unacceptable: individual <strong>CBT-ED</strong>.</td>
+              </tr>
+              <tr>
+                <td><strong>Binge Eating Disorder (BED; Adults & Youth)</strong></td>
+                <td><strong>Guided Self-Help</strong> (structured behavioral materials).</td>
+                <td>If guided self-help is ineffective: individual or group <strong>CBT-ED</strong>.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      `
+    }
+  ],
+
   // Clinical Table of Disorders
   disorders: [
     {
@@ -465,7 +549,7 @@ const MODULE_8_DATA = {
     shortAnswerQuestions: [
       {
         id: "M8_SAQ_1",
-        title: "SAQ 1: The Diagnostic Boundary Between AN-BP and Bulimia Nervosa",
+        title: "SAQ 1: Compensatory Behaviors, Binging & Weight Status Boundaries",
         prompt: "Explain the precise diagnostic criteria that differentiate Anorexia Nervosa (Binge-Eating/Purging Type) from Bulimia Nervosa. Detail the diagnostic hierarchy rule and explain the clinical significance of this boundary. (4 marks)",
         criteria: [
           "Body Weight Criterion: In Anorexia Nervosa (Binge-Eating/Purging Type), the individual has significantly low body weight (typically BMI < 18.5 kg/m2 in adults or <85% expected weight); in Bulimia Nervosa, body weight is at or above the minimally normal range (BMI >= 18.5 kg/m2).",
@@ -511,7 +595,7 @@ const MODULE_8_DATA = {
       },
       {
         id: "M8_SAQ_5",
-        title: "Exam Practice SAQ 1 (5 Marks): Binge Eating & Purging Presentations (Bulimia Nervosa vs Anorexia Nervosa Binge/Purge)",
+        title: "Exam Practice SAQ 1 (5 Marks): Binge Eating & Purging Presentations",
         prompt: "“You are assessing a 21-year-old university student who reports weekly episodes of consuming objectively large quantities of food accompanied by a sense of loss of control, followed by self-induced vomiting and rigorous exercise. Recurrent binge eating and compensatory purging are key features of the presentation. What eating disorders would be most likely (2 marks) and what key features would you use to assess and differentiate them in your clinical assessment (3 marks)?”",
         suggestedTime: "8-10 minutes",
         keyCriteria: [
@@ -524,7 +608,7 @@ const MODULE_8_DATA = {
       },
       {
         id: "M8_SAQ_6",
-        title: "Exam Practice SAQ 2 (5 Marks): Uncontrolled Binge Eating Without Compensation (Binge Eating Disorder vs Bulimia Nervosa)",
+        title: "Exam Practice SAQ 2 (5 Marks): Uncontrolled Binge Eating Without Compensation",
         prompt: "“You are assessing a 34-year-old client who reports eating uncontrollable amounts of food in secret, accompanied by severe guilt, distress, and depression. Recurrent binge eating episodes and psychological distress are key features of the presentation. What eating disorders would be most likely (2 marks) and what key features would you use to assess and differentiate them in your assessment (3 marks)?”",
         suggestedTime: "8-10 minutes",
         keyCriteria: [
@@ -537,7 +621,7 @@ const MODULE_8_DATA = {
       },
       {
         id: "M8_SAQ_7",
-        title: "Exam Practice SAQ 3 (5 Marks): Severe Food Restriction Across Body Weights (Atypical Anorexia Nervosa vs Anorexia Nervosa)",
+        title: "Exam Practice SAQ 3 (5 Marks): Severe Food Restriction Across Body Weights",
         prompt: "“You are assessing an 18-year-old client who has lost 25 kg in 6 months through severe calorie restriction, intense exercise, and relentless fear of gaining weight, yet their current BMI is 22.0. Intense fear of weight gain, cognitive overvaluation of shape/weight, and restrictive behaviors are key features of the presentation. What eating disorder classifications would be most likely (2 marks) and what key features would you use to assess and differentiate them in your assessment (3 marks)?”",
         suggestedTime: "8-10 minutes",
         keyCriteria: [

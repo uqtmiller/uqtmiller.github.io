@@ -1,13 +1,15 @@
 // Main application controller for Lifespan Psychology Study Companion
-// Supports Modules 3 through 10 with interactive clinical tables, differential diagnosis tools,
+// Supports Modules 1 through 10 with interactive clinical tables, differential diagnosis tools,
 // two-step scenario quizzes with "guess again" retry logic, and short answer/essay practice banks.
-// Modules 1 & 2 are non-disorder foundational modules presented with informational overview states.
+// All modules feature rich, comprehensive lecture review sections extracted directly from course notes.
 
 document.addEventListener("DOMContentLoaded", () => {
   App.init();
 });
 
 const MODULES_DATA = {
+  1: typeof MODULE_1_DATA !== 'undefined' ? MODULE_1_DATA : null,
+  2: typeof MODULE_2_DATA !== 'undefined' ? MODULE_2_DATA : null,
   3: typeof MODULE_3_DATA !== 'undefined' ? MODULE_3_DATA : null,
   4: typeof MODULE_4_DATA !== 'undefined' ? MODULE_4_DATA : null,
   5: typeof MODULE_5_DATA !== 'undefined' ? MODULE_5_DATA : null,
@@ -19,7 +21,7 @@ const MODULES_DATA = {
 };
 
 const App = {
-  currentModuleId: 3,
+  currentModuleId: 1,
   currentSubTab: "review", // "review", "differential", "quiz", "shortanswer"
   selectedDifferentialIds: [],
 
@@ -195,6 +197,7 @@ const App = {
     if (bMeta) bMeta.innerHTML = `Course Coordinator: <strong>${modData.coordinator}</strong> | School of Applied Psychology`;
 
     this.renderTheoreticalPillars(modData);
+    this.renderContentReviewSections(modData);
     this.renderDisorderTable(modData);
     this.renderDifferentialPresets(modData);
     this.renderDifferentialTool(modData);
@@ -216,6 +219,59 @@ const App = {
     `
       )
       .join("");
+  },
+
+  renderContentReviewSections(modData) {
+    const container = document.getElementById("contentReviewSectionsContainer");
+    if (!container) return;
+
+    if (!modData.contentReviewSections || modData.contentReviewSections.length === 0) {
+      container.innerHTML = "";
+      return;
+    }
+
+    container.innerHTML = `
+      <div class="content-review-header" style="margin-top: 36px; margin-bottom: 20px;">
+        <h3 class="section-heading" style="margin-bottom: 6px;">
+          📚 Core Lecture Review & Clinical Frameworks
+        </h3>
+        <p class="text-muted" style="font-size: 14px; margin-bottom: 0;">
+          Comprehensive lecture topics, diagnostic algorithms, and clinical practice competencies extracted directly from coordinator handouts.
+        </p>
+      </div>
+      <div class="review-sections-list" style="display: flex; flex-direction: column; gap: 24px;">
+        ${modData.contentReviewSections.map(sec => `
+          <div class="card review-section-card" id="${sec.id}" style="border: 1px solid var(--border-color); border-radius: var(--radius-md); background: #ffffff; box-shadow: var(--shadow-sm); overflow: hidden;">
+            <div class="review-section-header" style="background: #f8fafc; border-bottom: 1px solid var(--border-color); padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span class="review-icon-pill" style="display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 8px; background: var(--primary-light); color: var(--primary); font-size: 15px;">
+                  <i class="fa ${sec.icon || 'fa-book-open'}"></i>
+                </span>
+                <h4 style="margin: 0; font-size: 16px; font-weight: 700; color: #0f172a;">${sec.title}</h4>
+              </div>
+              ${sec.badge ? `<span class="badge bg-primary" style="font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 12px;">${sec.badge}</span>` : ''}
+            </div>
+            <div class="review-section-body" style="padding: 20px;">
+              ${sec.contentHtml}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+
+    // Dynamically update the heading of the disorders table
+    const tableHeading = document.getElementById("disordersTableHeading");
+    if (tableHeading) {
+      if (modData.moduleId === 1) {
+        tableHeading.textContent = "📋 Differential Diagnostic Protocols & Key Disorders Table";
+      } else if (modData.moduleId === 2) {
+        tableHeading.textContent = "📋 First Peoples Presentations & Culture-Bound Syndromes Table";
+      } else if (modData.moduleId === 3) {
+        tableHeading.textContent = "📋 Comprehensive Disorders & Attachment Classifications Table";
+      } else {
+        tableHeading.textContent = "📋 Comprehensive Disorders & Clinical Criteria Table";
+      }
+    }
   },
 
   renderDisorderTable(modData) {
@@ -283,9 +339,10 @@ const App = {
       modData.differentialPresets.forEach((p) => {
         const btn = document.createElement("button");
         btn.className = "btn-preset";
-        btn.textContent = p.label;
+        btn.textContent = p.label || p.title;
         btn.addEventListener("click", () => {
-          this.selectedDifferentialIds = [...p.ids];
+          const targetIds = p.ids || p.disorderIds || [];
+          this.selectedDifferentialIds = [...targetIds];
           this.renderDifferentialTool(modData);
         });
         bar.appendChild(btn);

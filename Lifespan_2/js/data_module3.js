@@ -26,6 +26,89 @@ const MODULE_3_DATA = {
       title: "Reflective Functioning & Mentalization",
       author: "Peter Fonagy & Mary Target",
       summary: "The capacity to interpret self and others in terms of underlying mental states (needs, intentions, beliefs, emotions). Secure attachment promotes robust reflective functioning, which acts as a profound resilience factor buffer against borderline pathology and trauma."
+    },
+    {
+      title: "Attachment in Clinical Practice: Transference, Enactment & Therapist as Secure Base",
+      author: "Dr Matthew McKenzie / Bowlby / Schore & Siegel",
+      summary: "In psychotherapy, the patient's attachment relationship to the therapist is foundational and primary. The therapist acts as a temporary secure base allowing the patient to 'take the risk of feeling what they learned they are not supposed to feel' (Bowlby). Because attachment is pre-linguistic, clients who lack words enact their internal working models in the therapeutic relationship. The therapist must attend to unspoken subtexts, manage transference and countertransference ('their stuff will activate your stuff'), avoid the 'projection of will', navigate alliance ruptures in the here-and-now, and manage clinical boundaries around session endings, therapist breaks, and termination."
+    }
+  ],
+
+  // Deep-Dive Content Review Sections (Extracted directly from Dr Matthew McKenzie's Lecture Handouts)
+  contentReviewSections: [
+    {
+      id: "mod3_attachment_foundations",
+      title: "Lifespan Attachment Foundations & Neurobiology",
+      icon: "🔗",
+      badge: "Theoretical Pillars (Notes)",
+      contentHtml: `
+        <p style="margin-bottom: 12px;">Attachment is a biological imperative rooted in evolutionary necessity (Bowlby). The attachment bond is critical to physical and emotional survival; infants must adapt to caregivers by defensively excluding behaviors that threaten proximity.</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-top: 14px;">
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px;">
+            <strong style="color: var(--primary); font-size: 14.5px;">Evolutionary Functions (Bowlby)</strong>
+            <p style="font-size: 13.5px; color: #475569; margin-top: 6px;">Manifests in three biological imperatives: (1) <strong>Proximity seeking and maintenance</strong> (crying, clinging, calling); (2) Using the caregiver as a <strong>Secure Base</strong> for environmental exploration; and (3) Seeking the caregiver as a <strong>Safe Haven</strong> in moments of alarm or danger.</p>
+          </div>
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px;">
+            <strong style="color: var(--primary); font-size: 14.5px;">Attachment & The Brain (Schore & Siegel)</strong>
+            <p style="font-size: 13.5px; color: #475569; margin-top: 6px;">Allan Schore (2002): Healthy neural and psychological development hinges on attuned caregiver responsiveness. The infant brain is the least developed organ at birth; its maturation literally requires positive interpersonal relational experiences.<br>Daniel Siegel (1999): Experience shapes neural firing—<em>'neurons that fire together wire together'</em>, embedding internal working models into neural architecture.</p>
+          </div>
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px;">
+            <strong style="color: var(--primary); font-size: 14.5px;">Interactive Affect Regulation (Fonagy & Gross)</strong>
+            <p style="font-size: 13.5px; color: #475569; margin-top: 6px;">Infants cannot regulate overwhelm alone; they depend on caregivers for <strong>co-regulation</strong>. Parents contain affect by communicating: (1) they understand the distress; (2) they can cope with it; and (3) they recognize the child's <strong>intentional stance</strong> (the child as an independent being with their own mind). Links Gross' process model of emotion regulation to mentalization.</p>
+          </div>
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px;">
+            <strong style="color: var(--primary); font-size: 14.5px;">Four Levels of Awareness (Slide 8)</strong>
+            <p style="font-size: 13.5px; color: #475569; margin-top: 6px;">1. <strong>External Reality:</strong> Events that happen.<br>2. <strong>Representational Model:</strong> Highly subjective schemas based on attachment history.<br>3. <strong>Reflective Stance:</strong> Stepping back to reflect on the meaning of experience rather than taking reality at face value.<br>4. <strong>The Mindful Self:</strong> Awareness of our awareness (#nextlevelawareness).</p>
+          </div>
+        </div>
+      `
+    },
+    {
+      id: "mod3_therapist_attachment_impacts",
+      title: "Attachment in Clinical Practice: The Therapist Relationship, Enactments & Countertransference",
+      icon: "🛋️",
+      badge: "Clinical Practice (Dr Matthew McKenzie)",
+      contentHtml: `
+        <p style="margin-bottom: 12px;">In psychotherapy, <strong>the patient's attachment relationship to the therapist is foundational and primary</strong>. It is the secure base from which exploration, insight, and structural change occur (Dr Matthew McKenzie):</p>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div style="background: #fff; border-left: 4px solid var(--primary); padding: 14px 18px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <strong style="color: #0f172a; font-size: 14.5px;">1. The Therapist as a Secure Base & Safe Haven:</strong>
+            <p style="font-size: 13.5px; color: #475569; margin-top: 4px;">According to Bowlby and McKenzie, therapy provides a secure base that allows the patient to <em>'take the risk of feeling what they learned they're not supposed to feel and knowing what they are not supposed to know'</em>. The therapist supports the client to tolerate, modulate, and communicate difficult affect. Because you are an attachment figure, the client needs the corrective emotional experience of feeling anger and frustration toward their therapist and discovering that it does not destroy the relationship.</p>
+          </div>
+
+          <div style="background: #fff; border-left: 4px solid #f59e0b; padding: 14px 18px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <strong style="color: #0f172a; font-size: 14.5px;">2. Nonverbal Attunement, Pre-Linguistic Roots & Relational Enactment:</strong>
+            <p style="font-size: 13.5px; color: #475569; margin-top: 4px;">Because attachment has pre-linguistic roots, clinicians must attune to nonverbal cues and the unspoken subtext of the conversation (Ainsworth). <strong>Critical clinical principle:</strong> <em>The patient who does not have the words to articulate their experience will enact it in relationships with others, including with the therapist</em>. E.g., when asked about an emotion, offering a cognitive intellectual narrative instead of feeling. If a client is a 'whirlwind', letting them talk over their anxiety does them a disservice; clinicians should gently interrupt with informed consent (<em>'I am going to stop you there and notice that you are a bit anxious...'</em>) to help regulate.</p>
+          </div>
+
+          <div style="background: #fff; border-left: 4px solid #ef4444; padding: 14px 18px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <strong style="color: #0f172a; font-size: 14.5px;">3. Transference, Countertransference & Therapist Metacognition:</strong>
+            <p style="font-size: 13.5px; color: #475569; margin-top: 4px;">Therapists must manage their own attachment history: <strong>'their stuff will activate your stuff'</strong>. Therapy is highly active, not passive. Therapists must cultivate a mindful, reflective stance to respond <em>reflectively rather than reflexively</em>. A therapist's mindful presence has a contagious effect that kindles the patient's own mentalizing capacity.</p>
+          </div>
+
+          <div style="background: #fff; border-left: 4px solid #8b5cf6; padding: 14px 18px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <strong style="color: #0f172a; font-size: 14.5px;">4. The 'Projection of Will' & Fostering Active Collaboration:</strong>
+            <p style="font-size: 13.5px; color: #475569; margin-top: 4px;">Watch out for the <strong>Projection of Will</strong> (Lyons-Ruth, Frederickson): where the patient consciously or unconsciously projects responsibility for change onto the therapist and adopts an inactive, passive stance (<em>'Fix me'</em>). The clinician must be explicit: <em>'The therapist cannot fix anyone; what we can do is facilitate a process where you take action for change. If you choose not to, that is okay, but your suffering will likely continue.'</em> Arrive at a shared understanding of the patient's working model before jumping into strategies.</p>
+          </div>
+
+          <div style="background: #fff; border-left: 4px solid #06b6d4; padding: 14px 18px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <strong style="color: #0f172a; font-size: 14.5px;">5. Micro-Separations, Interruptions & Clinical Boundaries:</strong>
+            <ul style="font-size: 13.5px; color: #475569; margin-left: 18px; margin-top: 4px; line-height: 1.55;">
+              <li><strong>End-of-Session Micro-Separations:</strong> Notice patients who repetitively stall, hold on, or bring up crises in the final 2 minutes. Notice in yourself if you run over time to 'make sure they are okay'. This often reflects the <em>therapist's own unresolved separation anxiety</em>. Clinicians must pause and process what is happening in the room.</li>
+              <li><strong>Therapist Breaks, Holidays & Sick Leave:</strong> Separation and loss are central to attachment. Clients with unresolved trauma may react to therapist vacations with acute regression, destructive acting-out, paranoia, or suicidality. Clinicians must maintain firm boundaries and not reduce their vacations or sick leave out of anxiety about 'abandoning' clients.</li>
+            </ul>
+          </div>
+
+          <div style="background: #fff; border-left: 4px solid #10b981; padding: 14px 18px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <strong style="color: #0f172a; font-size: 14.5px;">6. Termination Dynamics across Attachment Classifications:</strong>
+            <ul style="font-size: 13.5px; color: #475569; margin-left: 18px; margin-top: 4px; line-height: 1.55;">
+              <li><strong>Preoccupied (Anxious-Ambivalent):</strong> Driven by fear of abandonment, engaging in overplayed helplessness. They will not initiate termination on their own. The therapist must provide firm structure, make room for the patient's protest, or offer a <em>staggered termination</em> where they leave with the understanding that they can return for booster sessions if needed.</li>
+              <li><strong>Dismissing (Insecure-Avoidant):</strong> Deactivates affect, maintains emotional walls, and may flee prematurely. Clinician must gently confront passivity: <em>'You can maintain this wall, but then I have to accept that while I have been working for you, you have stopped working for yourself.'</em></li>
+              <li><strong>Disorganized (Unresolved Trauma):</strong> Highly sensitive to endings; termination provides a bittersweet corrective experience to say goodbye in a fully felt, complete way without abandonment or retaliation.</li>
+            </ul>
+          </div>
+        </div>
+      `
     }
   ],
 
@@ -330,6 +413,14 @@ const MODULE_3_DATA = {
       }
     }
   },
+
+  // Interactive Differential Presets
+  differentialPresets: [
+    { label: "RAD vs. DSED", ids: ["RAD", "DSED"] },
+    { label: "Dismissing vs. Preoccupied (A vs. C)", ids: ["AVOIDANT", "AMBIVALENT"] },
+    { label: "Disorganized vs. RAD", ids: ["DISORGANIZED", "RAD"] },
+    { label: "All Attachment Classifications", ids: ["RAD", "DSED", "SECURE", "AVOIDANT", "AMBIVALENT", "DISORGANIZED"] }
+  ],
 
   // 6 Lifespan Clinical Scenarios with 2-Step Decision Flow (Diagnose -> Treat)
   scenarios: [
@@ -793,7 +884,7 @@ const MODULE_3_DATA = {
       },
       {
         id: "sa_04",
-        title: "SAQ 4: Differential Diagnosis of Reactive Attachment Disorder (RAD) vs. Disinhibited Social Engagement Disorder (DSED)",
+        title: "SAQ 4: Early Institutional Deprivation & Divergent Relational Profiles",
         question: "Critically contrast Reactive Attachment Disorder (RAD) and Disinhibited Social Engagement Disorder (DSED) in terms of clinical presentation, behavioral markers, and long-term trajectory following placement in a nurturing environment.",
         suggestedTime: "8-10 minutes",
         keyCriteria: [
@@ -806,7 +897,7 @@ const MODULE_3_DATA = {
       },
       {
         id: "sa_05",
-        title: "Exam Practice SAQ 1 (5 Marks): Differential Assessment of Early Neglect Presentations (RAD vs DSED)",
+        title: "Exam Practice SAQ 1 (5 Marks): Differential Assessment of Early Neglect Presentations",
         prompt: "“You are assessing a 4-year-old child who experienced severe early neglect and multiple foster placements before age 2. Pervasive social relationship abnormalities and marked caregiver attachment difficulties are key features of the child’s presentation. What attachment disorders would be most likely (2 marks) and what key features would you use to assess and differentiate them in your clinical assessment (3 marks)?”",
         suggestedTime: "8-10 minutes",
         keyCriteria: [
@@ -819,7 +910,7 @@ const MODULE_3_DATA = {
       },
       {
         id: "sa_06",
-        title: "Exam Practice SAQ 2 (5 Marks): Adult Attachment States of Mind & Discourse Analysis (Dismissing vs Preoccupied)",
+        title: "Exam Practice SAQ 2 (5 Marks): Adult Attachment States of Mind & Discourse Analysis",
         prompt: "“You are assessing an adult client presenting with chronic marital dissatisfaction and distress in romantic partnerships. High relational anxiety/avoidance and distinct discourse defensiveness when discussing family of origin are key features of the client’s presentation. What adult attachment states of mind (AAI classifications) would be most likely (2 marks) and what key features would you use to assess them in your assessment (3 marks)?”",
         suggestedTime: "8-10 minutes",
         keyCriteria: [
@@ -832,7 +923,7 @@ const MODULE_3_DATA = {
       },
       {
         id: "sa_07",
-        title: "Exam Practice SAQ 3 (5 Marks): Relational Trauma vs Deprivation (RAD vs Disorganized Attachment)",
+        title: "Exam Practice SAQ 3 (5 Marks): Relational Trauma vs Deprivation",
         prompt: "“You are assessing a toddler referred for extreme behavioral dysregulation following documented early caregiver terror and physical maltreatment. Severe fear responses, emotional unpredictability, and strange responses around the caregiver are key features of the child’s presentation. What attachment classifications or disorders would be most likely (2 marks) and what key features would you use to assess them in your assessment (3 marks)?”",
         suggestedTime: "8-10 minutes",
         keyCriteria: [

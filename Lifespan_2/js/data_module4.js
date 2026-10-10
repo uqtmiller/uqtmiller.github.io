@@ -8,24 +8,264 @@ const MODULE_4_DATA = {
   // High-yield Theoretical Core
   theoreticalPillars: [
     {
-      title: "Normal Cognitive Aging vs. Pathological Decline",
-      author: "Pike & Kinsella",
-      summary: "Normal aging involves subtle slowing of processing speed, reduced divided attention, and mild word-finding lapses, but general knowledge (crystallized intelligence) and everyday functional independence (IADLs) remain robust. Pathological decline impairs episodic consolidation and functional independence."
+      title: "Normal Cognitive Aging vs. Pathological Neurodegeneration",
+      author: "Assoc. Prof. Kerryn Pike / Pike & Kinsella",
+      summary: "Normal aging involves subtle slowing of information processing speed, divided attention, and prefrontal working memory (losing ~2% brain volume per decade), whereas semantic, procedural, implicit, and prospective memory remain preserved. Pathological decline (Alzheimer's) attacks entorhinal/hippocampal networks early, causing severe rapid forgetting, inability to encode new memories, and failure to benefit from cues."
     },
     {
-      title: "The Neurocognitive Spectrum: SCD to MCI to Dementia",
-      author: "NIA-AA & DSM-5 Framework",
-      summary: "Cognitive decline occurs along a continuum: Subjective Cognitive Decline (SCD: perceived decline with normal psychometric testing) -> Mild Cognitive Impairment (MCI: objective deficit >1.5 SD below norms with preserved independence) -> Major Neurocognitive Disorder (Dementia: cognitive loss severe enough to compromise IADLs)."
+      title: "Lifespan Modifiable Dementia Risk Factors Model (45% Preventable)",
+      author: "Livingston et al. (2024 Lancet Commission) / Thompson et al. (2023)",
+      summary: "At present, dementia cannot be cured or completely prevented, but 45% of global dementia cases are attributable to 14 modifiable risk factors across 3 life epochs: Early life (<18: lower education); Mid life (18–65: hearing loss, high LDL cholesterol, depression, traumatic brain injury, physical inactivity, diabetes, smoking, hypertension, obesity, excessive alcohol); and Later life (>65: social isolation, air pollution, uncorrected visual loss). In First Nations populations, 11 modifiable factors account for 34.9% of dementia burden (Thompson et al., 2023)."
     },
     {
-      title: "Neuropsychological Profile of Alzheimer's Disease",
-      author: "McKhann et al. (NIA-AA Criteria)",
-      summary: "AD is defined neuropathologically by amyloid-beta plaques and neurofibrillary tau tangles beginning in the entorhinal cortex and hippocampus. Clinically, it presents with a distinctive 'amnestic syndrome': rapid forgetting, failure to benefit from semantic cues, and defective delayed recall."
+      title: "The Tripartite Framework of Cognitive Interventions in Dementia",
+      author: "Clare et al. / Cations et al. / Woods et al. (2023) / Bahar-Fuchs et al.",
+      summary: "Cognitive interventions are delineated into three distinct modalities: (1) Cognitive Stimulation (group-based social/mental activity discussions enhancing non-specific cognition and QoL; Cochrane proves ~1.99 MMSE gain, delaying decline by ~6 months); (2) Cognitive Training (structured guided practice on standardized tasks targeting specific cognitive domains; small-to-moderate test gains but little daily functional change); and (3) Cognitive Rehabilitation (individualized, person-centered, goal-oriented compensatory approach targeting real-world functional independence, using spaced retrieval, errorless learning, and memory aids; GREAT trial)."
     },
     {
-      title: "Cognitive Rehabilitation & Non-Pharmacological Care",
-      author: "Clare et al. / Pike",
-      summary: "Interventions focus on personalized compensatory memory strategies (external memory aids, spaced retrieval, errorless learning), environmental modifications, maintaining cognitive reserve, and addressing caregiver burden to optimize quality of life."
+      title: "Reminiscence & Life Review Therapy Model",
+      author: "Bhar (2014) / Bohlmeijer et al. (2007) / Pinquart & Forstmeier (2012)",
+      summary: "Thinking and talking about past life experiences to reinforce continuity, find meaning, resolve past conflicts, and reactivate problem-solving successes. Delineated into: (1) Simple Reminiscence (unstructured pleasurable sharing of memories fostering social connection); (2) Life Review (structured exploration of sequential life stages creating a life-book); and (3) Life Review Therapy (structured recall of past mastery and problem-solving successes to rebuild current self-efficacy, exerting significantly stronger effects on late-life depression)."
+    },
+    {
+      title: "Social-Cognitive Aging & Stereotype Threat Model",
+      author: "Rahhal et al. (2001) / Geraci & Miller (2013) / Levy",
+      summary: "Negative cultural stereotypes regarding aging directly undermine older adults' cognitive test performance. Prior failure tasks suppress memory recall, whereas counteracting negative stereotypes and providing success experiences significantly boosts recall performance. Psychological therapy leverages accumulated life wisdom, resourcefulness, and realistic confidence to optimize everyday memory functioning."
+    }
+  ],
+
+  // Deep-Dive Content Review Sections (Extracted directly from Assoc. Prof. Kerryn Pike's Lecture Handouts)
+  contentReviewSections: [
+    {
+      id: "mod4_older_adult_considerations",
+      title: "Clinical Considerations When Working with Older Adults",
+      icon: "👵",
+      badge: "Geropsychology Foundations (Pike)",
+      contentHtml: `
+        <p style="margin-bottom: 12px;">The APS Ethical Guidelines and lecture notes emphasize that psychologists must understand the aging process, examine their own attitudes toward older adults, avoid assuming presenting issues are due to 'old age' (ageism/diagnostic overshadowing), and accommodate physical, sensory, and cognitive changes:</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-top: 14px;">
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px;">
+            <strong style="color: var(--primary); font-size: 14.5px;">Demographic Realities in Australia (ABS Data)</strong>
+            <ul style="font-size: 13px; color: #475569; margin-left: 18px; margin-top: 6px; line-height: 1.55;">
+              <li><strong>1 in 6 Australians (17.1% / 4.4 million)</strong> are aged 65+ (projected to reach 24.1% by 2050).</li>
+              <li><strong>96% live in private households</strong>; only ~4% live in cared/nursing home accommodation (rises to 12.9% for age >80).</li>
+              <li><strong>Two-thirds</strong> of older Australians live in low-income households.</li>
+              <li><strong>86.6%</strong> have >=1 chronic health condition (averaging 3.5 conditions, e.g. arthritis, hypertension, back problems).</li>
+              <li><strong>52.3%</strong> live with disability (41% profound, 16% moderate, 33% mild).</li>
+              <li><strong>Elder Abuse:</strong> 4.4% reported abuse/neglect in the past 12 months (3.5% emotional, 1.2% physical, 0.5% neglect); higher in disability (5.6%) and carers (7.2%).</li>
+            </ul>
+          </div>
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px;">
+            <strong style="color: var(--primary); font-size: 14.5px;">Normal Aging vs. Pathological Decline</strong>
+            <p style="font-size: 13px; color: #475569; margin-top: 6px;">
+            &bull; <strong>Biological:</strong> Brain loses only ~2% weight/volume per decade. Reductions in myelination, dopamine, and blood flow mainly affect the prefrontal cortex—impacting processing speed, divided attention, and working memory.<br>
+            &bull; <strong>Preserved:</strong> Semantic memory (general knowledge, vocabulary), procedural memory (habits, motor skills), implicit memory, and naturalistic prospective memory remain intact.<br>
+            &bull; <strong>Social-Cognitive:</strong> Stereotype threat (worry that memory slips mean 'dementia') impairs performance. In reality, Australians aged 75+ report <em>the highest life satisfaction of any age group</em> (Pachana, 2016; Carstensen). Distress, depression, and anxiety are <strong>NOT a normal part of aging</strong>.</p>
+          </div>
+        </div>
+      `
+    },
+    {
+      id: "mod4_psychological_techniques",
+      title: "Psychological Techniques & Environmental Adaptations for Older Adults",
+      icon: "🛠️",
+      badge: "Clinical Delivery Adaptations",
+      contentHtml: `
+        <p style="margin-bottom: 12px;">Cognitive Behavior Therapy (CBT) is highly effective in older adults—meta-analyses demonstrate it achieves <strong>54% diagnostic remission</strong> for anxiety (vs 36% for pharmacotherapy) with fewer adverse side effects (Johnco et al., 2026; Cuijpers et al., 2018). Clinicians must adapt CBT delivery and room environments:</p>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div style="background: #fff; border-left: 4px solid var(--primary); padding: 14px 18px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <strong style="color: #0f172a; font-size: 14.5px;">Core Therapeutic & CBT Adaptations (Slide 41):</strong>
+            <ul style="font-size: 13.5px; color: #475569; margin-left: 18px; margin-top: 6px; line-height: 1.55;">
+              <li><strong>Slow down delivery:</strong> Conduct sessions at a measured pace to accommodate slower information-processing speed.</li>
+              <li><strong>Allow response time:</strong> Give extra time for answers, as word-finding and verbal retrieval can be slowed.</li>
+              <li><strong>Break it down:</strong> Segment complex psychoeducation or behavioral tasks into small, manageable steps.</li>
+              <li><strong>Provide external cues:</strong> Provide recognition cues rather than demanding effortful spontaneous recall.</li>
+              <li><strong>Written summaries & handouts:</strong> Provide clear summary sheets of key session decisions and homework instructions.</li>
+              <li><strong>Check in & confirm goals:</strong> Frequently reconfirm the client's basic goal and problem to be solved.</li>
+              <li><strong>Leverage accumulated life wisdom:</strong> Re-activate past problem-solving successes and resilience; frame questions as <em>'How would you like to feel?'</em> rather than comparing mood to past baselines.</li>
+            </ul>
+          </div>
+
+          <div style="background: #fff; border-left: 4px solid #10b981; padding: 14px 18px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <strong style="color: #0f172a; font-size: 14.5px;">Sensory & Physical Room Accommodations (Slides 42–44):</strong>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-top: 8px; font-size: 13px; color: #475569;">
+              <div>
+                <strong>Addressing Hearing Loss (>60% affected):</strong>
+                <ul style="margin-left: 16px; margin-top: 4px;">
+                  <li>Minimize background noise (close doors, forward calls).</li>
+                  <li>Face client directly (facilitates lip-reading).</li>
+                  <li>Speak distinctly without shouting (shouting distorts facial gestures).</li>
+                  <li><strong>Use lower pitch of voice:</strong> High-frequency hearing is lost first.</li>
+                  <li>Sit close face-to-face; provide personal auditory amplifiers if needed.</li>
+                </ul>
+              </div>
+              <div>
+                <strong>Addressing Vision Changes (93% affected):</strong>
+                <ul style="margin-left: 16px; margin-top: 4px;">
+                  <li>Increase lighting; seat client facing away from bright windows to reduce glare.</li>
+                  <li>Do NOT use glossy paper; use <strong>14–16pt bold double-spaced font</strong>.</li>
+                  <li>Allow time for gaze refocusing between distances.</li>
+                  <li>Be aware of narrowing field of vision; have reading glasses/magnifiers available.</li>
+                </ul>
+              </div>
+              <div>
+                <strong>Addressing Mobility Impairments:</strong>
+                <ul style="margin-left: 16px; margin-top: 4px;">
+                  <li>Ensure ramp and elevator accessibility; clear wide office pathways.</li>
+                  <li>Verify accessible restrooms are nearby.</li>
+                  <li><strong>Sit at the same eye level</strong> as clients using wheelchairs/scooters.</li>
+                  <li>Never push a wheelchair or touch mobility aids without asking first.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      `
+    },
+    {
+      id: "mod4_dementia_risk_reduction",
+      title: "Dementia Risk Reduction Strategies (45% Modifiable)",
+      icon: "🛡️",
+      badge: "Lancet Commission (Livingston et al., 2024)",
+      contentHtml: `
+        <p style="margin-bottom: 12px;">Dementia is the <strong>leading cause of death in Australia</strong> (responsible for 1 in 10 deaths; ~425,000 Australians living with dementia in 2024, projected to reach 1.1 million by 2065). While no cure exists, the 2024 Lancet Commission confirms that <strong>45% of worldwide dementia is attributable to 14 modifiable risk factors</strong> across three life stages:</p>
+        <div class="table-responsive">
+          <table class="table" style="font-size: 13.5px;">
+            <thead>
+              <tr style="background: #f1f5f9;">
+                <th>Life Stage</th>
+                <th>Modifiable Risk Factors (Lancet 2024)</th>
+                <th>Clinical & Lifestyle Recommendations</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Early Life (&lt;18 years)</strong></td>
+                <td>&bull; Lower educational attainment (7% of total risk)</td>
+                <td>Promote early education, cognitive reserve building, and lifelong learning.</td>
+              </tr>
+              <tr>
+                <td><strong>Mid Life (18–65 years)</strong></td>
+                <td>
+                  &bull; Hearing loss (7%)<br>
+                  &bull; High LDL cholesterol (7%)<br>
+                  &bull; Depression (3%)<br>
+                  &bull; Traumatic brain injury / TBI (3%)<br>
+                  &bull; Physical inactivity (2%)<br>
+                  &bull; Diabetes (1%)<br>
+                  &bull; Smoking (2%)<br>
+                  &bull; Hypertension (2%)<br>
+                  &bull; Obesity (1%)<br>
+                  &bull; Excessive alcohol consumption (1%)
+                </td>
+                <td>
+                  - Provide hearing aids for hearing loss.<br>
+                  - Optimal management of cardiovascular risk factors (blood pressure, statins, diabetes control).<br>
+                  - Treat depression proactively with CBT/psychological care.<br>
+                  - Helmet use to prevent TBI.<br>
+                  - Aerobic physical exercise (e.g. 150 mins/week).<br>
+                  - Smoking cessation and alcohol moderation.<br>
+                  - Mediterranean/healthy dietary pattern.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Later Life (&gt;65 years)</strong></td>
+                <td>
+                  &bull; Social isolation (4%)<br>
+                  &bull; Air pollution (3%)<br>
+                  &bull; Untreated visual loss (2%)
+                </td>
+                <td>
+                  - Maintain active social connections and group activities.<br>
+                  - Cataract surgery and corrective glasses for vision loss.<br>
+                  - Reduce environmental particulate exposure.
+                </td>
+              </tr>
+              <tr style="background: #fefce8;">
+                <td><strong>First Nations Specific (Thompson et al., 2023)</strong></td>
+                <td>11 modifiable risk factors account for <strong>34.9% of dementia burden</strong> in Torres Strait & Northern Peninsula.</td>
+                <td>Culturally grounded prevention programs (DAMPAA Project: Dementia prevention and risk Management Program for Aboriginal Australians).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      `
+    },
+    {
+      id: "mod4_cognitive_interventions_defined",
+      title: "What Each Cognitive Intervention Is: Stimulation vs. Training vs. Rehabilitation",
+      icon: "🧠",
+      badge: "Tripartite Modality Definitions (Cochrane Reviews)",
+      contentHtml: `
+        <p style="margin-bottom: 12px;">People living with cognitive decline want and expect post-diagnostic cognitive assistance. Evidence confirms cognitive interventions significantly improve quality of life, reduce anxiety, and optimize function (Gavelin et al., 2020; Cations et al., 2018). Clinical practice guidelines distinguish three fundamental modalities:</p>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div style="background: #fff; border-left: 4px solid #3b82f6; padding: 14px 18px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <strong style="color: #1d4ed8; font-size: 15px;">1. Cognitive Stimulation (Therapy): Group Engagement</strong>
+              <span class="badge badge-primary">Broad Social / Cognitive</span>
+            </div>
+            <p style="font-size: 13.5px; color: #475569; margin-top: 6px;">
+            <strong>Definition:</strong> Engagement in a broad range of activities and discussions (typically conducted in small groups) designed to enhance cognitive and social functioning in a non-specific, enjoyable manner. Activities include reality orientation, discussion of current events, games, reminiscence, music/art therapy, and validation therapy.<br>
+            <strong>Evidence (Woods et al., 2023 Cochrane Review):</strong> Consistently improves general cognition (statistically equivalent to <strong>1.99 MMSE points</strong>, equating to approximately a <strong>6-month delay in cognitive decline</strong>). Also significantly improves Activities of Daily Living (ADLs), quality of life, mood, communication, and decreases challenging behaviors. Greater benefits when sessions run &gt;1/week for mild dementia.</p>
+          </div>
+
+          <div style="background: #fff; border-left: 4px solid #f59e0b; padding: 14px 18px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <strong style="color: #b45309; font-size: 15px;">2. Cognitive Training: Guided Practice on Standardized Tasks</strong>
+              <span class="badge badge-secondary">Domain-Specific Drills</span>
+            </div>
+            <p style="font-size: 13.5px; color: #475569; margin-top: 6px;">
+            <strong>Definition:</strong> Guided practice on a structured set of standardized tasks designed to target specific cognitive domains (e.g. computer-based working memory exercises, paired-associate memory drills, verbal semantic fluency practice).<br>
+            <strong>Evidence (Bahar-Fuchs et al., 2019 Cochrane Review):</strong> Small-to-moderate improvements on composite measures of global cognition and moderate improvements in verbal semantic fluency retained up to 3 months. However, there is <em>little to no transfer</em> to real-world everyday functional independence, clinical disease severity, or general quality of life. Importantly, no adverse effects.</p>
+          </div>
+
+          <div style="background: #fff; border-left: 4px solid #10b981; padding: 14px 18px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <strong style="color: #047857; font-size: 15px;">3. Cognitive Rehabilitation: Individualized Goal-Oriented Compensation</strong>
+              <span class="badge badge-success">Individual Functional Mastery</span>
+            </div>
+            <p style="font-size: 13.5px; color: #475569; margin-top: 6px;">
+            <strong>Definition:</strong> An individualized, person-centered, goal-oriented approach targeting everyday functional difficulties rather than standardized test performance. Developed collaboratively with the client and carer to achieve personally meaningful daily living goals (e.g., using a mobile phone, safely operating appliances, remembering names of grandchildren or PIN numbers).<br>
+            <strong>Evidence (GREAT Trial, Clare et al., 2019; Bob Case Study):</strong> 10 sessions across 3 months + top-ups. Demonstrated large, statistically significant improvements in individualized Goal Attainment and satisfaction for participants and family carers that persisted at 9-month follow-up.<br>
+            <strong>Key Techniques:</strong>
+            <br>&bull; <em>Errorless Learning:</em> Preventing guessing errors during encoding so the intact implicit memory system only encodes correct information.
+            <br>&bull; <em>Spaced Retrieval:</em> Practicing active recall of target information at progressively lengthening intervals (15s, 30s, 1m, 2m, 5m). If an error occurs, immediate corrective feedback is given and the interval is shortened. Requires minimal cognitive effort.
+            <br>&bull; <em>Compensatory Aids & Technology:</em> Procedural memory training, dual cognitive support, prompt stickers by doors, smartphone calendars, electronic pill dispensers.</p>
+          </div>
+        </div>
+      `
+    },
+    {
+      id: "mod4_reminiscence_therapy",
+      title: "Reminiscence & Life Review Therapy in Older Adults",
+      icon: "📜",
+      badge: "Bhar (2014) Review",
+      contentHtml: `
+        <p style="margin-bottom: 12px;"><strong>Reminiscence</strong> involves thinking and talking about past experiences in one's life. It assists older adults by reinforcing self-continuity, finding meaning and coherence, resolving past unresolved conflicts, and focusing on former successful coping experiences (Bhar, 2014). The lecture material delineates three forms:</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px;">
+          <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 14px;">
+            <strong style="color: #0f172a; font-size: 14.5px;">1. Simple Reminiscence</strong>
+            <p style="font-size: 13px; color: #475569; margin-top: 6px;">Unstructured, pleasurable conversations sharing memories (e.g., childhood games, schooling, courtship, favourite music/films) to foster social connection, engagement, and shared rapport. The conversational partner shares common memories too.</p>
+          </div>
+          <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 14px;">
+            <strong style="color: #0f172a; font-size: 14.5px;">2. Life Review</strong>
+            <p style="font-size: 13px; color: #475569; margin-top: 6px;">More structured evaluation covering a different life epoch each session (childhood, adolescence, early adulthood, career, retirement). The goal is assisting the client to appreciate overarching life themes and achieve ego-integrity (Erikson). Often culminates in a tangible 'life book' or digital story for family/carers.</p>
+          </div>
+          <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 14px;">
+            <strong style="color: #0f172a; font-size: 14.5px;">3. Life Review Therapy</strong>
+            <p style="font-size: 13px; color: #475569; margin-top: 6px;">Highly structured clinical intervention priming positive representations of the self. Systematically prompts recall of past problem-solving successes and mastery (<em>'Can you remember a time when you solved a difficult problem requiring creativity? How did you solve it? What personal qualities helped?'</em>) to rebuild self-efficacy for managing current stressors.</p>
+          </div>
+        </div>
+        <div style="margin-top: 14px; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px;">
+          <strong style="color: var(--primary); font-size: 14.5px;">Meta-Analytic Evidence Base (Bohlmeijer et al., 2007; Pinquart & Forstmeier, 2012):</strong>
+          <ul style="font-size: 13px; color: #475569; margin-left: 18px; margin-top: 6px; line-height: 1.55;">
+            <li><strong>Broad Benefits:</strong> Significant positive effects on life satisfaction, emotional wellbeing, ego-integrity, purpose in life, death preparation, mastery, reduced loneliness, and cognitive performance.</li>
+            <li><strong>Superiority for Depression:</strong> Structured <em>Life Review (Therapy)</em> exerts significantly greater effect sizes on reducing late-life depression than simple reminiscence.</li>
+            <li><strong>Setting Differences:</strong> Effects are significantly larger for community-dwelling older adults compared to those in residential nursing care facilities.</li>
+            <li><strong>Dementia Applications:</strong> Cochrane reviews show positive benefits for quality of life, communication, and mood in mild-to-moderate dementia.</li>
+          </ul>
+        </div>
+      `
     }
   ],
 
@@ -326,6 +566,15 @@ const MODULE_4_DATA = {
     }
   },
 
+  // Interactive Differential Presets
+  differentialPresets: [
+    { label: "AD vs. Depression (Pseudodementia)", ids: ["AD", "DEPRESSION"] },
+    { label: "MCI vs. AD (Dementia)", ids: ["MCI", "AD"] },
+    { label: "Delirium vs. AD vs. DLB", ids: ["DELIRIUM", "AD", "DLB"] },
+    { label: "bvFTD vs. Alzheimer's", ids: ["bvFTD", "AD"] },
+    { label: "All Neurocognitive Conditions", ids: ["AD", "MCI", "VASCULAR", "DLB", "bvFTD", "DELIRIUM", "DEPRESSION"] }
+  ],
+
   // 6 Lifespan Clinical Scenarios with 2-Step Decision Flow (Diagnose -> Treat)
   scenarios: [
     {
@@ -610,7 +859,7 @@ const MODULE_4_DATA = {
     shortAnswerQuestions: [
       {
         id: "sa_01",
-        title: "SAQ 1: Differentiating Alzheimer's Disease from Depression ('Pseudodementia')",
+        title: "SAQ 1: Primary Neurodegenerative Decline vs Affective Cognitive Impairment",
         question: "Contrast the clinical presentation and neuropsychological testing performance of an older adult with Alzheimer's Disease versus an older adult with depression-related cognitive impairment ('pseudodementia').",
         suggestedTime: "8-10 minutes",
         keyCriteria: [
@@ -651,7 +900,7 @@ const MODULE_4_DATA = {
       },
       {
         id: "sa_04",
-        title: "SAQ 4: Behavioral Variant Frontotemporal Dementia (bvFTD) vs. Alzheimer's Disease",
+        title: "SAQ 4: Early Disinhibition, Executive Loss & Neurocognitive Profiles",
         question: "How does Behavioral Variant Frontotemporal Dementia (bvFTD) differ from Alzheimer's Disease in terms of age of onset, initial presenting symptoms, and cognitive profile?",
         suggestedTime: "8-10 minutes",
         keyCriteria: [
@@ -664,7 +913,7 @@ const MODULE_4_DATA = {
       },
       {
         id: "sa_05",
-        title: "Exam Practice SAQ 1 (5 Marks): Acute Fluctuation & Inattention in Older Adults (Delirium vs Alzheimer's Dementia)",
+        title: "Exam Practice SAQ 1 (5 Marks): Acute Fluctuation & Inattention in Older Adults",
         prompt: "“You are assessing an 78-year-old hospital inpatient whose family reports sudden memory failure, disorientation, and inability to follow simple conversations. Inattention and fluctuating cognitive impairment are key features of the client’s presentation. What neurocognitive conditions would be most likely (2 marks) and what key features would you use to assess and differentiate them in your clinical assessment (3 marks)?”",
         suggestedTime: "8-10 minutes",
         keyCriteria: [
@@ -677,7 +926,7 @@ const MODULE_4_DATA = {
       },
       {
         id: "sa_06",
-        title: "Exam Practice SAQ 2 (5 Marks): Progressive Memory Impairment (Amnestic MCI vs Alzheimer's Dementia)",
+        title: "Exam Practice SAQ 2 (5 Marks): Progressive Memory Impairment",
         prompt: "“You are assessing a 71-year-old retired accountant who presents with progressive short-term memory complaints, forgetting appointments and misplacing keys. Objective episodic memory impairment on neuropsychological testing is evident. What diagnostic classifications along the cognitive ageing spectrum would be most likely (2 marks) and what key features would you use to assess and differentiate them in your assessment (3 marks)?”",
         suggestedTime: "8-10 minutes",
         keyCriteria: [
@@ -690,7 +939,7 @@ const MODULE_4_DATA = {
       },
       {
         id: "sa_07",
-        title: "Exam Practice SAQ 3 (5 Marks): Cognitive Decline with Hallucinations & Motor Signs (Dementia with Lewy Bodies vs Alzheimer's vs PDD)",
+        title: "Exam Practice SAQ 3 (5 Marks): Cognitive Decline with Hallucinations & Motor Signs",
         prompt: "“You are assessing a 74-year-old client with progressive cognitive decline whose spouse reports vivid visual hallucinations of small animals, spontaneous daytime drowsiness episodes, and mild resting tremor with muscle stiffness. Cognitive impairment and movement/perceptual changes are key features of the presentation. What neurocognitive disorders would be most likely (2 marks) and what key features would you use to assess them in your assessment (3 marks)?”",
         suggestedTime: "8-10 minutes",
         keyCriteria: [

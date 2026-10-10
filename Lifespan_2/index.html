@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lifespan Psychopathology Study Companion</title>
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <!-- Firebase Compat SDK for optional Firestore cloud sync -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -104,11 +105,16 @@
         <!-- Theoretical Pillars -->
         <h3 class="section-heading">🏛️ Theoretical Pillars & Lifespan Foundations</h3>
         <div id="theoreticalPillarsContainer" class="pillars-grid">
-          <!-- Populated from MODULE_3_DATA.theoreticalPillars -->
+          <!-- Populated from modData.theoreticalPillars -->
+        </div>
+
+        <!-- Core Lecture Review & Clinical Frameworks -->
+        <div id="contentReviewSectionsContainer">
+          <!-- Populated from modData.contentReviewSections -->
         </div>
 
         <!-- Comprehensive Disorders Table -->
-        <h3 class="section-heading">📋 Comprehensive Disorders & Attachment Classifications Table</h3>
+        <h3 id="disordersTableHeading" class="section-heading" style="margin-top: 36px;">📋 Comprehensive Disorders & Clinical Criteria Table</h3>
         <div class="table-responsive">
           <table class="table">
             <thead>
@@ -313,6 +319,8 @@
 
   <!-- Scripts -->
   <script src="js/data_all_modules.js"></script>
+  <script src="js/data_module1.js"></script>
+  <script src="js/data_module2.js"></script>
   <script src="js/data_module3.js"></script>
   <script src="js/data_module4.js"></script>
   <script src="js/data_module5.js"></script>

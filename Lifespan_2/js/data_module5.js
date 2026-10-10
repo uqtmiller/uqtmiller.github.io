@@ -8,24 +8,220 @@ const MODULE_5_DATA = {
   // High-yield Theoretical Core
   theoreticalPillars: [
     {
+      title: "The Two-Process Model of Sleep Regulation",
+      author: "Alexander Borbély / Prof. Caroline Donovan",
+      summary: "Sleep is regulated by two interacting biological processes: (1) Process C (Circadian Rhythm): an endogenous ~24-hour master body clock driven by the suprachiasmatic nucleus that responds to light/dark cues (darkness stimulates melatonin; light and blue screens suppress melatonin); and (2) Process S (Homeostatic Sleep Drive / Sleep Pressure): neurochemical pressure that builds progressively across wakeful hours until sleep occurs. Daytime naps (>30 mins, late afternoon) deplete sleep pressure, causing acute bedtime resistance."
+    },
+    {
+      title: "The 'Lights Out' Behavioral Sleep Intervention Framework",
+      author: "Prof. Caroline Donovan & Amy Shiels (Griffith University)",
+      summary: "A world-leading evidence-based clinical program for pediatric sleep problems (ages 3–6). Integrates traditional behavioral strategies (sleep hygiene, bedtime fading, visual routine charts) with targeted interventions for core maintaining drivers: bedtime anxiety (Lights Out Ladder exposure, relaxation, daytime worry time) and bedtime misbehavior (Camping Out, Back Soon, Night Ticket / Bedtime Pass, planned ignoring). Proven in multiple RCTs to eliminate sleep problems and prevent onset of clinical anxiety."
+    },
+    {
       title: "Pediatric Sleep Architecture & Developmental Transitions",
       author: "Prof. Caroline Donovan",
-      summary: "Sleep cycles evolve dramatically across childhood. Infants and children cycle through sleep every 50–60 minutes (vs. 90 mins in adults). Normal brief nighttime arousals occur 4–6 times per night; children only develop insomnia if they lack the self-soothing skills to return to sleep autonomously without parental intervention."
+      summary: "Sleep cycles evolve dramatically across development: infants/toddlers cycle every 50–60 minutes (vs. 90 mins in 5-year-olds and adults). Human sleep cycles through Non-REM (Stages N1, N2, and N3 Slow-Wave deep sleep) and REM sleep. Normal brief nighttime awakenings occur 4–6 times per night in all humans; children develop behavioral insomnia when they lack the self-soothing skills to return to sleep autonomously without parent intervention."
     },
     {
-      title: "BEARS Sleep Screening & Assessment Hierarchy",
-      author: "Owens & Dalzell / Donovan",
-      summary: "Comprehensive assessment evaluates the 5 BEARS domains: B (Bedtime problems), E (Excessive daytime sleepiness), A (Awakenings during the night), R (Regularity and duration of sleep), and S (Snoring / respiratory sounds). Prospective 2-week sleep diaries represent the clinical gold standard for baseline measurement."
+      title: "BEARS Screening, CSHQ & Multimodal Sleep Assessment",
+      author: "Owens et al. (2000) / Donovan, Shiels & Uhlmann (2023)",
+      summary: "Comprehensive assessment evaluates the 5 BEARS domains: B (Bedtime problems), E (Excessive daytime sleepiness), A (Awakenings during the night), R (Regularity and duration), and S (Snoring / apnea). Clinical diagnosis relies on prospective 2-week sleep diaries (evaluating sleep onset latency, wake times, naps separately for weekdays vs weekends), the 33-item Child Sleep Habits Questionnaire (CSHQ), and the MAVBICS tool to pinpoint behavioral drivers."
     },
     {
-      title: "Behavioral Extinction Paradigms & Stimulus Control",
-      author: "Mindell & Owens / Donovan",
-      summary: "Behavioral interventions target conditioned sleep associations and parental reinforcement traps. Protocols range from unmodified extinction ('cry it out'), gradual extinction ('controlled crying'), and parental presence fading ('camping out') to positive bedtime routines and the Bedtime Pass."
+      title: "REM vs. Non-REM Parasomnia Neurobiological Staging",
+      author: "American Academy of Sleep Medicine (AASM) / Donovan",
+      summary: "Parasomnias diverge by sleep stage: Nightmares occur during late-night REM sleep (vivid recall, rapid full awakening, alert, comforted by parents), whereas Sleep Terrors and Sleepwalking occur during early-night slow-wave N3 Non-REM sleep (intense autonomic arousal, crying/screaming, inconsolable, partial arousal, complete morning amnesia)."
+    }
+  ],
+
+  // Deep-Dive Content Review Sections (Extracted directly from Prof. Caroline Donovan's Lecture Handouts)
+  contentReviewSections: [
+    {
+      id: "mod5_what_is_sleep",
+      title: "What is Sleep? Biological Architecture, Stages & Two-Process Regulation",
+      icon: "🌙",
+      badge: "Sleep Science (Donovan)",
+      contentHtml: `
+        <p style="margin-bottom: 12px;">Sleep is not simply a time of passive rest; it is an active, essential biological and restorative process necessary for physical and psychological health (Johns Hopkins; Donovan):</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-top: 14px;">
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px;">
+            <strong style="color: var(--primary); font-size: 14.5px;">Core Biological Functions of Sleep</strong>
+            <ul style="font-size: 13px; color: #475569; margin-left: 18px; margin-top: 6px; line-height: 1.55;">
+              <li><strong>Brain Plasticity:</strong> Critical for processing new inputs, learning, and synaptic memory consolidation.</li>
+              <li><strong>Waste Clearance:</strong> Glymphatic removal of toxic metabolic waste products from the brain.</li>
+              <li><strong>Physical Growth:</strong> Release of growth hormones and tissue repair during slow-wave sleep.</li>
+              <li><strong>Systemic Function:</strong> Regulates the cardiovascular system, glucose metabolism, respiratory health, and immune competence.</li>
+            </ul>
+          </div>
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px;">
+            <strong style="color: var(--primary); font-size: 14.5px;">Two-Process Regulation (Borbély)</strong>
+            <p style="font-size: 13px; color: #475569; margin-top: 6px;">
+            1. <strong>Circadian Rhythm (Body Clock):</strong> A 24-hour cycle responding to light. Darkness stimulates melatonin release from the pineal gland; light suppresses it.<br>
+            2. <strong>Sleep Drive (Sleep Pressure):</strong> Builds progressively throughout waking hours. When it peaks, sleep is irresistible.<br>
+            <strong>Clinical Implications:</strong><br>
+            &bull; <em>Naps:</em> Daytime naps (&gt;30 mins, late afternoon) deplete sleep pressure, making nighttime sleep onset difficult.<br>
+            &bull; <em>Screens:</em> Screen time causes time displacement, physiological arousal, and blue light emission that delays circadian phase and suppresses melatonin (effect is strongest in younger children).</p>
+          </div>
+        </div>
+
+        <div style="margin-top: 14px; background: #fff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 14px;">
+          <strong style="color: #0f172a; font-size: 14.5px;">The Four Sleep Stages & Pediatric Cycle Architecture (Slides 7–13):</strong>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin-top: 8px; font-size: 12.8px; color: #475569;">
+            <div style="background: #f1f5f9; padding: 10px; border-radius: 6px;">
+              <strong>Stage 1 (N1 NREM):</strong> Transition to sleep (1–7 mins). Body not fully relaxed, small brainwave shifts, easiest to awaken.
+            </div>
+            <div style="background: #f1f5f9; padding: 10px; border-radius: 6px;">
+              <strong>Stage 2 (N2 NREM):</strong> Temp drops, muscles relax, heart rate/breathing slow. Sleep spindles & K-complexes resist waking. ~50% of sleep time.
+            </div>
+            <div style="background: #f1f5f9; padding: 10px; border-radius: 6px;">
+              <strong>Stage 3 (N3 Slow-Wave Sleep):</strong> Deepest restorative sleep. Delta waves, profound muscle relaxation, immune repair, growth hormone release. Longest in first half of night.
+            </div>
+            <div style="background: #f1f5f9; padding: 10px; border-radius: 6px;">
+              <strong>Stage 4 (REM Sleep):</strong> High brain activity (dreams), muscle paralysis, memory/learning consolidation. Gets longer across second half of night (~25% in adults).
+            </div>
+          </div>
+          <p style="font-size: 13px; color: #64748b; margin-top: 8px;">
+            <strong>Developmental Progression:</strong> At 3 years, sleep cycles last ~60 minutes; by 5 years, cycles reach adult length (~90 minutes). <em>All children and adults naturally wake 4–6 times per night</em>. Recommended sleep: 3–5 yrs (10–13h), 5–12 yrs (9–12h), 13–18 yrs (8–10h), Adults (7+h).
+          </p>
+        </div>
+      `
     },
     {
-      title: "REM vs. Non-REM Parasomnia Differentiation",
-      author: "AASM / Donovan",
-      summary: "Parasomnias diverge by sleep stage: Nightmares occur during late-night REM sleep (vivid recall, rapid full awakening, alert, comfort accepted), whereas Sleep Terrors occur during early-night slow-wave N3 Non-REM sleep (autonomic arousal, inconsolable, partial awakening, morning amnesia)."
+      id: "mod5_consequences_sleep_problems",
+      title: "Consequences of Pediatric Sleep Problems Across Development",
+      icon: "⚠️",
+      badge: "Developmental Impacts (Slide 16)",
+      contentHtml: `
+        <p style="margin-bottom: 12px;">Sleep problems affect <strong>20–30% of children</strong> (behavioral insomnia) and 25% (parasomnias). Despite misconceptions that children will 'grow out of it', untreated sleep problems persist longitudinally and cause severe cascading developmental consequences (Prof. Caroline Donovan, Slide 16):</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
+          <div style="background: #fff; border-left: 4px solid #ef4444; padding: 12px 16px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <strong style="color: #991b1b;">Neurodevelopment & Frontal Lobe Compromise:</strong>
+            <p style="font-size: 13px; color: #475569; margin-top: 4px;">Adversely impacts brain maturation. Chronic sleep disruption impairs frontal lobe circuitry regulating emotion modulation, spontaneity, language, and executive functioning.</p>
+          </div>
+          <div style="background: #fff; border-left: 4px solid #f59e0b; padding: 12px 16px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <strong style="color: #b45309;">Anxiety & Internalizing Trajectories:</strong>
+            <p style="font-size: 13px; color: #475569; margin-top: 4px;">Strong concurrent association with anxiety; represents a prospective longitudinal risk factor predicting generalized anxiety, panic, depression, and suicidal ideation in mid-adolescence.</p>
+          </div>
+          <div style="background: #fff; border-left: 4px solid #3b82f6; padding: 12px 16px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <strong style="color: #1d4ed8;">Behavior & Conduct Problems:</strong>
+            <p style="font-size: 13px; color: #475569; margin-top: 4px;">Fewer prosocial behaviors, increased irritability, oppositional defiance, school-age conduct difficulties, and heightened aggression in adolescence (frequently mimicking ADHD).</p>
+          </div>
+          <div style="background: #fff; border-left: 4px solid #8b5cf6; padding: 12px 16px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <strong style="color: #6d28d9;">School & Academic Performance:</strong>
+            <p style="font-size: 13px; color: #475569; margin-top: 4px;">Poorer socioemotional adjustment, severe working memory deficits, reduced processing speed, school refusal, and increased need for special academic support.</p>
+          </div>
+          <div style="background: #fff; border-left: 4px solid #06b6d4; padding: 12px 16px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <strong style="color: #0e7490;">Physical Health Disparities:</strong>
+            <p style="font-size: 13px; color: #475569; margin-top: 4px;">Significantly increased risk of pediatric obesity, altered appetite-regulating hormones (ghrelin/leptin), and compromised immune resistance.</p>
+          </div>
+          <div style="background: #fff; border-left: 4px solid #10b981; padding: 12px 16px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <strong style="color: #047857;">Family & Parental Distress:</strong>
+            <p style="font-size: 13px; color: #475569; margin-top: 4px;">Severe parental exhaustion, marital conflict, diminished parental self-efficacy, and elevated maternal depression, anxiety, and stress.</p>
+          </div>
+        </div>
+      `
+    },
+    {
+      id: "mod5_assess_sleep_issues",
+      title: "How to Assess Sleep Issues in Clinical Practice",
+      icon: "📋",
+      badge: "Clinical Assessment Battery",
+      contentHtml: `
+        <p style="margin-bottom: 12px;">Accurate assessment determines the specific maintaining drivers of the sleep presentation. The clinical battery comprises three core components (Donovan, Slides 18–26):</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px;">
+          <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 14px;">
+            <strong style="color: #0f172a; font-size: 14.5px;">1. Clinical Parent Interview</strong>
+            <ul style="font-size: 13px; color: #475569; margin-left: 18px; margin-top: 6px; line-height: 1.55;">
+              <li><strong>Sleep History:</strong> Onset, duration, previous failed strategies.</li>
+              <li><strong>Daytime Functioning & Naps:</strong> Frequency, timing, duration.</li>
+              <li><strong>Comorbidity Screening:</strong> ADHD, ASD, FASD, anxiety, depression (all feature sleep symptoms).</li>
+              <li><strong>Medical Differentials:</strong> Obstructive sleep apnea (snoring, gasping), restless legs, periodic limb movement, narcolepsy.</li>
+              <li><strong>Walkthrough of a Typical Night:</strong> Bedtime routine consistency, parental response to stalling/tantrums, co-sleeping dynamics.</li>
+            </ul>
+          </div>
+          <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 14px;">
+            <strong style="color: #0f172a; font-size: 14.5px;">2. Prospective 2-Week Sleep Diary</strong>
+            <p style="font-size: 13px; color: #475569; margin-top: 6px;">Sent 2 weeks prior to interview. Must assess <strong>weekdays and weekends separately</strong>:</p>
+            <ul style="font-size: 13px; color: #475569; margin-left: 18px; margin-top: 4px; line-height: 1.55;">
+              <li>Time child got into bed.</li>
+              <li>Time parent tried to settle child (<strong>'Lights Out' time</strong>).</li>
+              <li>Time child actually fell asleep (calculating <strong>Sleep Onset Latency [SOL]</strong>; normal is &lt;30 mins).</li>
+              <li>Night awakenings (number and duration).</li>
+              <li>Morning wake time and parental presence required.</li>
+            </ul>
+          </div>
+          <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 14px;">
+            <strong style="color: #0f172a; font-size: 14.5px;">3. Validated Questionnaires</strong>
+            <p style="font-size: 13px; color: #475569; margin-top: 6px;">
+            &bull; <strong>Child Sleep Habits Questionnaire (CSHQ; Owens et al., 2000):</strong> 33 parent-report items (ages 4–12) across 8 subscales: Bedtime Resistance, Sleep Onset Delay, Sleep Duration, Sleep Anxiety, Night Wakings, Parasomnias, Daytime Sleepiness, Sleep Disordered Breathing.<br>
+            &bull; <strong>MAVBICS (Donovan, Shiels & Uhlmann, 2023):</strong> Clinician tool evaluating manifestations, vulnerabilities, sleep hygiene, and maintaining behavioral drivers.</p>
+          </div>
+        </div>
+
+        <div style="margin-top: 14px; background: #fff; border-left: 4px solid var(--primary); padding: 14px 18px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+          <strong style="color: #0f172a; font-size: 14.5px;">Pinpointing the Core Maintaining Drivers (Slide 26):</strong>
+          <p style="font-size: 13.5px; color: #475569; margin-top: 4px;">The same symptom (bedtime resistance, night waking, co-sleeping) can be driven by different mechanisms: (1) <strong>Sleep hygiene deficit</strong>; (2) <strong>Circadian rhythm phase delay</strong>; (3) <strong>Chaotic/unstructured routine</strong>; (4) <strong>Bedtime anxiety</strong> (fear of dark/separation almost always drives co-sleeping); or (5) <strong>Behavioral limit-setting / non-compliance</strong> (stalling, tantrums).</p>
+        </div>
+      `
+    },
+    {
+      id: "mod5_treat_sleep_lights_out",
+      title: "How to Treat Sleep Issues: Detailed Protocol & RCT Evidence of the 'Lights Out' Program",
+      icon: "💡",
+      badge: "Lights Out Clinical Manual (Donovan)",
+      contentHtml: `
+        <p style="margin-bottom: 12px;">The <strong>Lights Out Program</strong> (Prof. Caroline Donovan & Amy Shiels) provides a manualized, evidence-based behavioral intervention package:</p>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div style="background: #fff; border-left: 4px solid var(--primary); padding: 14px 18px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <strong style="color: #0f172a; font-size: 14.5px;">1. Universal Sleep Hygiene & Routine Foundations:</strong>
+            <ul style="font-size: 13.5px; color: #475569; margin-left: 18px; margin-top: 4px; line-height: 1.55;">
+              <li><strong>Sleep Hygiene:</strong> Cool, dark, quiet bedroom; consistent 7-day schedule; no screens &gt;=1 hr before bed; no caffeine/sugar; daily daytime exercise. Always explain the <em>why</em> to parents.</li>
+              <li><strong>Bedtime Routine Charts:</strong> 3–4 predictable quiet activities (e.g. bath, pajamas, teeth, story) lasting 20–30 minutes, concluding with 'Lights Out' in the child's bed. Use visual check-off charts.</li>
+            </ul>
+          </div>
+
+          <div style="background: #fff; border-left: 4px solid #f59e0b; padding: 14px 18px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <strong style="color: #0f172a; font-size: 14.5px;">2. Bedtime Fading (Circadian Body Clock Reset Protocol — Slides 40–44):</strong>
+            <p style="font-size: 13px; color: #475569; margin-top: 4px;">Indicated when a child's circadian rhythm is delayed (going to bed too late and waking late; common in adolescents / puberty). Resets the body clock in 5 steps:</p>
+            <ol style="font-size: 13px; color: #475569; margin-left: 20px; margin-top: 4px; line-height: 1.55;">
+              <li><strong>Step 1:</strong> Calculate average hours slept per night from diary (e.g. 6 hours).</li>
+              <li><strong>Step 2:</strong> Identify average time child actually falls asleep (e.g. 12:00 AM) — make this the <strong>TEMPORARY new bedtime</strong> so the child gets into bed sleepy and falls asleep in &lt;30 mins. Child loses time in bed, NOT time asleep.</li>
+              <li><strong>Step 3:</strong> Fix permanent wake time across all 7 days (e.g. 6:00 AM) and maintain it without sleeping in.</li>
+              <li><strong>Step 4:</strong> Determine target ideal bedtime working backward (e.g. 9:00 PM for 9 hours of sleep).</li>
+              <li><strong>Step 5:</strong> Gradually shift bedtime earlier by <strong>15 minutes every 4–5 nights</strong> (11:45 PM &rarr; 11:30 PM &rarr; 11:15 PM) until target is reached. Never rush time changes.</li>
+            </ol>
+          </div>
+
+          <div style="background: #fff; border-left: 4px solid #3b82f6; padding: 14px 18px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <strong style="color: #0f172a; font-size: 14.5px;">3. Treating Bedtime Anxiety (Slides 51–77):</strong>
+            <ul style="font-size: 13.5px; color: #475569; margin-left: 18px; margin-top: 4px; line-height: 1.55;">
+              <li><strong>Lights Out Ladder:</strong> Graded exposure hierarchy to nighttime darkness and independent bed (e.g., dim nightlight &rarr; door cracked &rarr; door shut &rarr; sleeping in own room).</li>
+              <li><strong>Relaxation:</strong> Diaphragmatic breathing and progressive muscle relaxation (adapted child scripts).</li>
+              <li><strong>Dealing with Worry:</strong> For children aged 7+, schedule a 15-minute 'Worry Time' in late afternoon away from the bedroom to prevent worry surges at bedtime.</li>
+              <li><strong>Fun Fixes:</strong> Child-friendly tools (e.g. 'Monster Spray' lavender mist, bravery tokens).</li>
+            </ul>
+          </div>
+
+          <div style="background: #fff; border-left: 4px solid #ef4444; padding: 14px 18px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <strong style="color: #0f172a; font-size: 14.5px;">4. Treating Bedtime Misbehavior & Limit-Setting (Slides 89–117):</strong>
+            <ul style="font-size: 13.5px; color: #475569; margin-left: 18px; margin-top: 4px; line-height: 1.55;">
+              <li><strong>'Camping Out' (Parental Presence Fading):</strong> Parent sits on a chair beside child's bed without speaking or interacting until child falls asleep. Every 3–4 nights, move the chair further away (beside bed &rarr; midway &rarr; doorway &rarr; hallway outside) until parent presence is faded.</li>
+              <li><strong>'Back Soon':</strong> Parent settles child and promises to return in 1 minute to check IF child stays quiet and in bed. Checking intervals gradually lengthen (1m &rarr; 3m &rarr; 5m &rarr; 10m).</li>
+              <li><strong>'Night Ticket' (Bedtime Pass):</strong> Child given 1 or 2 tickets redeemable for one quick legitimate request (drink of water, bathroom, hug). Once surrendered, no further exits are permitted.</li>
+              <li><strong>Planned Ignoring & Calm Consequences:</strong> Silently returning the child to bed without eye contact, lecturing, or emotion (<em>'It is bedtime, goodnight'</em>).</li>
+            </ul>
+          </div>
+
+          <div style="background: #fff; border-left: 4px solid #10b981; padding: 14px 18px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <strong style="color: #0f172a; font-size: 14.5px;">5. Randomized Controlled Trial (RCT) Evidence Base for Lights Out:</strong>
+            <ul style="font-size: 13.5px; color: #475569; margin-left: 18px; margin-top: 4px; line-height: 1.55;">
+              <li><strong>Group-Based Version (RCT N=128, ages 3–6; Slide 121):</strong> 5 face-to-face sessions + phone check. At term 2 Prep follow-up, only <strong>8% of treated children had moderate-to-severe sleep problems vs 33% in Care As Usual (CAU)</strong>. Showed massive prevention of anxiety (only 3% in treatment moved into clinical anxiety vs 23% in CAU) and internalizing problems (0% vs 13%).</li>
+              <li><strong>Videoconference Version (Amy Shiels PhD RCT N=38; Slide 123):</strong> 3 individual telehealth sessions. At 3-month follow-up, <strong>20% treated vs 61% waitlist had sleep problems</strong>, with significant improvements in child sleep, anxiety, nighttime fears, and parenting.</li>
+              <li><strong>Online Version (Pilot N=25; Slide 125):</strong> 4 self-directed sessions showed significant improvements in child sleep, anxiety, behavior, and parental self-efficacy and sleep.</li>
+            </ul>
+          </div>
+        </div>
+      `
     }
   ],
 
@@ -269,6 +465,14 @@ const MODULE_5_DATA = {
       }
     }
   },
+
+  // Interactive Differential Presets
+  differentialPresets: [
+    { label: "Sleep-Onset vs. Limit-Setting BIC", ids: ["BIC_ONSET", "BIC_LIMIT"] },
+    { label: "Nightmares (REM) vs. Sleep Terrors (NREM)", ids: ["NIGHTMARES", "SLEEP_TERRORS"] },
+    { label: "OSA vs. Behavioral Insomnia", ids: ["OSA", "BIC_ONSET", "BIC_LIMIT"] },
+    { label: "All Pediatric Sleep Disorders", ids: ["BIC_ONSET", "BIC_LIMIT", "NIGHTMARES", "SLEEP_TERRORS", "OSA"] }
+  ],
 
   // 6 Lifespan Clinical Scenarios with 2-Step Decision Flow (Diagnose -> Treat)
   scenarios: [
@@ -567,7 +771,7 @@ const MODULE_5_DATA = {
       },
       {
         id: "sa_02",
-        title: "SAQ 2: Behavioral Insomnia of Childhood (BIC): Sleep-Onset vs. Limit-Setting",
+        title: "SAQ 2: Pediatric Sleep-Onset Associations & Bedtime Resistance",
         question: "Differentiate between the Sleep-Onset Association type and Limit-Setting type of Behavioral Insomnia of Childhood (BIC). Detail the maintaining mechanisms and evidence-based interventions for each.",
         suggestedTime: "8-10 minutes",
         keyCriteria: [
@@ -591,7 +795,7 @@ const MODULE_5_DATA = {
       },
       {
         id: "sa_04",
-        title: "SAQ 4: Pediatric Obstructive Sleep Apnea (OSA) and ADHD Misdiagnosis",
+        title: "SAQ 4: Sleep Architecture Disruption & Daytime Inattention Signs",
         question: "Why is pediatric Obstructive Sleep Apnea (OSA) frequently misdiagnosed as Attention-Deficit/Hyperactivity Disorder (ADHD)? What clinical features distinguish them?",
         suggestedTime: "8-10 minutes",
         keyCriteria: [
@@ -603,7 +807,7 @@ const MODULE_5_DATA = {
       },
       {
         id: "sa_05",
-        title: "Exam Practice SAQ 1 (5 Marks): Daytime Sleep Attacks & Sleepiness (Narcolepsy vs Obstructive Sleep Apnea)",
+        title: "Exam Practice SAQ 1 (5 Marks): Daytime Sleep Attacks & Sleepiness",
         prompt: "“You are assessing a 32-year-old client presenting with unmanageable daytime sleepiness, falling asleep unintentionally at work and while driving. Excessive daytime sleepiness and disrupted nocturnal sleep are key features of the client’s presentation. What sleep disorders would be most likely (2 marks) and what key features would you use to assess and differentiate them in your clinical assessment (3 marks)?”",
         suggestedTime: "8-10 minutes",
         keyCriteria: [
@@ -616,7 +820,7 @@ const MODULE_5_DATA = {
       },
       {
         id: "sa_06",
-        title: "Exam Practice SAQ 2 (5 Marks): Chronic Sleep Initiation Delays (Delayed Sleep Phase Disorder vs Insomnia Disorder)",
+        title: "Exam Practice SAQ 2 (5 Marks): Chronic Sleep Initiation Delays",
         prompt: "“You are assessing a 19-year-old university student who reports lying awake for 2 to 3 hours every night unable to fall asleep, severe difficulty waking for morning classes, and constant daytime fatigue. Inability to fall asleep at conventional bedtime and morning exhaustion are key features of the presentation. What sleep-wake disorders would be most likely (2 marks) and what key features would you use to assess and differentiate them in your assessment (3 marks)?”",
         suggestedTime: "8-10 minutes",
         keyCriteria: [
@@ -629,7 +833,7 @@ const MODULE_5_DATA = {
       },
       {
         id: "sa_07",
-        title: "Exam Practice SAQ 3 (5 Marks): Nocturnal Awakenings & Screaming in Children (Sleep Terrors vs Nightmare Disorder)",
+        title: "Exam Practice SAQ 3 (5 Marks): Nocturnal Awakenings & Screaming in Children",
         prompt: "“You are assessing an 8-year-old child brought by parents due to terrifying nighttime awakening episodes where the child sits upright, screams inconsolably, and appears frightened. Distress and nocturnal awakening episodes are key features of the presentation. What sleep disorders would be most likely (2 marks) and what key features would you use to assess and differentiate them in your clinical assessment (3 marks)?”",
         suggestedTime: "8-10 minutes",
         keyCriteria: [

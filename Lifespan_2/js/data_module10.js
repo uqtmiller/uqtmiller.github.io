@@ -26,6 +26,334 @@ const MODULE_10_DATA = {
       title: "Antipsychotic Complications, High Expressed Emotion & Physical Health Disparities",
       author: "Castle et al. / Allison et al. / Hjorthoj et al.",
       summary: "First-generation antipsychotics cause extrapyramidal symptoms (EPS: acute dystonia, parkinsonian rigidity, akathisia, tardive dyskinesia). Second-generation agents frequently induce severe metabolic syndrome (rapid weight gain, diabetes, cardiovascular illness). Schizophrenia is associated with a 14.5-year reduction in life expectancy. Psychosocially, families high in Expressed Emotion (EE: hostility, emotional over-involvement, frequent criticism) double patient relapse rates compared to low-EE families."
+    },
+    {
+      title: "Changing Perspectives: The Recovery Model & The Clinician's Illusion",
+      author: "Harding, Zubin & Strauss (1987) / Cohen & Cohen (1984) / Janet Frame (1984)",
+      summary: "Historical Kraepelinian pessimism framed schizophrenia as 'dementia praecox'—an inevitable, hopeless deterioration of mind. However, the landmark Vermont State Hospital long-term follow-up study (Harding et al., 1987) tracked 269 chronic back-ward patients over 32 years, finding 62% to 68% showed no signs of schizophrenia and achieved social recovery. Cohen & Cohen (1984) identified 'The Clinician's Illusion': clinicians work with prevalence samples of chronic, long-stay patients rather than incidence cohorts, falsely biasing clinicians toward assuming inherent chronicity and untreatability."
+    }
+  ],
+
+  // Deep-Dive Content Review Sections (Directly extracted from Dr Bonnie Clough's lecture notes)
+  contentReviewSections: [
+    {
+      id: "mod10_sec_staging_prodrome",
+      title: "Patrick McGorry's Clinical Staging Model & Prodromal At-Risk Signs",
+      icon: "fa-stairs",
+      badge: "Clinical Staging & Prodrome",
+      contentHtml: `
+        <div class="review-block">
+          <p class="review-intro">
+            Traditionally, psychotic disorders were conceptualized under a rigid, categorical binary (either psychotic or not). <strong>Professor Patrick McGorry</strong> and colleagues at the Orygen National Centre pioneered the <strong>Clinical Staging Model</strong> of psychosis. This heuristic framework tracks the evolution of illness across a continuum—from asymptomatic genetic vulnerability through the prodrome and acute first episode to chronic disability. Staging enables stage-tailored, early, benign interventions that prevent neuroprogression, reduce secondary psychosocial trauma, and halt clinical decline.
+          </p>
+
+          <h5 class="text-primary mt-3 mb-2"><i class="fa fa-layer-group me-2"></i>Patrick McGorry's 5 Clinical Stages of Psychosis</h5>
+          <div class="table-responsive">
+            <table class="table table-bordered table-sm">
+              <thead class="table-light">
+                <tr>
+                  <th style="width: 18%;">Stage</th>
+                  <th style="width: 32%;">Clinical Presentation</th>
+                  <th style="width: 50%;">Intervention Target & Rationale</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Stage 0</strong><br><span class="badge bg-secondary">Asymptomatic at-risk</span></td>
+                  <td>Increased genetic/familial vulnerability (first-degree relative with schizophrenia), no active symptoms.</td>
+                  <td>Health promotion, psychoeducation, avoidance of cannabis and psychostimulants.</td>
+                </tr>
+                <tr>
+                  <td><strong>Stage 1a / 1b</strong><br><span class="badge bg-warning text-dark">Ultra-High Risk (UHR) / Prodrome</span></td>
+                  <td><strong>1a:</strong> Mild non-specific distress, neurotic symptoms.<br><strong>1b (UHR / At-Risk Mental State):</strong> Subthreshold/attenuated psychotic symptoms or brief limited intermittent psychotic symptoms (BLIPS) accompanied by functional decline.</td>
+                  <td><strong>Early Psychological Intervention:</strong> 26 sessions of CBT over 6 months significantly reduces the rate of transition to First Episode Psychosis (FEP). Antipsychotic pharmacotherapy is generally withheld at this stage to prevent premature metabolic/neurological toxicity.</td>
+                </tr>
+                <tr>
+                  <td><strong>Stage 2</strong><br><span class="badge bg-danger">First Episode Psychosis (FEP)</span></td>
+                  <td>First presentation of full-threshold positive psychotic symptoms (prominent delusions, hallucinations, formal thought disorder) meeting diagnostic criteria.</td>
+                  <td>Immediate low-dose atypical antipsychotics + acute CBTp, supportive therapy, or befriending. Reduces duration of hospitalization, enhances short-term adaptation, and halts rapid neurochemical toxicity.</td>
+                </tr>
+                <tr>
+                  <td><strong>Stage 3</strong><br><span class="badge bg-info text-dark">The Critical Period (2–5 Years)</span></td>
+                  <td>Period of up to 5 years post-onset. The level of cognitive, social, and vocational functioning attained during this window largely endures for the long term. High vulnerability to relapse (70–82% relapse rate within 5 years).</td>
+                  <td>Relapse is almost always preceded by non-psychotic symptoms (anxiety, depression). Targets: modifiable comorbidity (substance use, depression), psychological integration, family Expressed Emotion (EE), treatment adherence, and vocational rehabilitation.</td>
+                </tr>
+                <tr>
+                  <td><strong>Stage 4</strong><br><span class="badge bg-dark">Chronic / Relapsing Illness</span></td>
+                  <td>Severe, unremitting illness or repeated relapses resulting in persistent psychosocial disability.</td>
+                  <td>Psychosocial supports, supported employment (Individual Placement and Support - IPS), tackling social isolation, carer respite, and long-term relapse prevention. <em>Even in the presence of ongoing symptoms, good quality of life and personal recovery can emerge.</em></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h5 class="text-primary mt-4 mb-2"><i class="fa fa-triangle-exclamation me-2"></i>Common Signs of an 'At-Risk' Mental State in Young People (Slide 17–19)</h5>
+          <p>Psychotic disorders typically emerge in late adolescence or early adulthood (peak males: 18–25; females: 25–35). In Australia, schizophrenia is the <strong>3rd leading cause of burden and injury in young men aged 15–24</strong>, and 5th in young women. Identifying the prodrome before full-blown psychosis is vital:</p>
+          <div class="row g-2">
+            <div class="col-md-4">
+              <div class="p-2 border rounded bg-light h-100">
+                <strong class="text-dark"><i class="fa fa-brain me-1"></i> 1. Neurotic & Mood Changes</strong>
+                <ul class="small mb-0 ps-3 mt-1">
+                  <li>Anxiety, restlessness, agitation</li>
+                  <li>Anger, irritability, mood swings</li>
+                  <li>Depression, anhedonia, intense guilt</li>
+                  <li>Suicidal ideation</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="p-2 border rounded bg-light h-100">
+                <strong class="text-dark"><i class="fa fa-battery-quarter me-1"></i> 2. Volition & Cognitive Deficits</strong>
+                <ul class="small mb-0 ps-3 mt-1">
+                  <li>Apathy, loss of drive, boredom</li>
+                  <li>Chronic fatigue, reduced energy</li>
+                  <li>Attention and concentration disturbances</li>
+                  <li>Daydreaming, thought blocking, reduced abstraction</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="p-2 border rounded bg-light h-100">
+                <strong class="text-dark"><i class="fa fa-eye me-1"></i> 3. Attenuated Psychotic & Behavioural</strong>
+                <ul class="small mb-0 ps-3 mt-1">
+                  <li>Perceptual abnormalities (unformed sounds, shadows)</li>
+                  <li>Suspiciousness, interpersonal sensitivity</li>
+                  <li>Changes in sense of self, others, or world</li>
+                  <li>Deterioration in role/school functioning, social withdrawal, odd behavior</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <h5 class="text-primary mt-4 mb-2"><i class="fa fa-clipboard-check me-2"></i>Validated Assessment Instruments for Prodromal Psychosis (Slide 20)</h5>
+          <ul>
+            <li><strong>CAARMS (Comprehensive Assessment of At Risk Mental States):</strong> The gold-standard semi-structured clinical interview assessing intensity, duration, and frequency of subthreshold positive symptoms.</li>
+            <li><strong>BSABS (Bonn Scale for the Assessment of Basic Symptoms):</strong> Evaluates subtle, self-experienced cognitive and perceptual deficits ('basic symptoms') that precede frank psychotic phenomena.</li>
+            <li><strong>SPI-A & SPI-CY (Schizophrenia Prediction Instrument – Adult & Children/Adolescents):</strong> Specifically detects subtle prodromal indicators in younger cohorts.</li>
+          </ul>
+
+          <div class="alert alert-success mt-3 mb-0">
+            <strong><i class="fa fa-bullseye me-1"></i> Key Predictors of Better Outcomes at Stage 2 (First Episode Psychosis):</strong>
+            Earlier intervention; Female sex; Older age of onset; Better premorbid social/academic functioning; Lower severity of negative symptoms; Subjective sense of hope; Absence of comorbid substance misuse; Consistent treatment adherence; and Strong social/family contacts.
+          </div>
+        </div>
+      `
+    },
+    {
+      id: "mod10_sec_cbtp_protocol",
+      title: "CBT for Psychosis (CBTp): The 4-Phase Protocol & Clinical Techniques",
+      icon: "fa-comments",
+      badge: "CBTp Evidence-Based Protocol",
+      contentHtml: `
+        <div class="review-block">
+          <p class="review-intro">
+            Cognitive Behavioral Therapy for Psychosis (CBTp) is an evidence-based psychological treatment endorsed by the Australian Clinical Practice Guidelines. Rather than attempting to eradicate psychotic symptoms outright through confrontation, CBTp targets the <strong>distress, conviction, and behavioral impairment</strong> caused by appraisals of psychotic phenomena. The protocol is structured across four distinct phases (Hagan et al., 2011; Weiden & Burkholder, 2003):
+          </p>
+
+          <div class="timeline-blocks">
+            <div class="p-3 mb-2 border rounded bg-light">
+              <h6 class="text-primary mb-1"><strong>Phase 1: Engagement & Developing the Therapeutic Alliance (Slide 40–41, 48)</strong></h6>
+              <p class="small mb-2">The therapeutic alliance is the single strongest predictor of treatment outcomes, homework completion, and medication adherence in psychosis.</p>
+              <ul class="small mb-0">
+                <li><strong>Therapist Posture:</strong> Genuine empathy, unconditional positive regard, congruence, and goal collaboration.</li>
+                <li><strong>Rolling with Resistance & Flexibility:</strong> Never rush. Offer flexible session lengths and structures to accommodate cognitive fatigue or attentional limits.</li>
+                <li><strong>Using the Client's Language & Worldview:</strong> Adopt the client's terminology rather than imposing psychiatric labels (e.g., ask <em>"What does Rob say to you?"</em> rather than <em>"What does the auditory hallucination say?"</em>).</li>
+                <li><strong>Anticipating Internal Commentary:</strong> Explicitly anticipate that internal voices may make adverse, hostile comments about the therapist or therapy session, validating this without panic.</li>
+              </ul>
+            </div>
+
+            <div class="p-3 mb-2 border rounded bg-light">
+              <h6 class="text-primary mb-1"><strong>Phase 2: Normalization & Psychoeducation (Slide 42–44, 61)</strong></h6>
+              <p class="small mb-2">Framing psychotic phenomena as existing on a normal human continuum rather than marking the client as fundamentally broken (Weiden & Burkholder, 2003).</p>
+              <ul class="small mb-0">
+                <li><strong>Continuum Model:</strong> Normalizing that hallucinatory experiences occur in healthy populations under sleep deprivation, sensory isolation, intense bereavement, or extreme stress. Auditory hallucinations can be understood as misattributed inner speech or cognitive intrusions.</li>
+                <li><strong>Cognitive Deficit Framing:</strong> Symptoms can stem from cognitive overload, source-monitoring deficits, or theory of mind difficulties under severe biological and psychosocial stress.</li>
+                <li><strong>Collaborative Psychoeducation:</strong> Exploring what psychosis means to the client personally, addressing individual explanatory models, demystifying medications, and discussing the trauma of psychotic episodes.</li>
+              </ul>
+            </div>
+
+            <div class="p-3 mb-2 border rounded bg-light">
+              <h6 class="text-primary mb-1"><strong>Phase 3: Working with Beliefs, Delusions & Hallucinations (Slide 45–56)</strong></h6>
+              <p class="small mb-2">Modifying distressing appraisals and testing beliefs through collaborative empirical discovery.</p>
+              <div class="row g-2 mt-1">
+                <div class="col-md-6">
+                  <div class="p-2 border rounded bg-white">
+                    <strong class="text-danger small"><i class="fa fa-lightbulb me-1"></i> Working with Delusions</strong>
+                    <ul class="small mb-0 ps-3 mt-1">
+                      <li><strong>The 'Columbo Technique':</strong> Take a stance of gentle curiosity, naivety, and confusion (e.g., <em>"I'm really trying to understand this, but I'm a bit confused... help me understand how you knew the TV was broadcasting your thoughts?"</em>).</li>
+                      <li><strong>Avoid Direct Confrontation:</strong> Directly challenging a delusion creates defensiveness and ruptures the alliance.</li>
+                      <li><strong>Start Peripheral:</strong> Work with peripheral, less emotionally entrenched beliefs before touching central delusions.</li>
+                      <li><strong>Behavioral Experiments:</strong> Test alternative non-threatening explanations empirically.</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-2 border rounded bg-white">
+                    <strong class="text-success small"><i class="fa fa-volume-high me-1"></i> Working with Hallucinations</strong>
+                    <ul class="small mb-0 ps-3 mt-1">
+                      <li><strong>Target Beliefs About Voice POWER First:</strong> Challenging the voice's power (e.g., <em>"What makes him the boss of you? Have you ever done anything sneaky to challenge him?"</em>) immediately lowers fear and anxiety (Slide 49–51).</li>
+                      <li><strong>Behavioral Experiments on Omnipotence:</strong> Example: <em>Andrew believes aliens will harm his housemate unless he washes dishes in a specific order. When this doesn't happen, testing whether the voice's power was 'hot air'</em> (Slide 53–54).</li>
+                      <li><strong>Increasing Control:</strong> Teach clients to activate and stop voices; use <em>concurrent vocalization</em> (humming, reading aloud) to suppress auditory hallucinations (Slide 55).</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="p-2 border rounded bg-white mt-2">
+                <strong class="text-info small"><i class="fa fa-circle-minus me-1"></i> Working with Negative Symptoms (Beck et al., 2009; Slide 57)</strong>
+                <p class="small mb-0">Dysfunctional negativistic beliefs (low expectancies of pleasure, low expectations of success/acceptance, defeatist performance beliefs) drive behavioral avoidance. CBT uses graded mastery tasks, activity scheduling, and skills training to break avoidance cycles.</p>
+              </div>
+            </div>
+
+            <div class="p-3 mb-0 border rounded bg-light">
+              <h6 class="text-primary mb-1"><strong>Phase 4: Relapse Prevention & Recovery (Slide 58)</strong></h6>
+              <p class="small mb-2">Consolidating gains and building a long-term self-management plan.</p>
+              <ul class="small mb-0">
+                <li><strong>Early Warning Signs ('Signature Relapse'):</strong> Identifying individualized subtle prodromal warnings (relapse is almost always preceded by anxiety, insomnia, or irritability).</li>
+                <li><strong>Collaborative Action Plans:</strong> Concrete step-by-step responses when early warning signs emerge (who to call, medication reviews, stress reduction).</li>
+                <li><strong>Harm Minimization:</strong> Addressing substance misuse (especially cannabis, which precipitates relapse and impairs treatment adherence).</li>
+                <li><strong>Valued Living:</strong> Supported employment (Individual Placement and Support), vocational reconnection, and social engagement.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      `
+    },
+    {
+      id: "mod10_sec_recovery_illusion",
+      title: "Changing Perspectives: The Recovery Model & The Clinician's Illusion",
+      icon: "fa-seedling",
+      badge: "Recovery Model & Clinician's Illusion",
+      contentHtml: `
+        <div class="review-block">
+          <p class="review-intro">
+            For nearly a century, clinical psychiatry was dominated by Emil Kraepelin's construct of <em>dementia praecox</em>—a view that schizophrenia represented an incurable, biologically driven deterioration of mind and behavior that inevitably doomed the individual to profound institutional decline. Lecture 10 presents historical testimony and rigorous empirical research demonstrating that <strong>substantial recovery is not only possible, but common</strong>.
+          </p>
+
+          <h5 class="text-primary mt-3 mb-2"><i class="fa fa-quote-left me-2"></i>The Lived Experience of Diagnosis: Janet Frame (Slide 13)</h5>
+          <div class="p-3 border-start border-4 border-warning bg-light mb-3">
+            <blockquote class="blockquote small mb-0">
+              <em>“…the medical certificate stated: Nature of Illness; Schizophrenia. At home I announced, half with pride, half with fear, 'I’ve got Shizzofreenier.' I searched through my Psychology book... where I found no reference to Schizophrenia, only to dementia praecox, described as a gradual deterioration of mind, with no cure. Shizzophreenier. A gradual deterioration of mind. What would happen to me? No cure. It seemed to spell my doom, as if I had emerged from a chrysalis... into another kind of creature, and even if there were parts of me that were familiar to human beings, my gradual deterioration would lead me further and further away, and in the end not even my family would know me.”</em>
+              <footer class="blockquote-footer mt-1">Janet Frame (1984), <em>An Angel at My Table</em></footer>
+            </blockquote>
+          </div>
+
+          <h5 class="text-primary mt-4 mb-2"><i class="fa fa-hospital me-2"></i>The Vermont State Hospital Study (Harding, Zubin & Strauss, 1987; Slide 14)</h5>
+          <p>The landmark Vermont longitudinal study challenged the Kraepelinian dogma of hopeless chronicity:</p>
+          <ul>
+            <li><strong>Methodology:</strong> Researchers conducted a rigorous, long-term follow-up of <strong>269 patients</strong> discharged from the back wards of Vermont State Hospital—individuals originally considered the most severely disabled and chronically ill.</li>
+            <li><strong>Outcome:</strong> Researchers tracked down and interviewed all but 7 of the original cohort, <strong>32 years</strong> after their initial hospital admission.</li>
+            <li><strong>Finding:</strong> <strong>62% to 68% of former back-ward patients showed no signs at all of schizophrenia</strong> and were living productive, independent, and socially integrated lives in the community.</li>
+          </ul>
+
+          <h5 class="text-primary mt-4 mb-2"><i class="fa fa-eye-slash me-2"></i>The Clinician's Illusion (Cohen & Cohen, 1984; Slide 14)</h5>
+          <div class="p-3 border rounded bg-light">
+            <p class="mb-2"><strong>Why do many mental health clinicians continue to hold deeply pessimistic views regarding schizophrenia?</strong></p>
+            <p class="small text-muted mb-2">
+              <em>“The clinician samples the population currently suffering from the disease (a 'prevalence' or census sample), while research samples tend to more nearly represent the population contracting the disease (an 'incidence' sample). The clinician's sample is biased toward cases of long duration, since the probability that a case will appear in a prevalence sample is proportional to its duration.”</em> (Cohen & Cohen, 1984)
+            </p>
+            <ul class="small mb-0">
+              <li><strong>Prevalence Sampling Bias:</strong> Hospital and clinic staff repeatedly see the revolving-door subset of clients who have relapsed or have chronic, treatment-refractory illness.</li>
+              <li><strong>Invisible Recoveries:</strong> Clients who fully recover, reintegrate into employment, and discontinue psychiatric services never return to the inpatient unit, rendering successful outcomes invisible to acute-care clinicians.</li>
+              <li><strong>Clinical Takeaway:</strong> Psychologists must guard against assuming chronicity and therapeutic futility, instilling hope and active rehabilitation from the very first session.</li>
+            </ul>
+          </div>
+        </div>
+      `
+    },
+    {
+      id: "mod10_sec_antipsychotics_ee",
+      title: "Antipsychotic Profiles, High Expressed Emotion (EE) & Physical Health Disparities",
+      icon: "fa-pills",
+      badge: "Pharmacotherapy & Family Dynamics",
+      contentHtml: `
+        <div class="review-block">
+          <p class="review-intro">
+            Comprehensive psychological management of psychosis requires deep literacy in psychopharmacological side effects, family systemic dynamics, and severe physical health comorbidities. Schizophrenia is associated with an alarming <strong>14.5-year reduction in life expectancy</strong> (15.9 years for men, 13.5 years for women; Hjorthøj et al., 2016), driven largely by preventable physical illnesses, medication side effects, and systemic neglect.
+          </p>
+
+          <h5 class="text-primary mt-3 mb-2"><i class="fa fa-capsules me-2"></i>First- vs Second-Generation Antipsychotic Adverse Profiles (Slide 29–30, 37)</h5>
+          <div class="table-responsive">
+            <table class="table table-bordered table-sm">
+              <thead class="table-light">
+                <tr>
+                  <th style="width: 20%;">Medication Class</th>
+                  <th style="width: 40%;">Primary Mechanism & Adverse Effects</th>
+                  <th style="width: 40%;">Clinical Presentation & Management</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>First-Generation (Typical)</strong><br><small class="text-muted">Haloperidol, Chlorpromazine</small></td>
+                  <td>Potent D2 dopamine receptor antagonism in the nigrostriatal pathway causes high rates of <strong>Extrapyramidal Symptoms (EPS)</strong> (Castle et al., 2003).</td>
+                  <td>
+                    <ul class="small mb-0 ps-3">
+                      <li><strong>Parkinsonism:</strong> Mask-like face, muscle rigidity ('cog-wheeling'), 'pill-rolling' tremor, shuffling gait, retropulsion, diminished arm-swing.</li>
+                      <li><strong>Acute Dystonia:</strong> Involuntary sustained muscle spasms, notably of head/neck (facial grimacing, tongue protrusion, torticollis).</li>
+                      <li><strong>Akathisia:</strong> Subjective 'inner restlessness' and motor drive; inability to sit still, constant pacing. Often misattributed to agitation.</li>
+                      <li><strong>Tardive Dyskinesia:</strong> Involuntary repetitive choreiform movements of face, tongue, and lips (lip-smacking, tongue protrusion, puckering); can be irreversible.</li>
+                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Second-Generation (Atypical)</strong><br><small class="text-muted">Olanzapine, Clozapine, Risperidone</small></td>
+                  <td>Dual 5-HT2A and D2 antagonism. Lower EPS rates, but high risk of <strong>Metabolic Syndrome & Cardiometabolic Decline</strong>.</td>
+                  <td>
+                    <ul class="small mb-0 ps-3">
+                      <li><strong>Severe Weight Gain:</strong> E.g., mean 4.45 kg weight gain over 10 weeks for Clozapine (Allison, 1999).</li>
+                      <li><strong>Metabolic Derangements:</strong> Dyslipidemia, insulin resistance, type 2 diabetes mellitus, and cardiovascular disease.</li>
+                      <li><strong>Sedation & Anticholinergic Effects:</strong> Dry mouth, constipation, cognitive slowing.</li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h5 class="text-primary mt-4 mb-2"><i class="fa fa-tooth me-2"></i>Physical Health Disparities & Oral Health Crisis (Slide 37–38)</h5>
+          <div class="row g-2">
+            <div class="col-md-6">
+              <div class="p-2 border rounded bg-light h-100">
+                <strong class="text-danger small"><i class="fa fa-heart-pulse me-1"></i> Cardiometabolic & Lifestyle Risks</strong>
+                <ul class="small mb-0 ps-3 mt-1">
+                  <li><strong>Smoking Rates:</strong> Over 50% (DSM-5) to 70% (Freudenreich, 2008) smoke tobacco.</li>
+                  <li><strong>Cardiovascular Illness:</strong> Greatly increased rates of heart disease, stroke, and chronic respiratory illness.</li>
+                  <li><strong>Premature Mortality:</strong> 14.5-year lower life expectancy, cannot solely be attributed to direct psychiatric causes (e.g., suicide; Hjorthøj, 2016).</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="p-2 border rounded bg-light h-100">
+                <strong class="text-warning small"><i class="fa fa-tooth me-1"></i> The Oral Health Crisis</strong>
+                <ul class="small mb-0 ps-3 mt-1">
+                  <li>Individuals with schizophrenia have on average <strong>8 more decayed, missing, or filled (DMF) teeth</strong> than the general population.</li>
+                  <li>Oral disease is the <strong>3rd most common reason for preventable hospital admissions</strong>.</li>
+                  <li>Chronic oral infections induce systemic inflammatory cascades linked to diabetes, cardiovascular disease, and further cognitive decline.</li>
+                  <li>Impacts self-esteem, basic nutrition, and exacerbates social isolation.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <h5 class="text-primary mt-4 mb-2"><i class="fa fa-people-roof me-2"></i>Working with Families & Expressed Emotion (EE) (Slide 35–36)</h5>
+          <div class="p-3 border rounded bg-light">
+            <p class="mb-2">
+              <em>“The dyadic view of patient and therapist is inappropriate and at times dangerous; you need eyes and ears in the community, and the family is your natural ally.”</em> (Freudenreich, 2008)
+            </p>
+            <div class="alert alert-danger py-2 mb-2">
+              <strong>High Expressed Emotion (EE) Finding:</strong> Patients discharged to families with High Expressed Emotion have <strong>MORE THAN DOUBLE the relapse rate</strong> of those in low-EE families. High EE is characterized by: (1) <strong>Frequent criticism</strong>, (2) <strong>Hostility</strong>, and (3) <strong>Emotional over-involvement</strong>.
+            </div>
+            <p class="small mb-1"><strong>Evidence-Based Family Intervention Targets:</strong></p>
+            <ul class="small mb-0">
+              <li>Prevent family burnout and avoid long-term abandonment of patients.</li>
+              <li>Decrease family isolation caused by social stigma.</li>
+              <li>Provide realistic prognosis while maintaining hope that a rich life is achievable.</li>
+              <li>Teach families how to supervise medication adherence gently, without power struggles.</li>
+              <li>Teach crisis de-escalation skills without patronizing behaviors.</li>
+              <li>Reduce relapse rates by directly dampening stressful, critical interactions within the household.</li>
+            </ul>
+          </div>
+        </div>
+      `
     }
   ],
 
@@ -525,7 +853,7 @@ const MODULE_10_DATA = {
       },
       {
         id: "M10_SAQ_2",
-        title: "SAQ 2: Schizoaffective Disorder & The 2-Week Rule",
+        title: "SAQ 2: Longitudinal Course & The 2-Week Rule in Affective Psychosis",
         prompt: "State the critical diagnostic rule that differentiates Schizoaffective Disorder from a Major Depressive or Bipolar Disorder with Psychotic Features. Provide a clinical vignette illustrating this rule. (4 marks)",
         criteria: [
           "The Critical Diagnostic Rule (Criterion B): In Schizoaffective Disorder, delusions or hallucinations MUST be present for at least 2 consecutive weeks in the ABSENCE of a major mood episode (depressive or manic) during the lifetime course of the illness.",
@@ -562,7 +890,7 @@ const MODULE_10_DATA = {
       },
       {
         id: "M10_SAQ_5",
-        title: "Exam Practice SAQ 1 (5 Marks): First-Episode Psychosis & Duration Boundaries (Brief Psychotic vs Schizophreniform vs Schizophrenia)",
+        title: "Exam Practice SAQ 1 (5 Marks): First-Episode Psychosis & Duration Boundaries",
         prompt: "“You are assessing a 20-year-old university student who was brought to the clinic by their family after experiencing auditory hallucinations (hearing commentary voices) and paranoid delusions for the past 3 weeks. Positive psychotic symptoms and functional disturbance are key features of the client’s presentation. What psychotic spectrum disorders would be most likely (2 marks) and what key features would you use to assess and differentiate them in your clinical assessment (3 marks)?”",
         suggestedTime: "8-10 minutes",
         keyCriteria: [
@@ -575,7 +903,7 @@ const MODULE_10_DATA = {
       },
       {
         id: "M10_SAQ_6",
-        title: "Exam Practice SAQ 2 (5 Marks): Psychosis with Mood Disturbance (Schizoaffective Disorder vs Bipolar I with Psychotic Features)",
+        title: "Exam Practice SAQ 2 (5 Marks): Psychosis with Mood Disturbance",
         prompt: "“You are assessing a 26-year-old client who presents with active persecutory delusions and auditory hallucinations co-occurring with grandiosity, decreased need for sleep, pressured speech, and elevated mood. Psychotic symptoms and concurrent severe mood disturbance are key features of the presentation. What clinical disorders would be most likely (2 marks) and what key features would you use to assess and differentiate them in your clinical assessment (3 marks)?”",
         suggestedTime: "8-10 minutes",
         keyCriteria: [
@@ -588,7 +916,7 @@ const MODULE_10_DATA = {
       },
       {
         id: "M10_SAQ_7",
-        title: "Exam Practice SAQ 3 (5 Marks): Encapsulated Delusions & Preserved Functioning (Delusional Disorder vs Schizophrenia)",
+        title: "Exam Practice SAQ 3 (5 Marks): Encapsulated Delusions & Preserved Functioning",
         prompt: "“You are assessing a 52-year-old accountant who firmly believes that their colleagues are secretly poisoning the office air conditioning to ruin their career. Despite this fixed unshakeable belief, the client has maintained steady employment, dresses neatly, speaks coherently, and has never experienced hallucinations or disorganized speech. A fixed persecutory belief and preserved daily functioning are key features of the client’s presentation. What psychotic spectrum disorders would be most likely (2 marks) and what key features would you use to assess and differentiate them in your clinical assessment (3 marks)?”",
         suggestedTime: "8-10 minutes",
         keyCriteria: [
