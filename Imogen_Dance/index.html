@@ -1,0 +1,1822 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terrain — Dance Study Helper & Exam Practice</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            desert: {
+              50: '#fdf8f6',
+              100: '#f2e8e5',
+              500: '#c2705e',
+              600: '#ad5342',
+              700: '#914032',
+              800: '#79372c',
+              900: '#653128',
+              950: '#361712',
+            },
+            ochre: {
+              50: '#fefce8',
+              100: '#fef9c3',
+              400: '#facc15',
+              500: '#eab308',
+              600: '#ca8a04',
+              700: '#a16207',
+              800: '#854d0e',
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <!-- React & Babel CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    body {
+      background-color: #0c0a09;
+      color: #f5f5f4;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #1c1917;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #44403c;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #78716c;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fadeIn {
+      animation: fadeIn 0.25s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-amber-600 selection:text-white">
+  <div id="root" class="flex-1 flex flex-col"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    // --- EMBEDDED DATA ---
+    const ACTS = [
+      {
+        number: 1,
+        title: "Act I: Human & Cultural Connection",
+        theme: "Urban Disconnect, Political Resistance & Ancestral Continuity",
+        description: "The journey begins in the contemporary world and establishes the unshakeable foundation of culture before moving deep onto country.",
+        bgBadge: "bg-amber-900/40 text-amber-300 border-amber-700/60",
+        sections: [1, 2, 3]
+      },
+      {
+        number: 2,
+        title: "Act II: The Arid Land & Human Impact",
+        theme: "Patience of Spirit Flora, Acidic Minerals & Man-Made Scars",
+        description: "Venturing into the harsh beauty of Lake Eyre's dry landscape, examining ancient flora, treacherous mineral crusts, and the trauma of human exploitation.",
+        bgBadge: "bg-stone-800/60 text-stone-300 border-stone-600/60",
+        sections: [4, 5, 6]
+      },
+      {
+        number: 3,
+        title: "Act III: Regeneration & The Water Cycle",
+        theme: "Tectonic Healing, Sacred Horizons & The Deluge Transformation",
+        description: "The cyclical climax where the ancient land heals itself, meets the sacred sky at the horizon, and undergoes miraculous rebirth through torrential floodwaters.",
+        bgBadge: "bg-cyan-950/60 text-cyan-300 border-cyan-700/60",
+        sections: [7, 8, 9]
+      }
+    ];
+
+    const MOVEMENT_TAGS = {
+      1: "Hoisted & Manipulated in Space",
+      2: "Barricades, Unison & Warrior Stances",
+      3: "Passing Weight & Lineage Thread",
+      4: "Rooted, Twisted & Suspended Swaying",
+      5: "Angular Locking & Brittle Percussive Cuts",
+      6: "Collapsing Spasms & Fractured Pathways",
+      7: "Undulating Strata & Mutual Earth Floorwork",
+      8: "Weightless Horizontal Mirage & Stillness",
+      9: "Surging Wave Canon & Cyclical Ebb"
+    };
+
+    const TERRAIN_SECTIONS = [
+      {
+        id: 1,
+        slug: "red-brick",
+        title: "RED BRICK",
+        actNumber: 1,
+        actTitle: "Act I: Human & Cultural Connection",
+        tagline: "Looking beyond the urban landscape to hear an ancestral Calling to Country.",
+        meaning: "Aboriginal people's deep sense of 'calling' to return 'on country' despite the alienating pressures and rigid structures of modern urban city life.",
+        detailedMeaning: "With the pressures of modern life and living in urban environments, the need to reconnect to country is an extremely strong instinct—a vital chance to refuel spiritually and culturally.",
+        culturalContext: "Frances Rings explores the contemporary Indigenous reality: living in concrete cities while feeling the ancient spiritual gravitational pull of ancestral lands.",
+        dancers: "Solo female dancer, supported and manipulated by four male dancers.",
+        movementMetaphor: "The female dancer is physically hoisted, restricted, and directed by four male dancers—embodying both the claustrophobic scaffolding of city architecture and the intense internal struggle to break away toward Country.",
+        keyConcepts: {
+          space: "High levels (lifted into mid-air) contrasting with forced drops; confined personal space surrounded by four bodies; sharp forward pathways.",
+          dynamics: "Sudden shifts between heavy, sustained weight and sudden percussive struggling; floating suspensions when elevated.",
+          relationships: "Manipulation and weight-bearing between the solo female and male quartet; counterbalances; dependence vs yearning for freedom.",
+          devices: "Solos with quartet accompaniment; contrast between rigid angular male framing and fluid female extensions; motif of reaching outward.",
+          production: "Warm brick-red lighting contrasting with stark shadows; soundtrack blending urban ambient noise with resonant ancestral acoustics.",
+          skills: "Core strength, balance during partnering lifts, expressive eyeline reaching beyond the dancers' physical circle."
+        },
+        whyItMattersForExam: "Frequently tested to examine how 'manipulation' (Relationship) and 'levels' (Space) represent external pressures vs personal freedom.",
+        sampleQuestionHook: "How does Frances Rings use levels and relationships between dancers to communicate the conflict between city pressure and spiritual longing?"
+      },
+      {
+        id: 2,
+        slug: "shields",
+        title: "SHIELDS",
+        actNumber: 1,
+        actTitle: "Act I: Human & Cultural Connection",
+        tagline: "Reflecting on the struggle for Land Rights and Recognition that continues to affect Indigenous people today.",
+        meaning: "The collective resilience, political struggle, and unyielding defense of Aboriginal land rights, sovereignty, and cultural identity.",
+        detailedMeaning: "Reflects the ongoing historical and contemporary fight for Land Rights and Recognition. Indigenous peoples have stood firm for generations to protect sacred sites, legal rights, and cultural heritage.",
+        culturalContext: "Draws from traditional warrior stances and shield-bearing rituals, transmuting ancient defense mechanisms into modern socio-political protest.",
+        dancers: "Male ensemble moving in powerful formations.",
+        movementMetaphor: "Dancers form impenetrable human barricades—wide, grounded stances with braced forearms and tense torsos, projecting immovable strength against encroaching forces.",
+        keyConcepts: {
+          space: "Low to medium grounded levels; wide horizontal defensive formations; sharp direct pathways driving toward the audience.",
+          dynamics: "Percussive, punchy, and slash effort actions; sustained tension held in isometric poses; forceful accents.",
+          relationships: "Tight group proximity; interlocking arms; unison and flank formations acting as one protective body.",
+          devices: "Unison (to symbolize solidarity and unified voice); canon (rippling defensive stances); repetition of strong lunges.",
+          production: "Dramatic chiaroscuro side-lighting highlighting muscular definition; powerful rhythmic drumming and resonant percussive soundscape.",
+          skills: "Endurance, explosive strength, grounded alignment, fierce facial expression and unwavering focus."
+        },
+        whyItMattersForExam: "Prime example for questions on 'Unison' (Choreographic Device) communicating unity, and 'Percussive Dynamics' communicating conflict.",
+        sampleQuestionHook: "Analyse Rings' use of choreographic devices (such as unison and canon) in Shields to embody political resistance."
+      },
+      {
+        id: 3,
+        slug: "reborn",
+        title: "REBORN",
+        actNumber: 1,
+        actTitle: "Act I: Human & Cultural Connection",
+        tagline: "Land is passed down through the lineage along with knowledge and customs.",
+        meaning: "The continuous intergenerational transmission of traditional culture, law, sacred stories, and custodial belonging from elders to youth.",
+        detailedMeaning: "Land is not merely owned; it is passed down through bloodline, accompanied by the sacred songs, dance customs, and environmental stewardship that keep Country alive.",
+        culturalContext: "Celebrates the unbroken survival of the world's oldest continuous living culture through elders nurturing the next generation.",
+        dancers: "Ensemble / generational groupings.",
+        movementMetaphor: "Gentle unfolding and unfurling movements, passing physical weight and breath between dancers like an invisible flame or sacred thread passed hand-to-hand.",
+        keyConcepts: {
+          space: "Curved and twisted shapes; fluid vertical and horizontal planes; circular travelling pathways evoking cyclical time.",
+          dynamics: "Sustained, flowing, gliding, and swinging qualities; gentle release and continuous momentum without jarring stops.",
+          relationships: "Body-to-body contact; gentle cradling and mirroring; physical handoffs and supportive weight distribution.",
+          devices: "Accumulation (movements built incrementally step-by-step); mirroring between generations; narrative structure.",
+          production: "Soft golden dawn lighting; acoustic soundscape featuring traditional instruments and elder vocal chants.",
+          skills: "Flexibility, control, sensitive musicality, expressive body language projecting reverence."
+        },
+        whyItMattersForExam: "Great choice for 'Accumulation' and 'Mirroring' to show how traditions build up and are inherited across time.",
+        sampleQuestionHook: "How does the choreographic device of accumulation or mirroring in Reborn communicate the continuation of cultural lineage?"
+      },
+      {
+        id: 4,
+        slug: "spinifex",
+        title: "SPINIFEX",
+        actNumber: 2,
+        actTitle: "Act II: The Arid Land & Human Impact",
+        tagline: "Inspired by the trees that resemble the gatherings of spirit women waiting, suspended in time.",
+        meaning: "Inspired by Frances Rings sitting in the Lake Eyre basin, envisioning the contorted spinifex bushes as ancient spirit women waiting across millennia for the rains to arrive.",
+        detailedMeaning: "This section was inspired by Rings' experience of sitting in the open landscape near Lake Eyre and imagining the contorted spinifex trees as women from thousands of years ago, waiting for the waters to come and the transformation of landscape to happen. The design of the women's costumes is integral to this section.",
+        culturalContext: "Connects women's ancestral dreaming and connection to arid vegetation. The spinifex survives the harshest drought by holding deep moisture, symbolising feminine spiritual endurance.",
+        dancers: "Female ensemble.",
+        movementMetaphor: "Rooted, twisted postures with low centers of gravity; slow organic swaying in the desert breeze; sustained freezes evoking patience through centuries of drought.",
+        keyConcepts: {
+          space: "Low crouching levels rising into twisted shapes; clustered organic formations resembling patches of desert shrub; personal space rooted to one spot.",
+          dynamics: "Suspended and sustained qualities; subtle dabbing and flicking arm gestures resembling prickly spinifex leaves fluttering in dry wind.",
+          relationships: "With costumes (textured fringed skirts moving as an extension of the body); with space (rooted to the stage floor); ensemble shared breath.",
+          devices: "Repetition of twisting motifs; subtle canons of swaying; contrast between stillness and sudden quivering.",
+          production: "Costumes featuring layered shredded/fringed raffia fabrics mimicking spinifex; warm terracotta lighting; ambient wind score with cicadas and dry rustling.",
+          skills: "Balance on uneven foot placements, stamina in holding sustained isometric contractions, focus on the distant horizon."
+        },
+        whyItMattersForExam: "Directly cited in the official exam curriculum! Excellent for demonstrating how costume (Production) and levels/dynamics (Elements) unite to express patience.",
+        sampleQuestionHook: "Analyse and evaluate Rings' use of elements of dance and costume in Spinifex to communicate the idea of spirit women waiting across time."
+      },
+      {
+        id: 5,
+        slug: "salt",
+        title: "SALT",
+        actNumber: 2,
+        actTitle: "Act II: The Arid Land & Human Impact",
+        tagline: "Beyond the white salt vastness lies an abstract landscape that resonates an ancient power.",
+        meaning: "The deceptive, razor-sharp, and acidic nature of Lake Eyre's dried salt crust—stunningly beautiful from afar, yet chemically caustic, skin-burning, and disorienting.",
+        detailedMeaning: "Expresses how vast salt crystals completely transform the landscape as water evaporates. While magnificent, the acidic compound burns skin (as early explorers suffered) and produces blinding light that disrupts horizons, posing hazards for pilots. The duo depicts the nature and texture of salt crystals.",
+        culturalContext: "Lake Eyre as a sacred living entity whose harsh mineral defenses protect it from reckless human intrusion.",
+        dancers: "Two male dancers (duo partnering).",
+        movementMetaphor: "Brittle, angular, crystalline interlocking of limbs; sharp geometric lines and sudden frozen crystallisations that evoke razor-sharp salt flakes under immense heat.",
+        keyConcepts: {
+          space: "Angular shapes with sharp negative spaces; cutting diagonally through planes; low floor-slides contrasting with sharp upright pivots.",
+          dynamics: "Percussive, slicing, slashing, and punchy dynamics; quick accents followed immediately by frozen, brittle stillness.",
+          relationships: "Male duo partnering: tension-filled counterweights, sharp limb locks, friction, and precarious mutual balance.",
+          devices: "Contrast (between smooth rolling and razor-sharp cuts); mirroring in opposition; motif of sharp elbow and knee angles.",
+          production: "Blinding stark white lighting bleaching the stage floor; minimalist pale costumes with crystalline textures; high-pitched, shimmering, brittle sound design.",
+          skills: "Agility, joint articulation, core control during abrupt stops, unwavering focus."
+        },
+        whyItMattersForExam: "A staple for exam questions on 'Duo Partnering' (Choreographic Device) and 'Angular Shapes / Percussive Dynamics' (Elements).",
+        sampleQuestionHook: "Analyse how the choreographer uses angular shapes, percussive dynamics, and duo relationships in Salt to communicate dangerous beauty."
+      },
+      {
+        id: 6,
+        slug: "scar",
+        title: "SCAR",
+        actNumber: 2,
+        actTitle: "Act II: The Arid Land & Human Impact",
+        tagline: "The impact of man's actions scars and disrupts the delicate balance between man and environment.",
+        meaning: "The violent degradation and physical gouging of Country caused by colonisation, mining exploration, and human neglect, rupturing the sacred natural equilibrium.",
+        detailedMeaning: "The delicate balance between humans and the environment is torn apart when industry exploits the land without custodial respect, leaving visible, painful scars across Country.",
+        culturalContext: "Direct commentary on mining operations and colonial destruction of Arabunna land around the Lake Eyre Basin.",
+        dancers: "Full ensemble.",
+        movementMetaphor: "Bodies fracturing and collapsing under sudden unseen pressure; convulsive, disjointed spasms; pathways torn across the stage like bulldozer tracks slicing sacred ground.",
+        keyConcepts: {
+          space: "Disrupted, asymmetric formations; irregular jagged pathways; chaotic level shifts from upright stability collapsing to the ground.",
+          dynamics: "Collapse, vibratory, and percussive qualities; explosive sudden force; jarring rhythmic syncopations.",
+          relationships: "Conflict and disunity; dancers colliding or being repelled by one another; strained, unnatural weight-bearing.",
+          devices: "Contrast between previous organic flows and violent ruptures; disjointed canon; abstraction of industrial machinery.",
+          production: "Harsh, fractured lighting with ominous red or cold steel hues; jarring metallic audio distortion layered over distressed earth sounds.",
+          skills: "Safe execution of collapsing floorwork, physical agility, intense expressive body language conveying grief and pain."
+        },
+        whyItMattersForExam: "Ideal for questions focusing on 'Collapse' and 'Vibratory' dynamics, or how dance communicates contemporary social and environmental themes.",
+        sampleQuestionHook: "Evaluate Rings' use of collapsing dynamics and chaotic formations in Scar to depict environmental trauma."
+      },
+      {
+        id: 7,
+        slug: "landform",
+        title: "LANDFORM",
+        actNumber: 3,
+        actTitle: "Act III: Regeneration & The Water Cycle",
+        tagline: "Through each evolution, the land regenerates and heals, awakening the cultural ties that connect people to place.",
+        meaning: "The ancient earth's supernatural ability to slowly repair itself after trauma, and the enduring resilience of Aboriginal people's spiritual bond with place across eons.",
+        detailedMeaning: "Landform is about the land's capacity to heal itself, to regenerate after damage that is caused by man or nature. The land's strength is in its undying spirit, despite being ravaged by traumatic events. The group illustrates shifting shapes of land over millennia.",
+        culturalContext: "Affirms that despite colonisation and environmental destruction, Country is eternal and possesses ancient restorative power.",
+        dancers: "Group ensemble.",
+        movementMetaphor: "Dancers form undulating, breathing geological strata—slowly rolling, stacking, and reforming like sand dunes and bedrock shifting over thousands of years.",
+        keyConcepts: {
+          space: "Low floor levels with bodies merged into collective mounds; curved and organic shapes; dense, evolving group formations.",
+          dynamics: "Sustained and swinging qualities; gradual organic momentum; heavy, grounded weight providing mutual support.",
+          relationships: "Continuous tactile contact between dancers; bodies functioning as an interconnected ecological system; deep floor connection.",
+          devices: "Accumulation (layering bodies together); unison in slow rolling sequences; rondo/narrative structural progression.",
+          production: "Warm earthy ochre lighting gradually brightening; deep resonant bass notes and ancient earth soundscapes.",
+          skills: "Coordination in group partnering, endurance, smooth transitions between floor levels, serene internal focus."
+        },
+        whyItMattersForExam: "Frequently linked to 'Relationships (with others/space)' and 'Sustained Dynamics' to express healing after Scar.",
+        sampleQuestionHook: "Explain how the choreographers use low levels, sustained dynamics, and group relationships in Landform to communicate regeneration."
+      },
+      {
+        id: 8,
+        slug: "reflect",
+        title: "REFLECT",
+        actNumber: 3,
+        actTitle: "Act III: Regeneration & The Water Cycle",
+        tagline: "Traversing the horizon to glimpse the sacred realm where earth and sky meet.",
+        meaning: "The sublime, meditative space of the Lake Eyre horizon, where heat haze and white salt dissolve the boundary between the physical earth and the ancestral spirit sky.",
+        detailedMeaning: "A moment of deep spiritual stillness. On the vast salt pans, the horizon becomes a magical line where earthly existence merges into timeless cosmological dreaming.",
+        culturalContext: "Reflects the spiritual dimension of Aboriginal cosmology: physical Country and celestial sky dreaming are one continuous realm.",
+        dancers: "Soloist or duet/ensemble with elongated lines.",
+        movementMetaphor: "Weightless, horizontal suspensions; tranquil extensions with long eyelines gazing into eternity; dancers moving as slowly and effortlessly as a mirage shimmering in the midday heat.",
+        keyConcepts: {
+          space: "Horizontal planes; medium to high elevated levels; general space appearing vast and infinite; linear, undisturbed pathways.",
+          dynamics: "Floating and gliding effort actions; suspended movement quality; slow, meditative tempo with lingering pauses.",
+          relationships: "Harmonious body alignment with the distant horizon; peaceful proximity between dancers; spatial balance.",
+          devices: "Mirroring across symmetrical axes; motif of outstretched horizontal arms; deliberate stillness as punctuation.",
+          production: "Soft gradient backdrop where desert salt meets pale pastel sky; luminous, diffused lighting; ethereal, ambient sonic textures.",
+          skills: "Impeccable balance, line extension, control during slow-motion decelerations, serene and transcendent facial expression."
+        },
+        whyItMattersForExam: "Great example for 'Floating / Gliding Dynamics' and 'Negative Space / Symmetry' communicating spiritual peace.",
+        sampleQuestionHook: "How do floating dynamics and horizontal spatial planes in Reflect communicate the spiritual meeting of earth and sky?"
+      },
+      {
+        id: 9,
+        slug: "deluge",
+        title: "DELUGE",
+        actNumber: 3,
+        actTitle: "Act III: Regeneration & The Water Cycle",
+        tagline: "Waters begin their journey towards Lake Eyre bringing transformation and ensuring the life cycle continues.",
+        meaning: "The spectacular, life-giving arrival of floods that travel hundreds of kilometres down ancient river channels to fill Lake Eyre, followed by the inevitable evaporation and cyclical departure.",
+        detailedMeaning: "Illustrates the waters travelling down through ancient river channels to fill the lake with explosive new life. Dancers move as an ensemble, and towards the end slowly leave the stage—reflecting the waters arriving, transforming the desert, and departing as they have for thousands of years.",
+        culturalContext: "Lake Eyre's flood cycle occurs only once every few years or decades, representing an epic resurrection of fish, birds, and flowers in Arabunna country.",
+        dancers: "Full ensemble.",
+        movementMetaphor: "A rolling, unstoppable tidal wave—ripples of movement surging through the dancers like whitecaps and swelling river rapids, before gently receding from view.",
+        keyConcepts: {
+          space: "Expansive curving pathways; dynamic shifts across low, medium, and soaring high levels; stage flooded with multi-directional travelling.",
+          dynamics: "Surging, swinging, flowing, and percussive wave crests; rapid accelerations followed by a calm, sustained fading diminuendo.",
+          relationships: "Ensemble fluid synchronicity; wave crests where dancers lift and carry each other; shared momentum.",
+          devices: "Canon (ripples passing progressively through bodies); unison during peak flood impact; gradual sequential exit off stage.",
+          production: "Rippling water-effect lighting in shimmering blues, silvers, and deep greens; swelling symphonic score with rushing water samples; flowing silk-like costumes.",
+          skills: "Agility, cardiovascular stamina, spatial awareness in rapid travelling, musicality riding swelling tempos."
+        },
+        whyItMattersForExam: "The ultimate climax of the work! Frequently used to test 'Canon' (Device) representing rolling waves, and 'Gradual Exit' representing the ecological water cycle.",
+        sampleQuestionHook: "Analyse Rings' use of canon, travelling pathways, and the gradual ensemble exit in Deluge to represent the cyclical arrival and departure of water."
+      }
+    ];
+
+    const CAUSE_EFFECT_PUZZLES = [
+      {
+        id: "puzzle-1",
+        actNumber: 1,
+        promptTheme: "The Awakening Journey",
+        question: "Why does Terrain open with 'Red Brick' in a modern city instead of starting directly in the Lake Eyre desert?",
+        options: [
+          {
+            id: "a",
+            text: "Because it contrasts the heavy pressures of modern city life with the ancient spiritual 'Calling to Country' that draws the dancer back.",
+            isCorrect: true,
+            feedback: "Spot on! Frances Rings starts in the urban world where many Indigenous people live today to show the intense need to reconnect and 'refuel' on country."
+          },
+          {
+            id: "b",
+            text: "Because red brick was the traditional building material used by the Arabunna people in the desert thousands of years ago.",
+            isCorrect: false,
+            feedback: "Not quite. Red brick represents modern urban buildings and city architecture, which contrasts with the natural desert landscape."
+          },
+          {
+            id: "c",
+            text: "Because the choreographer wanted an easy warm-up section before introducing complex desert themes.",
+            isCorrect: false,
+            feedback: "In Bangarra productions, every section has deep cultural meaning! Red Brick is chosen deliberately to frame the journey from city to ancestral land."
+          }
+        ],
+        deeperInsight: "Notice how the female solo dancer is manipulated and lifted by four male dancers: this physical relationship symbolises both the constraints of the urban environment and the ancestral gravity calling her home."
+      },
+      {
+        id: "puzzle-2",
+        actNumber: 1,
+        promptTheme: "Defending Sacred Ground",
+        question: "Why is 'Shields' positioned right after Red Brick, before we explore the natural features of Lake Eyre?",
+        options: [
+          {
+            id: "a",
+            text: "Because the dancers needed to show off props before putting them away for the rest of the performance.",
+            isCorrect: false,
+            feedback: "Shields is far more than a prop display! It carries profound political and cultural significance."
+          },
+          {
+            id: "b",
+            text: "Because before celebrating the beauty of Country, the dance honours the continuous political struggle for Land Rights, recognition, and protection of sacred sites.",
+            isCorrect: true,
+            feedback: "Brilliant analysis! Indigenous connection to land cannot be separated from the historical and ongoing fight for Land Rights and sovereignty."
+          },
+          {
+            id: "c",
+            text: "Because Lake Eyre was historically famous for major ancient military shield battles between rival empires.",
+            isCorrect: false,
+            feedback: "Rather than a military battle, Rings uses shield motifs to symbolise collective cultural resistance and the defense of Aboriginal sovereignty."
+          }
+        ],
+        deeperInsight: "The use of strong UNISON in Shields demonstrates solidarity—a unified collective voice standing firm together in political and cultural resistance."
+      },
+      {
+        id: "puzzle-3",
+        actNumber: 1,
+        promptTheme: "Cultural Continuity",
+        question: "How does 'Reborn' complete the story arc of Act I (Human & Cultural Connection)?",
+        options: [
+          {
+            id: "a",
+            text: "It shows that despite city alienation and political struggle, culture survives unbroken because land, knowledge, and customs are passed down through family lineage.",
+            isCorrect: true,
+            feedback: "Excellent! Reborn shows that cultural survival relies on the generational chain—elders passing sacred knowledge and custodial responsibility to the youth."
+          },
+          {
+            id: "b",
+            text: "It depicts the biological birth of new desert wildlife hatching in the spring.",
+            isCorrect: false,
+            feedback: "Wildlife renewal is explored later in Deluge. Reborn focuses on human cultural lineage, kinship, and ancestral customs being passed down."
+          },
+          {
+            id: "c",
+            text: "It indicates that the dancers have completely forgotten their past and started fresh with new modern identities.",
+            isCorrect: false,
+            feedback: "In fact, it is the exact opposite! Reborn celebrates remembering and upholding ancient ancestral customs through family lines."
+          }
+        ],
+        deeperInsight: "Choreographic devices like ACCUMULATION and MIRRORING in Reborn reflect how cultural knowledge builds layer upon layer as it is handed down across generations."
+      },
+      {
+        id: "puzzle-4",
+        actNumber: 2,
+        promptTheme: "The Long Wait in the Arid Land",
+        question: "In 'Spinifex', spirit women are suspended in time. What are they waiting for, and which section delivers the answer?",
+        options: [
+          {
+            id: "a",
+            text: "They are waiting for tourists to leave Lake Eyre; answered in Salt.",
+            isCorrect: false,
+            feedback: "The spirit women are tied to ancient deep-time ecological cycles, not modern tourism!"
+          },
+          {
+            id: "b",
+            text: "They are waiting for the life-giving waters to arrive and transform the landscape; answered in the climactic flood of 'Deluge'!",
+            isCorrect: true,
+            feedback: "Spot on! Frances Rings imagined the contorted spinifex bushes as ancient spirit women waiting through centuries of drought for the floodwaters of Deluge."
+          },
+          {
+            id: "c",
+            text: "They are waiting for cold winter snow to blanket the red desert sand.",
+            isCorrect: false,
+            feedback: "Lake Eyre is located in remote, arid central Australia—it experiences intense heat and drought, waiting for monsoonal rains to travel down from the north."
+          }
+        ],
+        deeperInsight: "Notice how the SUSTAINED and SUSPENDED movement qualities in Spinifex evoke quiet endurance—holding posture and breath just like desert plants holding moisture during drought."
+      },
+      {
+        id: "puzzle-5",
+        actNumber: 2,
+        promptTheme: "Deceptive Beauty & Hidden Danger",
+        question: "Why does the choreography in 'Salt' feature angular, percussive movements and tension rather than soft, peaceful gliding?",
+        options: [
+          {
+            id: "a",
+            text: "Because while the vast salt flats look beautiful, the mineral crystals are acidic, skin-burning, and blindingly bright—a hazardous environment.",
+            isCorrect: true,
+            feedback: "Superb insight! Lake Eyre's salt crust is caustic and blinding. Rings uses sharp, angular partnering between two men to express this dangerous, brittle mineral reality."
+          },
+          {
+            id: "b",
+            text: "Because the dancers were cold from performing outdoors at night.",
+            isCorrect: false,
+            feedback: "Every movement choice connects to the specific physical properties of Lake Eyre's acidic salt crust!"
+          },
+          {
+            id: "c",
+            text: "Because salt crystals dissolve instantly in air, so dancers must move as quickly as possible.",
+            isCorrect: false,
+            feedback: "Salt crystals form heavy, razor-sharp crusts that persist for months under baking heat."
+          }
+        ],
+        deeperInsight: "The MALE DUO in Salt represents the friction and interlocking structure of crystal formations. Sharp angles and sudden stops convey both crystalline precision and caustic danger."
+      },
+      {
+        id: "puzzle-6",
+        actNumber: 2,
+        promptTheme: "The Wound and The Healing",
+        question: "Why does 'Scar' lead directly into 'Landform' in the transition from Act II to Act III?",
+        options: [
+          {
+            id: "a",
+            text: "Because after showing the trauma of mining and human destruction (Scar), the work demonstrates that Country has an undying spirit that slowly regenerates and heals itself (Landform).",
+            isCorrect: true,
+            feedback: "Brilliant! Scar shows the wound inflicted on nature; Landform shows the ancient earth's resilient power to knit itself back together over millennia."
+          },
+          {
+            id: "b",
+            text: "Because Scar was too energetic, so the dancers needed a resting section on the floor.",
+            isCorrect: false,
+            feedback: "While Landform uses low floor levels, the choice is deeply philosophical: the land itself is breathing, shifting, and regenerating."
+          },
+          {
+            id: "c",
+            text: "Because human mining machinery transformed the desert into a tourist resort.",
+            isCorrect: false,
+            feedback: "Scar highlights disruption of environmental balance; Landform responds with cultural and ecological healing."
+          }
+        ],
+        deeperInsight: "Contrast the COLLAPSING and violent percussive dynamics of Scar with the SUSTAINED, rolling, organic group floorwork of Landform."
+      },
+      {
+        id: "puzzle-7",
+        actNumber: 3,
+        promptTheme: "The Sacred Boundary",
+        question: "What does the tranquil horizontal imagery in 'Reflect' communicate to the audience?",
+        options: [
+          {
+            id: "a",
+            text: "That the dancers are checking their physical appearance in a bathroom mirror.",
+            isCorrect: false,
+            feedback: "In dance analysis, always look beyond literal everyday meanings to the symbolic and spiritual meaning of the piece!"
+          },
+          {
+            id: "b",
+            text: "A sacred realm where the blinding white earth and celestial sky merge at the horizon, showing the unity of physical Country and spiritual cosmology.",
+            isCorrect: true,
+            feedback: "Beautiful understanding! The shimmering horizon mirage is a threshold where earthly life and ancestral Dreaming become one."
+          },
+          {
+            id: "c",
+            text: "That an impending thunderstorm is about to strike the stage with lightning.",
+            isCorrect: false,
+            feedback: "Reflect is a state of tranquil, meditative contemplation before the deluge arrives."
+          }
+        ],
+        deeperInsight: "Notice the use of FLOATING dynamics, elongated eyelines, and horizontal spatial planes—these evoke a sense of infinite, timeless space."
+      },
+      {
+        id: "puzzle-8",
+        actNumber: 3,
+        promptTheme: "The Cyclical Farewell",
+        question: "At the end of 'Deluge', the dancers slowly leave the stage one by one. Why did Frances Rings choose this choreographic ending?",
+        options: [
+          {
+            id: "a",
+            text: "It reflects the natural ecological water cycle: floodwaters arrive, bring explosive life, and then slowly evaporate, departing until the cycle begins again.",
+            isCorrect: true,
+            feedback: "Perfection! In Lake Eyre, floods do not stay permanently. The waters evaporate under the desert sun, and the landscape returns to waiting for the next cycle."
+          },
+          {
+            id: "b",
+            text: "Because the theatre curtain malfunctioned and dancers had to exit manually.",
+            isCorrect: false,
+            feedback: "The gradual exit is a deliberate, poignant choreographic device set by Frances Rings!"
+          },
+          {
+            id: "c",
+            text: "To signify that Aboriginal people are abandoning the desert forever.",
+            isCorrect: false,
+            feedback: "Aboriginal connection to Country is eternal! The exit mirrors the water cycle, not human departure."
+          }
+        ],
+        deeperInsight: "By mirroring the cyclical arrival and departure of water, Deluge closes Terrain on a message of eternal renewal: the water will one day return, and the spirit women will be waiting."
+      }
+    ];
+
+    const DANCE_CONCEPTS = [
+      {
+        title: "Elements of Dance",
+        subtitle: "The fundamental building blocks used by choreographers to construct movement",
+        groups: [
+          {
+            groupName: "Space",
+            items: [
+              { name: "Levels (Low, Med, High)", def: "Distance of movement from floor (low floorwork, med standing, high jumps/lifts). Used to show dominance, connection to earth, or vulnerability." },
+              { name: "Shape (Angular, Curved, Twisted)", def: "Contour of the body or group. Angular shows harshness/minerals; curved shows water/continuity; twisted shows ancient desert flora." },
+              { name: "Positive & Negative Space", def: "Body area vs the empty spatial pockets sculpted around/between dancers." },
+              { name: "Pathways & Direction", def: "Straight, circular, zigzag lines on stage. Curved lines evoke riverbeds; horizontal lines evoke vast horizons." },
+              { name: "Formations & Planes", def: "Clustered groupings evoke vegetation/shields; expansive scatterings evoke vast desert basin." }
+            ]
+          },
+          {
+            groupName: "Dynamics & Movement Qualities",
+            items: [
+              { name: "Movement Qualities", def: "Suspended (hanging), Sustained (smooth, continuous), Percussive (sharp, striking), Vibratory (quivering), Swinging, Collapse (sudden release)." },
+              { name: "Effort Actions", def: "Float, Punch, Flowy, Dab, Slash, Glide, Push, Slice, Flick." }
+            ]
+          },
+          {
+            groupName: "Relationships",
+            items: [
+              { name: "Relationships", def: "With body, with other dancers (manipulation, lifts, counterweights, lead/follow), with space, and with props/costumes." }
+            ]
+          }
+        ]
+      },
+      {
+        title: "Choreographic Devices",
+        subtitle: "Tools used to shape, manipulate, and structure dance motifs",
+        groups: [
+          {
+            groupName: "Devices & Structures",
+            items: [
+              { name: "Unison", def: "Two or more dancers moving simultaneously together at the same time and speed. Symbolises solidarity, unity, and shared cultural power." },
+              { name: "Canon", def: "Movements performed in succession one after another like a wave. Embody ripples of water in Deluge or generational echo in Reborn." },
+              { name: "Accumulation", def: "Sequentially adding new movements (1, 1+2, 1+2+3). Symbolises the layering of ancestral knowledge." },
+              { name: "Contrast", def: "Juxtaposing opposing levels, speeds, or dynamics to highlight conflict, yin/yang, or environmental disruption." },
+              { name: "Mirroring, Duos & Solos", def: "Duos express intimate dialogue or mineral friction (Salt); solos reveal internal longing (Red Brick)." }
+            ]
+          }
+        ]
+      },
+      {
+        title: "Production Elements",
+        subtitle: "Theatrical staging that enriches the dance narrative",
+        groups: [
+          {
+            groupName: "Staging & Design",
+            items: [
+              { name: "Costume (Jennifer Irwin)", def: "Shredded raffia skirts in Spinifex mimic desert grass; crystalline garments in Salt; fluid silk in Deluge." },
+              { name: "Lighting (Karen Norris)", def: "Blinding white light in Salt; warm dawn ochre in Landform; water ripples in Deluge." },
+              { name: "Music / Sound (David Page)", def: "Combines Indigenous chanting, ambient wind and cicadas, with contemporary orchestration and metallic distortion." },
+              { name: "Set Design (Jacob Nash)", def: "Backdrops evoking the Lake Eyre horizon line where earth and cosmological sky meet." }
+            ]
+          }
+        ]
+      }
+    ];
+
+    // --- COOKIE & STORAGE HELPERS ---
+    function getStoredApiKey() {
+      const match = document.cookie.match(new RegExp("(^| )gemini_api_key=([^;]+)"));
+      if (match && match[2]) return decodeURIComponent(match[2]);
+      try {
+        const local = localStorage.getItem("terrain_gemini_api_key");
+        if (local) return local;
+      } catch (e) {}
+      return "";
+    }
+
+    function storeApiKey(key) {
+      const trimmed = key.trim();
+      const maxAge = 60 * 60 * 24 * 365;
+      document.cookie = `gemini_api_key=${encodeURIComponent(trimmed)}; path=/; max-age=${maxAge}; SameSite=Lax`;
+      try {
+        localStorage.setItem("terrain_gemini_api_key", trimmed);
+      } catch (e) {}
+    }
+
+    function clearApiKey() {
+      document.cookie = "gemini_api_key=; path=/; max-age=0; SameSite=Lax";
+      try {
+        localStorage.removeItem("terrain_gemini_api_key");
+      } catch (e) {}
+    }
+
+    // ROBUST GEMINI CALLER WITH AUTOMATIC MODEL FALLBACK
+    const GEMINI_MODELS = [
+      "gemini-2.5-flash-lite",
+      "gemini-flash-latest",
+      "gemini-3.8-flash",
+      "gemini-flash-lite-latest",
+      "gemini-pro-latest"
+    ];
+
+    async function callGeminiApi(apiKey, prompt, jsonMode = true) {
+      let lastErr = null;
+      for (const model of GEMINI_MODELS) {
+        try {
+          const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey.trim()}`;
+          const payload = {
+            contents: [{ role: "user", parts: [{ text: prompt }] }],
+            generationConfig: {
+              temperature: jsonMode ? 0.5 : 0.7
+            }
+          };
+          if (jsonMode) {
+            payload.generationConfig.responseMimeType = "application/json";
+          }
+
+          const res = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+
+          if (res.ok) {
+            const data = await res.json();
+            const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (text) return text;
+          }
+
+          // If model busy (503) or not found/deprecated (404), fall back to next model
+          if (res.status === 404 || res.status === 503) {
+            console.warn(`Model ${model} returned ${res.status}, retrying fallback model...`);
+            continue;
+          }
+
+          const errBody = await res.text();
+          if (res.status === 400 || res.status === 401 || res.status === 403) {
+            throw new Error(`API key authorization issue (${res.status}): ${errBody}`);
+          }
+          lastErr = new Error(`Error with ${model} (${res.status}): ${errBody}`);
+        } catch (e) {
+          if (e.message && e.message.includes("API key authorization issue")) throw e;
+          lastErr = e;
+        }
+      }
+      throw lastErr || new Error("Failed to connect with any available Gemini model.");
+    }
+
+    // --- MAIN REACT APPLICATION ---
+    function App() {
+      const [activeTab, setActiveTab] = useState("arc");
+      const [isApiKeyModalOpen, setIsApiKeyModalOpen] = useState(false);
+      const [apiKey, setApiKey] = useState("");
+
+      // Narrative Arc state
+      const [activeArcSectionId, setActiveArcSectionId] = useState(4); // Default to Spinifex
+      const [selectedArcAct, setSelectedArcAct] = useState(null);
+
+      // Movement Metaphor state (now aligned with 3 Acts table!)
+      const [activeMetaphorSectionId, setActiveMetaphorSectionId] = useState(4); // Default to Spinifex
+      const [selectedMetaphorAct, setSelectedMetaphorAct] = useState(null);
+
+      // Cause Effect Puzzle state
+      const [puzzleIdx, setPuzzleIdx] = useState(0);
+      const [selectedOptionId, setSelectedOptionId] = useState(null);
+      const [hasSubmittedPuzzle, setHasSubmittedPuzzle] = useState(false);
+      const [completedPuzzles, setCompletedPuzzles] = useState({});
+
+      // Exam Practice state
+      const [preferredSectionSlug, setPreferredSectionSlug] = useState("any");
+      const [preferredFocus, setPreferredFocus] = useState("any");
+      const [isGenerating, setIsGenerating] = useState(false);
+      const [activeQuestion, setActiveQuestion] = useState(null);
+      const [studentAnswer, setStudentAnswer] = useState("");
+      const [isEvaluating, setIsEvaluating] = useState(false);
+      const [practiceAttempts, setPracticeAttempts] = useState([]);
+      const [expandedAttemptId, setExpandedAttemptId] = useState(null);
+      const [examError, setExamError] = useState("");
+
+      useEffect(() => {
+        const key = getStoredApiKey();
+        setApiKey(key);
+        try {
+          const savedAttempts = localStorage.getItem("terrain_exam_attempts");
+          if (savedAttempts) setPracticeAttempts(JSON.parse(savedAttempts));
+        } catch (e) {}
+      }, []);
+
+      const saveAttempts = (updated) => {
+        setPracticeAttempts(updated);
+        try {
+          localStorage.setItem("terrain_exam_attempts", JSON.stringify(updated));
+        } catch (e) {}
+      };
+
+      // GEMINI GENERATOR
+      const handleGenerateQuestion = async () => {
+        const key = getStoredApiKey();
+        if (!key) {
+          setIsApiKeyModalOpen(true);
+          return;
+        }
+
+        setIsGenerating(true);
+        setExamError("");
+
+        const prompt = `
+You are an expert Year 7–10 Dance Education Coach evaluating Bangarra Dance Theatre's production 'Terrain' (2012) by Frances Rings.
+Generate an authentic curriculum dance exam question connecting one of the 9 sections of Terrain with dance concepts and skills.
+Preferred Section: ${preferredSectionSlug !== "any" ? preferredSectionSlug : "Choose any of the 9 sections"}
+Preferred Focus: ${preferredFocus !== "any" ? preferredFocus : "Elements of Dance, Choreographic Devices, or Production Elements"}
+
+Sample exam question formats:
+- "Analyse and evaluate Rings' use of elements of dance to communicate the stated meaning. Refer to multiple dance concepts and skills to demonstrate a discerning understanding."
+- "Analyse and evaluate Rings' use of choreographic devices to communicate the stated meaning. Refer to multiple dance concepts and skills to demonstrate a discerning understanding."
+
+Respond ONLY in valid JSON matching this schema:
+{
+  "sectionTitle": string,
+  "sectionId": number,
+  "actTitle": string,
+  "focusArea": string,
+  "questionText": string,
+  "statedMeaning": string,
+  "hints": [string, string, string]
+}
+`;
+
+        try {
+          const raw = await callGeminiApi(key, prompt, true);
+          const parsed = JSON.parse(raw);
+          setActiveQuestion({
+            ...parsed,
+            id: "q-" + Date.now(),
+            createdAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          });
+          setStudentAnswer("");
+        } catch (err) {
+          setExamError(err.message || "Failed to generate question. Check your API key.");
+        } finally {
+          setIsGenerating(false);
+        }
+      };
+
+      // GEMINI EVALUATOR
+      const handleSubmitAnswer = async () => {
+        if (!activeQuestion || !studentAnswer.trim()) return;
+        const key = getStoredApiKey();
+        if (!key) {
+          setIsApiKeyModalOpen(true);
+          return;
+        }
+
+        setIsEvaluating(true);
+        setExamError("");
+
+        const newId = "att-" + Date.now();
+        const tentative = {
+          id: newId,
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          question: activeQuestion,
+          studentAnswer: studentAnswer,
+          isLoading: true
+        };
+
+        const withTentative = [tentative, ...practiceAttempts];
+        saveAttempts(withTentative);
+        setExpandedAttemptId(newId);
+
+        const prompt = `
+You are a warm, encouraging, expert Year 7–10 Dance Education Coach evaluating this student answer on Bangarra's 'Terrain'.
+
+QUESTION:
+Section: ${activeQuestion.sectionTitle}
+Meaning: ${activeQuestion.statedMeaning}
+Task: ${activeQuestion.questionText}
+
+STUDENT'S ANSWER:
+"""
+${studentAnswer}
+"""
+
+FEEDBACK INSTRUCTIONS:
+1. Score out of 10 (be fair and encouraging based on Year 7-10 standards).
+2. What they DID well! (2-3 glowing, celebratory bullet points praising specific concepts they identified or movement descriptions they used).
+3. Questions to Deepen Your Thinking (2-3 gentle Socratic questions asking what they might be missing or how they could expand, rather than blunt criticism).
+4. An inspiring model sentence showing how to integrate one of the missing elements.
+
+Respond ONLY with valid JSON matching this schema:
+{
+  "score": number,
+  "scoreLabel": string,
+  "praise": [string, string],
+  "socraticQuestions": [string, string],
+  "modelSuggestions": string
+}
+`;
+
+        try {
+          const raw = await callGeminiApi(key, prompt, true);
+          const feedback = JSON.parse(raw);
+
+          const finalAttempt = {
+            ...tentative,
+            feedback,
+            isLoading: false
+          };
+
+          const updatedList = [finalAttempt, ...practiceAttempts];
+          saveAttempts(updatedList);
+          setActiveQuestion(null);
+          setStudentAnswer("");
+        } catch (err) {
+          setExamError(err.message || "Failed to evaluate answer. Please try again.");
+          saveAttempts(practiceAttempts.filter(a => a.id !== newId));
+        } finally {
+          setIsEvaluating(false);
+        }
+      };
+
+      const activeArcSection = TERRAIN_SECTIONS.find(s => s.id === activeArcSectionId) || TERRAIN_SECTIONS[3];
+      const activeMetaphorSection = TERRAIN_SECTIONS.find(s => s.id === activeMetaphorSectionId) || TERRAIN_SECTIONS[3];
+      const currentPuzzle = CAUSE_EFFECT_PUZZLES[puzzleIdx];
+      const puzzleSelectedOpt = currentPuzzle.options.find(o => o.id === selectedOptionId);
+
+      return (
+        <div className="flex-1 flex flex-col">
+          {/* Header */}
+          <header className="sticky top-0 z-40 bg-stone-950/90 backdrop-blur-md border-b border-stone-800">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-600 via-rose-600 to-amber-500 flex items-center justify-center font-black text-stone-950 shadow-md">
+                  T
+                </div>
+                <div>
+                  <h1 className="text-sm font-extrabold text-stone-100 tracking-tight leading-none">
+                    TERRAIN <span className="text-amber-500 text-xs font-normal">| Bangarra Dance Study</span>
+                  </h1>
+                  <p className="text-[10px] text-stone-400 mt-0.5">Year 7–10 Study Helper &amp; Socratic Coach</p>
+                </div>
+              </div>
+
+              {/* Navigation Tabs */}
+              <nav className="hidden md:flex items-center gap-1">
+                {[
+                  { id: "arc", label: "Narrative Arc" },
+                  { id: "movement", label: "Movement Metaphors" },
+                  { id: "puzzle", label: "Cause & Effect" },
+                  { id: "practice", label: "Exam Practice" },
+                  { id: "concepts", label: "Theory Toolkit" },
+                ].map((t) => (
+                  <button
+                    key={t.id}
+                    onClick={() => setActiveTab(t.id)}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
+                      activeTab === t.id
+                        ? "bg-amber-600/20 text-amber-300 border border-amber-500/40"
+                        : "text-stone-400 hover:text-stone-200"
+                    }`}
+                  >
+                    {t.label}
+                  </button>
+                ))}
+              </nav>
+
+              {/* Gemini Key Button */}
+              <button
+                onClick={() => setIsApiKeyModalOpen(true)}
+                className="px-3.5 py-1.5 rounded-xl bg-stone-900 hover:bg-stone-800 border border-stone-700 text-stone-200 text-xs font-semibold transition flex items-center gap-2"
+              >
+                <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+                <span>{apiKey ? "Gemini Key Ready" : "Set Gemini Key"}</span>
+              </button>
+            </div>
+
+            {/* Mobile Nav */}
+            <div className="flex md:hidden items-center justify-around px-2 py-1.5 border-t border-stone-800 bg-stone-950 text-[11px] font-semibold text-stone-400">
+              <button onClick={() => setActiveTab("arc")} className={`p-1 ${activeTab === 'arc' ? 'text-amber-400 font-bold' : ''}`}>Arc</button>
+              <button onClick={() => setActiveTab("movement")} className={`p-1 ${activeTab === 'movement' ? 'text-emerald-400 font-bold' : ''}`}>Movement</button>
+              <button onClick={() => setActiveTab("puzzle")} className={`p-1 ${activeTab === 'puzzle' ? 'text-amber-400 font-bold' : ''}`}>Puzzles</button>
+              <button onClick={() => setActiveTab("practice")} className={`p-1 ${activeTab === 'practice' ? 'text-rose-400 font-bold' : ''}`}>Practice</button>
+              <button onClick={() => setActiveTab("concepts")} className={`p-1 ${activeTab === 'concepts' ? 'text-cyan-400 font-bold' : ''}`}>Theory</button>
+            </div>
+          </header>
+
+          {/* Main Content */}
+          <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10 w-full">
+            {/* TAB 1: FRONT AND CENTRE NARRATIVE ARC */}
+            {activeTab === "arc" && (
+              <section className="relative overflow-hidden rounded-3xl bg-stone-900 border border-stone-800 shadow-2xl p-6 md:p-8 space-y-8 animate-fadeIn">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-stone-800">
+                  <div>
+                    <span className="inline-block px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold uppercase tracking-wider mb-2">
+                      Kati Thanda–Lake Eyre Journey Arc
+                    </span>
+                    <h2 className="text-2xl md:text-3xl font-extrabold text-stone-100">
+                      The 9-Part Narrative Arc of <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-rose-400">Terrain</span>
+                    </h2>
+                    <p className="text-sm text-stone-400 max-w-2xl mt-1 leading-relaxed">
+                      Follow the three acts from contemporary urban pressure, through the arid mineral desert, to ecological and cultural renewal.
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setSelectedArcAct(null)}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition border ${
+                        selectedArcAct === null ? "bg-stone-100 text-stone-950 border-stone-100" : "bg-stone-950 text-stone-400 border-stone-800"
+                      }`}
+                    >
+                      All 9
+                    </button>
+                    {ACTS.map(act => (
+                      <button
+                        key={act.number}
+                        onClick={() => setSelectedArcAct(act.number)}
+                        className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition border ${
+                          selectedArcAct === act.number ? `${act.bgBadge} font-bold` : "bg-stone-950 text-stone-400 border-stone-800"
+                        }`}
+                      >
+                        Act {act.number}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 3 Acts Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+                  {ACTS.map(act => {
+                    const sections = TERRAIN_SECTIONS.filter(s => s.actNumber === act.number);
+                    const isMuted = selectedArcAct !== null && selectedArcAct !== act.number;
+                    return (
+                      <div
+                        key={act.number}
+                        className={`rounded-2xl p-5 border transition-all duration-200 ${
+                          isMuted ? "opacity-30 border-stone-800 bg-stone-950/40" : "border-stone-700 bg-stone-950 shadow-lg"
+                        }`}
+                      >
+                        <div className="pb-3 border-b border-stone-800 flex justify-between items-start">
+                          <div>
+                            <span className={`inline-block px-2.5 py-0.5 rounded text-[11px] font-bold border mb-1 ${act.bgBadge}`}>
+                              ACT {act.number}
+                            </span>
+                            <h3 className="text-sm font-bold text-stone-200">{act.title.split(": ")[1]}</h3>
+                            <p className="text-[11px] text-stone-400 line-clamp-1 mt-0.5">{act.theme}</p>
+                          </div>
+                        </div>
+
+                        <div className="mt-3.5 space-y-2.5">
+                          {sections.map(sec => {
+                            const isSelected = activeArcSectionId === sec.id;
+                            return (
+                              <button
+                                key={sec.id}
+                                onClick={() => setActiveArcSectionId(sec.id)}
+                                className={`w-full text-left p-3 rounded-xl border transition flex items-center justify-between ${
+                                  isSelected
+                                    ? "bg-amber-600/20 border-amber-500 text-amber-200 ring-1 ring-amber-500/50"
+                                    : "bg-stone-900/60 border-stone-800 text-stone-300 hover:bg-stone-800/60 hover:border-stone-700"
+                                }`}
+                              >
+                                <div className="flex items-center gap-3 min-w-0">
+                                  <div className={`w-6 h-6 rounded-lg flex items-center justify-center text-xs font-bold shrink-0 ${
+                                    isSelected ? "bg-amber-500 text-stone-950" : "bg-stone-800 text-stone-400"
+                                  }`}>
+                                    {sec.id}
+                                  </div>
+                                  <div className="min-w-0">
+                                    <div className="text-xs font-bold truncate">{sec.title}</div>
+                                    <div className="text-[10px] text-stone-400 truncate">{sec.tagline}</div>
+                                  </div>
+                                </div>
+                                <span className="text-xs text-stone-500">&rarr;</span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Selected Section Detail Card */}
+                <div className="rounded-2xl bg-stone-950 border border-amber-500/40 p-6 shadow-xl">
+                  <div className="flex flex-col lg:flex-row justify-between gap-6">
+                    <div className="flex-1 space-y-4">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="px-2.5 py-1 rounded bg-amber-500 text-stone-950 text-xs font-black">
+                          SECTION {activeArcSection.id} OF 9
+                        </span>
+                        <span className="px-3 py-1 rounded bg-stone-800 text-stone-300 text-xs font-semibold">
+                          {activeArcSection.actTitle}
+                        </span>
+                        <span className="text-xs text-stone-400 font-mono">Dancers: {activeArcSection.dancers}</span>
+                      </div>
+
+                      <div>
+                        <h3 className="text-2xl font-black text-stone-100">{activeArcSection.title}</h3>
+                        <p className="text-sm font-medium text-amber-400/90 mt-0.5">&ldquo;{activeArcSection.tagline}&rdquo;</p>
+                      </div>
+
+                      <div className="p-4 rounded-xl bg-stone-900 border border-stone-800 space-y-2">
+                        <span className="text-xs font-bold text-amber-300 uppercase tracking-wider block">
+                          Frances Rings&rsquo; Stated Meaning:
+                        </span>
+                        <p className="text-xs md:text-sm text-stone-200 leading-relaxed">{activeArcSection.meaning}</p>
+                        <p className="text-xs text-stone-400 leading-relaxed pt-2 border-t border-stone-800/80">{activeArcSection.detailedMeaning}</p>
+                      </div>
+
+                      <div className="text-xs text-stone-300 bg-stone-900/40 p-3 rounded-lg border border-stone-800/50">
+                        <strong className="text-stone-200">Cultural &amp; Environmental Context: </strong>
+                        {activeArcSection.culturalContext}
+                      </div>
+                    </div>
+
+                    <div className="w-full lg:w-80 shrink-0 space-y-3">
+                      <div className="p-4 rounded-xl bg-amber-950/20 border border-amber-800/40 space-y-2">
+                        <span className="text-xs font-bold text-amber-400 uppercase tracking-wider block">
+                          Somatic Movement Metaphor
+                        </span>
+                        <p className="text-xs text-stone-300 leading-relaxed">{activeArcSection.movementMetaphor}</p>
+                      </div>
+
+                      <div className="p-4 rounded-xl bg-stone-900 border border-stone-800 space-y-1.5">
+                        <span className="text-xs font-bold text-stone-300 uppercase tracking-wider block">
+                          Exam Analysis Focus
+                        </span>
+                        <p className="text-xs text-stone-400 leading-relaxed">{activeArcSection.whyItMattersForExam}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* TAB 2: MOVEMENT METAPHORS (ALIGNED WITH THREE ACTS TABLE!) */}
+            {activeTab === "movement" && (
+              <section className="rounded-3xl bg-stone-900 border border-stone-800 p-6 md:p-8 shadow-xl space-y-8 animate-fadeIn">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-5 border-b border-stone-800">
+                  <div>
+                    <span className="inline-block px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2">
+                      Somatic &amp; Embodied Meaning
+                    </span>
+                    <h2 className="text-2xl md:text-3xl font-extrabold text-stone-100">
+                      Movement Metaphors &amp; Dance Concepts
+                    </h2>
+                    <p className="text-sm text-stone-400 max-w-2xl mt-1 leading-relaxed">
+                      Select a section from the Three Acts table below to explore how Frances Rings physically embodied the ideas of Lake Eyre into space, dynamics, relationships, and production elements.
+                    </p>
+                  </div>
+
+                  {/* Act Filter Pills */}
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setSelectedMetaphorAct(null)}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition border ${
+                        selectedMetaphorAct === null ? "bg-stone-100 text-stone-950 border-stone-100" : "bg-stone-950 text-stone-400 border-stone-800"
+                      }`}
+                    >
+                      All 9
+                    </button>
+                    {ACTS.map(act => (
+                      <button
+                        key={act.number}
+                        onClick={() => setSelectedMetaphorAct(act.number)}
+                        className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition border ${
+                          selectedMetaphorAct === act.number ? `${act.bgBadge} font-bold` : "bg-stone-950 text-stone-400 border-stone-800"
+                        }`}
+                      >
+                        Act {act.number}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 3 Acts Table Grid for Movement Metaphors */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+                  {ACTS.map(act => {
+                    const sections = TERRAIN_SECTIONS.filter(s => s.actNumber === act.number);
+                    const isMuted = selectedMetaphorAct !== null && selectedMetaphorAct !== act.number;
+                    return (
+                      <div
+                        key={act.number}
+                        className={`rounded-2xl p-5 border transition-all duration-200 ${
+                          isMuted ? "opacity-30 border-stone-800 bg-stone-950/40" : "border-stone-700 bg-stone-950 shadow-lg"
+                        }`}
+                      >
+                        <div className="pb-3 border-b border-stone-800 flex justify-between items-start">
+                          <div>
+                            <span className={`inline-block px-2.5 py-0.5 rounded text-[11px] font-bold border mb-1 ${act.bgBadge}`}>
+                              ACT {act.number}
+                            </span>
+                            <h3 className="text-sm font-bold text-stone-200">{act.title.split(": ")[1]}</h3>
+                            <p className="text-[11px] text-stone-400 line-clamp-1 mt-0.5">{act.theme}</p>
+                          </div>
+                        </div>
+
+                        <div className="mt-3.5 space-y-2.5">
+                          {sections.map(sec => {
+                            const isSelected = activeMetaphorSectionId === sec.id;
+                            return (
+                              <button
+                                key={sec.id}
+                                onClick={() => setActiveMetaphorSectionId(sec.id)}
+                                className={`w-full text-left p-3 rounded-xl border transition flex items-center justify-between ${
+                                  isSelected
+                                    ? "bg-emerald-600/20 border-emerald-500 text-emerald-200 ring-1 ring-emerald-500/50 shadow-md"
+                                    : "bg-stone-900/60 border-stone-800 text-stone-300 hover:bg-stone-800/60 hover:border-stone-700"
+                                }`}
+                              >
+                                <div className="flex items-center gap-3 min-w-0">
+                                  <div className={`w-6 h-6 rounded-lg flex items-center justify-center text-xs font-bold shrink-0 ${
+                                    isSelected ? "bg-emerald-500 text-stone-950" : "bg-stone-800 text-stone-400"
+                                  }`}>
+                                    {sec.id}
+                                  </div>
+                                  <div className="min-w-0">
+                                    <div className="text-xs font-bold truncate">{sec.title}</div>
+                                    <div className="text-[10px] text-stone-400 truncate mt-0.5">
+                                      {MOVEMENT_TAGS[sec.id] || sec.tagline}
+                                    </div>
+                                  </div>
+                                </div>
+                                <span className="text-xs text-stone-500">&rarr;</span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Selected Section Somatic Metaphor Display */}
+                <div className="rounded-2xl bg-stone-950 border border-emerald-500/40 p-6 shadow-xl space-y-6">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div className="lg:col-span-5 space-y-4">
+                      <div className="p-5 rounded-2xl bg-stone-900 border border-stone-800 space-y-3">
+                        <div className="flex justify-between items-center text-xs">
+                          <span className="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 font-bold">
+                            Section {activeMetaphorSection.id}: {activeMetaphorSection.actTitle.split(":")[0]}
+                          </span>
+                          <span className="text-stone-400 font-mono">{activeMetaphorSection.dancers}</span>
+                        </div>
+                        <h3 className="text-2xl font-black text-stone-100">{activeMetaphorSection.title}</h3>
+                        <p className="text-xs text-stone-300 italic bg-stone-950 p-3.5 rounded-xl border border-stone-800 leading-relaxed">
+                          &ldquo;{activeMetaphorSection.movementMetaphor}&rdquo;
+                        </p>
+                      </div>
+
+                      <div className="p-5 rounded-2xl bg-stone-900 border border-stone-800 space-y-2">
+                        <span className="text-xs font-bold text-stone-300 uppercase tracking-wider block">
+                          Choreographic Intention
+                        </span>
+                        <p className="text-xs text-stone-300 leading-relaxed">{activeMetaphorSection.meaning}</p>
+                      </div>
+
+                      <div className="p-4 rounded-2xl bg-amber-950/20 border border-amber-800/40 text-xs text-amber-200/90 leading-relaxed">
+                        <strong className="text-amber-300 block mb-1">Exam Analysis Tip:</strong>
+                        Always pair the physical movement quality (e.g. {activeMetaphorSection.keyConcepts.dynamics.split(";")[0]}) directly with the feeling or idea it creates for the audience.
+                      </div>
+                    </div>
+
+                    <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="p-4 rounded-2xl bg-stone-900 border border-stone-800 space-y-2">
+                        <span className="text-xs font-bold text-amber-400 block">Space (Levels, Shapes, Pathways)</span>
+                        <p className="text-xs text-stone-300 leading-relaxed">{activeMetaphorSection.keyConcepts.space}</p>
+                      </div>
+
+                      <div className="p-4 rounded-2xl bg-stone-900 border border-stone-800 space-y-2">
+                        <span className="text-xs font-bold text-rose-400 block">Dynamics &amp; Movement Qualities</span>
+                        <p className="text-xs text-stone-300 leading-relaxed">{activeMetaphorSection.keyConcepts.dynamics}</p>
+                      </div>
+
+                      <div className="p-4 rounded-2xl bg-stone-900 border border-stone-800 space-y-2">
+                        <span className="text-xs font-bold text-cyan-400 block">Relationships &amp; Devices</span>
+                        <p className="text-xs text-stone-300 leading-relaxed">{activeMetaphorSection.keyConcepts.relationships}</p>
+                        <p className="text-[11px] text-stone-400 pt-1 border-t border-stone-800/60">
+                          <strong>Devices: </strong>{activeMetaphorSection.keyConcepts.devices}
+                        </p>
+                      </div>
+
+                      <div className="p-4 rounded-2xl bg-stone-900 border border-stone-800 space-y-2">
+                        <span className="text-xs font-bold text-purple-400 block">Production &amp; Design Elements</span>
+                        <p className="text-xs text-stone-300 leading-relaxed">{activeMetaphorSection.keyConcepts.production}</p>
+                        <p className="text-[11px] text-stone-400 pt-1 border-t border-stone-800/60">
+                          <strong>Skills: </strong>{activeMetaphorSection.keyConcepts.skills}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* TAB 3: CAUSE & EFFECT PUZZLE (YEAR 7 FOCUS) */}
+            {activeTab === "puzzle" && (
+              <section className="rounded-3xl bg-stone-900 border border-stone-800 p-6 md:p-8 shadow-xl space-y-6 animate-fadeIn">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-5 border-b border-stone-800">
+                  <div>
+                    <span className="inline-block px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold uppercase tracking-wider mb-2">
+                      Interactive Story Sequencer
+                    </span>
+                    <h2 className="text-2xl md:text-3xl font-extrabold text-stone-100">
+                      Cause &amp; Effect: Why Sections Connect
+                    </h2>
+                    <p className="text-sm text-stone-400 max-w-2xl mt-1 leading-relaxed">
+                      Memorisation is easy when you understand the logic! Discover why Frances Rings structured the dance in this precise sequence.
+                    </p>
+                  </div>
+
+                  <div className="px-3.5 py-1.5 rounded-xl bg-stone-950 border border-stone-800 text-xs font-semibold text-stone-300">
+                    Solved: <strong className="text-amber-400">{Object.values(completedPuzzles).filter(Boolean).length}</strong> of {CAUSE_EFFECT_PUZZLES.length}
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-1.5 overflow-x-auto pb-1">
+                  {CAUSE_EFFECT_PUZZLES.map((p, idx) => {
+                    const isDone = completedPuzzles[p.id];
+                    const isCur = idx === puzzleIdx;
+                    return (
+                      <button
+                        key={p.id}
+                        onClick={() => {
+                          setPuzzleIdx(idx);
+                          setSelectedOptionId(null);
+                          setHasSubmittedPuzzle(false);
+                        }}
+                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition shrink-0 border ${
+                          isCur
+                            ? "bg-amber-600 text-stone-950 border-amber-500"
+                            : isDone
+                            ? "bg-emerald-950/40 text-emerald-400 border-emerald-800/60"
+                            : "bg-stone-950 text-stone-400 border-stone-800 hover:text-stone-200"
+                        }`}
+                      >
+                        #{idx + 1} {isDone ? "✓" : ""}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div className="p-6 rounded-2xl bg-stone-950 border border-stone-800 space-y-6">
+                  <div className="flex justify-between items-center text-xs">
+                    <span className="px-2.5 py-1 rounded bg-stone-900 border border-stone-800 text-stone-400 font-bold uppercase">
+                      Act {currentPuzzle.actNumber} • {currentPuzzle.promptTheme}
+                    </span>
+                    <span className="text-stone-500 font-mono">Puzzle {puzzleIdx + 1} of {CAUSE_EFFECT_PUZZLES.length}</span>
+                  </div>
+
+                  <h3 className="text-lg md:text-xl font-bold text-stone-100 leading-snug">
+                    {currentPuzzle.question}
+                  </h3>
+
+                  <div className="space-y-3">
+                    {currentPuzzle.options.map((opt) => {
+                      const isSelected = selectedOptionId === opt.id;
+                      let style = "bg-stone-900/60 border-stone-800 text-stone-300 hover:bg-stone-800/60";
+                      if (hasSubmittedPuzzle) {
+                        if (opt.isCorrect) style = "bg-emerald-950/50 border-emerald-500 text-emerald-200 ring-1 ring-emerald-500";
+                        else if (isSelected) style = "bg-rose-950/50 border-rose-500 text-rose-200 ring-1 ring-rose-500";
+                        else style = "opacity-40 bg-stone-900/40 border-stone-800 text-stone-500";
+                      } else if (isSelected) {
+                        style = "bg-amber-600/20 border-amber-500 text-amber-200 ring-1 ring-amber-500";
+                      }
+
+                      return (
+                        <button
+                          key={opt.id}
+                          onClick={() => { if (!hasSubmittedPuzzle) setSelectedOptionId(opt.id); }}
+                          disabled={hasSubmittedPuzzle}
+                          className={`w-full text-left p-4 rounded-xl border text-xs md:text-sm transition flex items-start gap-3 ${style}`}
+                        >
+                          <span className={`w-5 h-5 rounded-full flex items-center justify-center text-xs font-black shrink-0 ${
+                            isSelected ? "bg-amber-500 text-stone-950" : "bg-stone-800 text-stone-400"
+                          }`}>
+                            {opt.id.toUpperCase()}
+                          </span>
+                          <span className="flex-1 leading-relaxed">{opt.text}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {hasSubmittedPuzzle && puzzleSelectedOpt && (
+                    <div className={`p-4 rounded-xl border text-xs leading-relaxed space-y-2 animate-fadeIn ${
+                      puzzleSelectedOpt.isCorrect ? "bg-emerald-950/30 border-emerald-800/60 text-emerald-200" : "bg-rose-950/30 border-rose-800/60 text-rose-200"
+                    }`}>
+                      <div className="font-bold flex items-center gap-1.5">
+                        {puzzleSelectedOpt.isCorrect ? "✓ Correct Understanding!" : "✗ Try Again Soon"}
+                      </div>
+                      <p>{puzzleSelectedOpt.feedback}</p>
+                      <div className="pt-2 border-t border-stone-800/80 text-stone-300">
+                        <strong className="text-amber-300">Deeper Insight: </strong>
+                        {currentPuzzle.deeperInsight}
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="flex items-center justify-between pt-2">
+                    {!hasSubmittedPuzzle ? (
+                      <button
+                        onClick={() => {
+                          if (!selectedOptionId) return;
+                          setHasSubmittedPuzzle(true);
+                          if (puzzleSelectedOpt?.isCorrect) {
+                            setCompletedPuzzles(prev => ({ ...prev, [currentPuzzle.id]: true }));
+                          }
+                        }}
+                        disabled={!selectedOptionId}
+                        className="px-6 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-stone-950 text-xs font-bold transition disabled:opacity-40"
+                      >
+                        Check Answer
+                      </button>
+                    ) : (
+                      <div className="flex items-center justify-between w-full">
+                        {!puzzleSelectedOpt?.isCorrect ? (
+                          <button
+                            onClick={() => { setSelectedOptionId(null); setHasSubmittedPuzzle(false); }}
+                            className="px-4 py-2 rounded-xl bg-stone-800 text-stone-300 text-xs font-semibold"
+                          >
+                            Try Again
+                          </button>
+                        ) : <div />}
+
+                        {puzzleIdx < CAUSE_EFFECT_PUZZLES.length - 1 ? (
+                          <button
+                            onClick={() => {
+                              setPuzzleIdx(prev => prev + 1);
+                              setSelectedOptionId(null);
+                              setHasSubmittedPuzzle(false);
+                            }}
+                            className="px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-stone-950 text-xs font-bold ml-auto"
+                          >
+                            Next Puzzle &rarr;
+                          </button>
+                        ) : (
+                          <span className="text-xs font-bold text-emerald-400 ml-auto">✓ All Narrative Puzzles Solved!</span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* TAB 4: EXAM PRACTICE & SOCRATIC COACH */}
+            {activeTab === "practice" && (
+              <section className="rounded-3xl bg-stone-900 border border-stone-800 p-6 md:p-8 shadow-xl space-y-8 animate-fadeIn">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-5 border-b border-stone-800">
+                  <div>
+                    <span className="inline-block px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-semibold uppercase tracking-wider mb-2">
+                      Exam Simulator &amp; Socratic Coach
+                    </span>
+                    <h2 className="text-2xl md:text-3xl font-extrabold text-stone-100">
+                      Practice Written Exam Questions
+                    </h2>
+                    <p className="text-sm text-stone-400 max-w-2xl mt-1 leading-relaxed">
+                      Generate exam questions linking individual sections of <em>Terrain</em> to dance concepts and choreographic devices. Free-form text answers are evaluated with approximate grades (/10), glowing praise, and Socratic guiding questions.
+                    </p>
+                  </div>
+
+                  <button
+                    onClick={() => setIsApiKeyModalOpen(true)}
+                    className="px-3.5 py-1.5 rounded-xl bg-stone-950 border border-stone-800 text-xs font-semibold text-stone-300 hover:border-amber-500/50 transition flex items-center gap-2"
+                  >
+                    <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+                    <span>{apiKey ? "Gemini Key Ready" : "Connect Gemini Key"}</span>
+                  </button>
+                </div>
+
+                {/* Generator Controls */}
+                <div className="p-5 rounded-2xl bg-stone-950 border border-stone-800 space-y-4">
+                  <div className="text-xs font-bold text-stone-300 uppercase tracking-wider">
+                    Generate an On-Demand Exam Question
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    <div>
+                      <label className="block text-[11px] font-semibold text-stone-400 mb-1">Terrain Section</label>
+                      <select
+                        value={preferredSectionSlug}
+                        onChange={(e) => setPreferredSectionSlug(e.target.value)}
+                        className="w-full px-3 py-2 rounded-xl bg-stone-900 border border-stone-700 text-xs text-stone-100"
+                      >
+                        <option value="any">🎲 Surprise Me (Any Section)</option>
+                        {TERRAIN_SECTIONS.map(sec => (
+                          <option key={sec.slug} value={sec.slug}>
+                            {sec.id}. {sec.title} ({sec.actTitle.split(":")[0]})
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-[11px] font-semibold text-stone-400 mb-1">Focus Dance Concept</label>
+                      <select
+                        value={preferredFocus}
+                        onChange={(e) => setPreferredFocus(e.target.value)}
+                        className="w-full px-3 py-2 rounded-xl bg-stone-900 border border-stone-700 text-xs text-stone-100"
+                      >
+                        <option value="any">🎲 Mixed / Comprehensive</option>
+                        <option value="Elements of Dance (Levels, Shape, Dynamics, Relationships)">Elements of Dance (Space, Dynamics)</option>
+                        <option value="Choreographic Devices (Unison, Canon, Accumulation, Contrast)">Choreographic Devices (Unison, Contrast)</option>
+                        <option value="Production Elements (Costumes, Lighting, Sound Design, Sets)">Production Elements (Costume, Light)</option>
+                      </select>
+                    </div>
+
+                    <div className="flex items-end">
+                      <button
+                        onClick={handleGenerateQuestion}
+                        disabled={isGenerating}
+                        className="w-full py-2.5 px-4 rounded-xl bg-amber-600 hover:bg-amber-500 text-stone-950 text-xs font-bold transition flex items-center justify-center gap-2 disabled:opacity-50"
+                      >
+                        {isGenerating ? "Drafting Question..." : "Generate New Question"}
+                      </button>
+                    </div>
+                  </div>
+
+                  {examError && (
+                    <div className="p-3 rounded-xl bg-rose-950/40 border border-rose-800/60 text-xs text-rose-300">
+                      {examError}
+                    </div>
+                  )}
+                </div>
+
+                {/* Active Question Card */}
+                {activeQuestion && (
+                  <div className="p-6 rounded-2xl bg-stone-950 border border-amber-500/50 shadow-2xl space-y-5 animate-fadeIn">
+                    <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-stone-800">
+                      <div className="flex items-center gap-2">
+                        <span className="px-2.5 py-0.5 rounded bg-amber-500 text-stone-950 text-xs font-black">
+                          {activeQuestion.sectionTitle}
+                        </span>
+                        <span className="text-xs text-stone-400">{activeQuestion.actTitle}</span>
+                        <span className="text-xs px-2 py-0.5 rounded bg-stone-900 text-stone-300 border border-stone-800">
+                          {activeQuestion.focusArea}
+                        </span>
+                      </div>
+                      <span className="text-xs text-stone-500 font-mono">Generated at {activeQuestion.createdAt}</span>
+                    </div>
+
+                    <div className="p-3.5 rounded-xl bg-stone-900 border border-stone-800 space-y-1">
+                      <span className="text-[11px] font-bold text-amber-400 uppercase tracking-wider block">
+                        Stated Meaning:
+                      </span>
+                      <p className="text-xs text-stone-300 leading-relaxed">{activeQuestion.statedMeaning}</p>
+                    </div>
+
+                    <div className="space-y-1">
+                      <span className="text-xs font-bold text-stone-400 uppercase tracking-wider">Exam Task:</span>
+                      <h3 className="text-base md:text-lg font-bold text-stone-100 leading-snug">
+                        {activeQuestion.questionText}
+                      </h3>
+                    </div>
+
+                    {activeQuestion.hints && activeQuestion.hints.length > 0 && (
+                      <div className="p-3 rounded-xl bg-stone-900/50 border border-stone-800/50 space-y-1">
+                        <span className="text-xs font-bold text-stone-300">Hints to Consider:</span>
+                        <ul className="list-disc list-inside text-xs text-stone-400 space-y-0.5">
+                          {activeQuestion.hints.map((h, i) => <li key={i}>{h}</li>)}
+                        </ul>
+                      </div>
+                    )}
+
+                    <div className="space-y-2">
+                      <label className="block text-xs font-semibold text-stone-300">Your Written Response:</label>
+                      <textarea
+                        value={studentAnswer}
+                        onChange={(e) => setStudentAnswer(e.target.value)}
+                        placeholder="In Terrain, Frances Rings effectively uses... (Describe dancer movements, name concepts such as levels/dynamics, and explain how they communicate the stated meaning)..."
+                        rows={7}
+                        className="w-full p-4 rounded-xl bg-stone-900 border border-stone-700 text-xs md:text-sm text-stone-100 placeholder-stone-600 focus:outline-none focus:border-amber-500 leading-relaxed"
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-between pt-2">
+                      <button
+                        onClick={() => setActiveQuestion(null)}
+                        className="text-xs text-stone-400 hover:text-stone-200"
+                      >
+                        Dismiss Question
+                      </button>
+                      <button
+                        onClick={handleSubmitAnswer}
+                        disabled={isEvaluating || !studentAnswer.trim()}
+                        className="px-6 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-stone-950 text-xs font-bold transition disabled:opacity-40"
+                      >
+                        {isEvaluating ? "Evaluating Answer..." : "Submit for Socratic Feedback"}
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* Practice History (Newest on Top) */}
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between pb-3 border-b border-stone-800">
+                    <span className="text-sm font-bold text-stone-200">
+                      Practice History &amp; Coaching Log ({practiceAttempts.length})
+                    </span>
+                    {practiceAttempts.length > 0 && (
+                      <button
+                        onClick={() => { if (confirm("Clear all past attempts?")) saveAttempts([]); }}
+                        className="text-[11px] text-stone-500 hover:text-rose-400"
+                      >
+                        Clear History
+                      </button>
+                    )}
+                  </div>
+
+                  {practiceAttempts.length === 0 ? (
+                    <div className="p-8 text-center rounded-2xl bg-stone-950/60 border border-stone-800 text-stone-500 text-xs">
+                      No practice answers yet. Click &ldquo;Generate New Question&rdquo; above to start!
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      {practiceAttempts.map(att => {
+                        const isExp = expandedAttemptId === att.id || att.isLoading;
+                        return (
+                          <div key={att.id} className="rounded-2xl bg-stone-950 border border-stone-800 overflow-hidden shadow-lg">
+                            <div
+                              onClick={() => setExpandedAttemptId(isExp ? null : att.id)}
+                              className="p-4 flex items-center justify-between gap-3 cursor-pointer hover:bg-stone-900/40"
+                            >
+                              <div className="flex items-center gap-3 min-w-0">
+                                {att.feedback ? (
+                                  <span className="px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-black shrink-0">
+                                    {att.feedback.score}/10
+                                  </span>
+                                ) : (
+                                  <span className="px-2.5 py-1 rounded bg-stone-800 text-stone-400 text-xs shrink-0 font-mono">
+                                    Reviewing...
+                                  </span>
+                                )}
+                                <div className="min-w-0">
+                                  <div className="text-xs font-bold text-stone-200 truncate">
+                                    {att.question.sectionTitle}: {att.question.questionText}
+                                  </div>
+                                  <div className="text-[11px] text-stone-500 truncate">{att.timestamp}</div>
+                                </div>
+                              </div>
+                              <span className="text-xs text-stone-500">{isExp ? "▲" : "▼"}</span>
+                            </div>
+
+                            {isExp && (
+                              <div className="p-5 pt-0 space-y-4 border-t border-stone-800/80 animate-fadeIn">
+                                <div className="text-xs text-stone-400 bg-stone-900/50 p-3 rounded-xl mt-4">
+                                  <strong className="text-stone-300">Section Meaning: </strong>{att.question.statedMeaning}
+                                </div>
+
+                                <div className="space-y-1">
+                                  <span className="text-[11px] font-bold text-stone-400 uppercase">Your Answer:</span>
+                                  <div className="p-4 rounded-xl bg-stone-900 text-xs text-stone-200 whitespace-pre-wrap leading-relaxed">
+                                    {att.studentAnswer}
+                                  </div>
+                                </div>
+
+                                {att.isLoading && (
+                                  <div className="p-4 rounded-xl bg-amber-950/20 text-xs text-amber-300">
+                                    Analyzing answer and crafting Socratic questions...
+                                  </div>
+                                )}
+
+                                {att.feedback && (
+                                  <div className="space-y-4 pt-2 border-t border-stone-800">
+                                    <div className="flex justify-between items-center p-3 rounded-xl bg-stone-900">
+                                      <span className="text-xs text-stone-400">Approximate Grade:</span>
+                                      <span className="text-base font-extrabold text-amber-400">{att.feedback.score}/10 — {att.feedback.scoreLabel}</span>
+                                    </div>
+
+                                    {/* Praise */}
+                                    <div className="p-4 rounded-xl bg-emerald-950/30 border border-emerald-800/60 space-y-1.5">
+                                      <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider block">
+                                        ✓ What You Did Well!
+                                      </span>
+                                      <ul className="list-disc list-inside text-xs text-emerald-200 space-y-1">
+                                        {att.feedback.praise.map((p, i) => <li key={i}>{p}</li>)}
+                                      </ul>
+                                    </div>
+
+                                    {/* Socratic Questions */}
+                                    <div className="p-4 rounded-xl bg-amber-950/30 border border-amber-800/60 space-y-1.5">
+                                      <span className="text-xs font-bold text-amber-400 uppercase tracking-wider block">
+                                        ? Questions to Deepen Your Thinking (What&rsquo;s Missing?)
+                                      </span>
+                                      <ul className="list-disc list-inside text-xs text-amber-200 space-y-1.5 leading-relaxed">
+                                        {att.feedback.socraticQuestions.map((q, i) => <li key={i}>{q}</li>)}
+                                      </ul>
+                                    </div>
+
+                                    {att.feedback.modelSuggestions && (
+                                      <div className="p-3.5 rounded-xl bg-stone-900 text-xs text-stone-300 space-y-1">
+                                        <span className="font-bold text-stone-400 block">Inspiration Sentence Idea:</span>
+                                        <p className="italic text-stone-300">&ldquo;{att.feedback.modelSuggestions}&rdquo;</p>
+                                      </div>
+                                    )}
+                                  </div>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              </section>
+            )}
+
+            {/* TAB 5: THEORY TOOLKIT */}
+            {activeTab === "concepts" && (
+              <section className="rounded-3xl bg-stone-900 border border-stone-800 p-6 md:p-8 shadow-xl space-y-6 animate-fadeIn">
+                <div className="pb-5 border-b border-stone-800">
+                  <span className="inline-block px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-2">
+                    Curriculum Theory Toolkit
+                  </span>
+                  <h2 className="text-2xl md:text-3xl font-extrabold text-stone-100">
+                    Dance Concepts &amp; Skills Reference
+                  </h2>
+                  <p className="text-sm text-stone-400 max-w-2xl mt-1 leading-relaxed">
+                    The four official theory pillars required in your written exam analysis. Use these precise terms to demonstrate a discerning understanding.
+                  </p>
+                </div>
+
+                <div className="space-y-8">
+                  {DANCE_CONCEPTS.map(cat => (
+                    <div key={cat.title} className="space-y-4">
+                      <div>
+                        <h3 className="text-lg font-bold text-stone-100">{cat.title}</h3>
+                        <p className="text-xs text-stone-400">{cat.subtitle}</p>
+                      </div>
+
+                      {cat.groups.map(grp => (
+                        <div key={grp.groupName} className="space-y-2.5">
+                          <h4 className="text-xs font-bold text-stone-400 uppercase tracking-wider">{grp.groupName}</h4>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            {grp.items.map(item => (
+                              <div key={item.name} className="p-3.5 rounded-xl bg-stone-950 border border-stone-800 space-y-1">
+                                <div className="text-xs font-bold text-stone-200">{item.name}</div>
+                                <p className="text-xs text-stone-400 leading-relaxed">{item.def}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+          </main>
+
+          {/* Footer */}
+          <footer className="border-t border-stone-800 bg-stone-950 py-6 text-center text-xs text-stone-500 space-y-1">
+            <p>Terrain (2012) choreographed by Frances Rings • Bangarra Dance Theatre Education Resource</p>
+            <p>Study helper designed for Year 7–10 Dance Analysis and Exam Preparation.</p>
+          </footer>
+
+          {/* Gemini API Key Modal */}
+          {isApiKeyModalOpen && (
+            <ApiKeyModalComponent
+              onClose={() => setIsApiKeyModalOpen(false)}
+              onSaved={(key) => {
+                setApiKey(key);
+                setIsApiKeyModalOpen(false);
+              }}
+            />
+          )}
+        </div>
+      );
+    }
+
+    // Modal subcomponent for index.html with automatic multi-model fallback test
+    function ApiKeyModalComponent({ onClose, onSaved }) {
+      const [val, setVal] = useState(getStoredApiKey());
+      const [testing, setTesting] = useState(false);
+      const [msg, setMsg] = useState("");
+      const [isSuccess, setIsSuccess] = useState(false);
+
+      const handleSave = async () => {
+        const trimmed = val.trim();
+        if (!trimmed) {
+          setMsg("Please enter an API key.");
+          return;
+        }
+        setTesting(true);
+        setMsg("");
+        setIsSuccess(false);
+
+        try {
+          await callGeminiApi(trimmed, "Hello! Reply with one word: Ready", false);
+          storeApiKey(trimmed);
+          setIsSuccess(true);
+          setTimeout(() => {
+            onSaved(trimmed);
+          }, 800);
+        } catch (e) {
+          setMsg(e.message || "Could not verify key. Please check key format.");
+        } finally {
+          setTesting(false);
+        }
+      };
+
+      const handleClear = () => {
+        clearApiKey();
+        setVal("");
+        onSaved("");
+      };
+
+      return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
+          <div className="w-full max-w-md bg-stone-900 border border-stone-700 rounded-2xl p-6 text-stone-100 space-y-4">
+            <div className="flex justify-between items-center pb-3 border-b border-stone-800">
+              <h3 className="text-base font-bold">Google Gemini API Key</h3>
+              <button onClick={onClose} className="text-stone-400 hover:text-stone-200">✕</button>
+            </div>
+
+            <p className="text-xs text-stone-300 leading-relaxed">
+              Your key is saved in a <strong>browser cookie</strong> so you only enter it once. It connects directly to Google Gemini from your browser.
+            </p>
+
+            <div>
+              <label className="block text-[11px] font-semibold text-stone-400 mb-1">Enter Key:</label>
+              <input
+                type="text"
+                value={val}
+                onChange={e => { setVal(e.target.value); setMsg(""); }}
+                placeholder="AQ.Ab8... or AIzaSy..."
+                className="w-full px-3.5 py-2.5 rounded-xl bg-stone-950 border border-stone-700 text-xs text-stone-100 font-mono focus:border-amber-500 focus:outline-none"
+              />
+            </div>
+
+            {testing && (
+              <div className="text-xs text-amber-400 animate-pulse">
+                Testing your Gemini key with Google servers...
+              </div>
+            )}
+
+            {isSuccess && (
+              <div className="text-xs text-emerald-400 bg-emerald-950/40 p-2.5 rounded-lg border border-emerald-800/60">
+                ✓ Key successfully verified and saved in cookie!
+              </div>
+            )}
+
+            {msg && (
+              <div className="text-xs text-rose-400 bg-rose-950/40 p-2.5 rounded-lg border border-rose-800/60">
+                {msg}
+              </div>
+            )}
+
+            <div className="text-[11px] text-stone-400">
+              Need a free key? Get one at <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-amber-400 underline">aistudio.google.com</a>
+            </div>
+
+            <div className="flex justify-between items-center pt-2 border-t border-stone-800">
+              {val ? (
+                <button onClick={handleClear} className="text-xs text-rose-400 hover:underline">Remove Key</button>
+              ) : <span />}
+              <div className="flex gap-2">
+                <button onClick={onClose} className="px-3 py-1.5 rounded-lg text-xs text-stone-400">Cancel</button>
+                <button
+                  onClick={handleSave}
+                  disabled={testing}
+                  className="px-4 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-stone-950 text-xs font-bold"
+                >
+                  {testing ? "Testing..." : "Save & Verify"}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>
