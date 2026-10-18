@@ -597,13 +597,6 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function getGrade(pct) {
-      if (pct >= 85) return { grade: "High Distinction (HD)", color: "#16a34a" };
-      if (pct >= 75) return { grade: "Distinction (D)", color: "#2563eb" };
-      if (pct >= 65) return { grade: "Credit (C)", color: "#0284c7" };
-      if (pct >= 50) return { grade: "Pass (P)", color: "#d97706" };
-      return { grade: "Fail / Revision Needed (N)", color: "#dc2626" };
-    }
 
     function render() {
       const app = document.getElementById("app");
@@ -675,8 +668,8 @@
                 <div style="font-size: 2.75rem; font-weight: 800; color: #1e3a8a; margin: 0.35rem 0;">
                   ${examScore} / ${totalQ}
                 </div>
-                <div style="font-size: 1.2rem; font-weight: 700; color: ${gradeInfo.color};">
-                  ${examPct}% — ${gradeInfo.grade}
+                <div style="font-size: 1.5rem; font-weight: 700; color: #2563eb;">
+                  ${examPct}%
                 </div>
                 <p style="font-size: 0.82rem; color: #475569; margin-top: 0.5rem;">
                   Answered ${answeredCount} of ${totalQ} questions (${totalQ - answeredCount} omitted).
@@ -697,7 +690,6 @@
           const finalScore = state.answers.filter(a => a.isCorrect).length;
           const firstTryPct = Math.round((firstTryScore / totalQ) * 100);
           const finalPct = Math.round((finalScore / totalQ) * 100);
-          const gradeInfo = getGrade(firstTryPct);
 
           scoreCardHtml = `
             <div class="card" style="text-align: center; padding: 2rem;">
@@ -715,8 +707,8 @@
                   <div style="font-size: 2.5rem; font-weight: 800; color: #1e3a8a; margin: 0.25rem 0;">
                     ${firstTryScore} / ${totalQ}
                   </div>
-                  <div style="font-size: 1.1rem; font-weight: 700; color: ${gradeInfo.color};">
-                    ${firstTryPct}% — ${gradeInfo.grade}
+                  <div style="font-size: 1.35rem; font-weight: 700; color: #2563eb;">
+                    ${firstTryPct}%
                   </div>
                   <p style="font-size: 0.78rem; color: #475569; margin-top: 0.5rem;">
                     Measures immediate recall under strict first-attempt conditions.
@@ -730,8 +722,8 @@
                   <div style="font-size: 2.5rem; font-weight: 800; color: #14532d; margin: 0.25rem 0;">
                     ${finalScore} / ${totalQ}
                   </div>
-                  <div style="font-size: 1.1rem; font-weight: 700; color: #15803d;">
-                    ${finalPct}% — Completed with Explanations
+                  <div style="font-size: 1.35rem; font-weight: 700; color: #16a34a;">
+                    ${finalPct}%
                   </div>
                   <p style="font-size: 0.78rem; color: #475569; margin-top: 0.5rem;">
                     Measures mastery achieved using the margin distractor rationale.
